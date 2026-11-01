@@ -1,0 +1,219 @@
+{
+  "id": "scene_13",
+  "number": 13,
+  "name": "Discovery and unlock overlay",
+  "purpose": "Celebrate already-granted deterministic discoveries without blocking the current activity.",
+  "on_enter": [
+    "Open only from durable pendingCelebrations queue at a safe interaction boundary. Rewards were already committed by the triggering service.",
+    "Capture returnContext with scene, draft/context IDs and substate, not live DOM objects.",
+    "Show exactly one discovery at a time in stable rule order."
+  ],
+  "on_exit": [
+    "Mark shown celebration acknowledged; next queued item or restore underlying context."
+  ],
+  "substates": [
+    "displaying",
+    "acknowledging",
+    "queue_next"
+  ],
+  "persistence": "acknowledgedCelebrations changes; unlock/coin ledgers are read-only here. Closing does not grant, revoke or reroll rewards.",
+  "back_rule": "Continue and Back both acknowledge one card. After final card resume captured route. Home goes02 after durable acknowledgement.",
+  "acceptance": [
+    "Reload after grant but before display still owns reward and shows queued celebration once.",
+    "Skipping all visual motion grants nothing extra.",
+    "Queue never interrupts a contact, pour, save transaction or adult import."
+  ],
+  "implementation_notes": [
+    "Background scrim is a modal overlay over the actual underlying scene, not a fresh play scene.",
+    "Progress indicator is pictorial requirement state, not a timed meter."
+  ],
+  "placements": [
+    {
+      "id": "scrim",
+      "asset": "ui_modal_scrim",
+      "landscape": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "portrait": [
+        0,
+        0,
+        768,
+        1024
+      ],
+      "z": 90,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "card",
+      "asset": "ui_milestone_card",
+      "landscape": [
+        200,
+        96,
+        624,
+        544
+      ],
+      "portrait": [
+        48,
+        152,
+        672,
+        696
+      ],
+      "z": 100,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "reward",
+      "asset": "mould_star",
+      "landscape": [
+        352,
+        176,
+        320,
+        256
+      ],
+      "portrait": [
+        200,
+        264,
+        368,
+        320
+      ],
+      "z": 110,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "requirement",
+      "asset": "ui_stepper",
+      "landscape": [
+        304,
+        456,
+        416,
+        96
+      ],
+      "portrait": [
+        144,
+        616,
+        480,
+        112
+      ],
+      "z": 115,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "continue",
+      "asset": "icon_check",
+      "landscape": [
+        464,
+        536,
+        96,
+        96
+      ],
+      "portrait": [
+        336,
+        736,
+        96,
+        96
+      ],
+      "z": 120,
+      "role": "button",
+      "action": "ACK_DISCOVERY",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    }
+  ],
+  "actions": [
+    {
+      "id": "ACK_DISCOVERY",
+      "trigger": "Tap Continue, Back or keyboard activate",
+      "guard": "Current celebration ID exists and not in acknowledgement transaction",
+      "command": "Acknowledge current queue item; show next or restore returnContext",
+      "state_write": "Only celebration acknowledgement.",
+      "feedback": "Short item reveal may be skipped.",
+      "destination": "Next13 card or captured scene",
+      "interrupt": "Repeat while pending ignored; no wallet mutation.",
+      "master_animation_ids": [
+        "anim_unlock"
+      ]
+    }
+  ],
+  "master_animation_ids": [
+    "anim_button",
+    "anim_coin",
+    "anim_focus",
+    "anim_pip_delight",
+    "anim_scene",
+    "anim_unlock"
+  ],
+  "audio_asset_ids": [
+    "sfx_discovery",
+    "sfx_coin",
+    "vo_unlock"
+  ],
+  "master_asset_ids": [
+    "bits_foil_heart",
+    "char_pip",
+    "cosmetic_cabinet_lilac",
+    "cosmetic_cushion_mint",
+    "cosmetic_picture_rainbow",
+    "cosmetic_plant_star",
+    "discovery_01",
+    "discovery_02",
+    "discovery_03",
+    "discovery_04",
+    "discovery_05",
+    "discovery_06",
+    "discovery_07",
+    "discovery_08",
+    "env_unlock_plate",
+    "fx_coin_travel",
+    "fx_unlock_stars",
+    "icon_check",
+    "icon_focus",
+    "mat_foil",
+    "mat_gel",
+    "mat_silicone",
+    "mould_bear",
+    "mould_cloud",
+    "mould_star",
+    "prop_unlock_plinth",
+    "sfx_coin",
+    "sfx_discovery",
+    "sfx_music_workshop",
+    "sys_animation_events",
+    "sys_deform_field",
+    "tex_cosmetic_masks",
+    "toy_bear",
+    "toy_cloud",
+    "toy_star",
+    "ui_button_round",
+    "ui_coin_counter",
+    "ui_milestone_card",
+    "ui_modal_scrim",
+    "ui_stepper",
+    "vo_unlock"
+  ],
+  "master_source_scene_id": "scene_13"
+}

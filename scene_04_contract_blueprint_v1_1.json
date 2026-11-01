@@ -1,0 +1,663 @@
+{
+  "blueprint_version": "1.1",
+  "scene": {
+    "id": "scene_04",
+    "number": 4,
+    "name": "Mix colours",
+    "purpose": "Choose one or two colours, stir them, and deliberately retain swirl or use a curated blend.",
+    "on_enter": [
+      "Restore draft palette IDs, blendMode, mixAmount and swirl seed; one-colour blue is the initial default.",
+      "Six swatches are input options. The active colour-slot selector A/B chooses which colour is replaced. Slot B has an explicit clear action.",
+      "Preserve two-colour swirls until the child explicitly chooses Blend; stirring alone does not force a final blend."
+    ],
+    "on_exit": [
+      "Checkpoint recipe colours/mode/mix amount. Stop stir loop, clear tool pointer and settle surface."
+    ],
+    "substates": [
+      "ready",
+      "stirring",
+      "auto_stir",
+      "blending",
+      "colour_drawer"
+    ],
+    "persistence": "Persist colours[1..2], blendMode(single|swirl|blend), mixAmount[0..1], swirlAngle and seed. A committed appearance change bumps recipeRevision and resets fill/reveal/photo flags.",
+    "back_rule": "Back 03; Next 05 without a mandatory stir count. Current colour combination remains valid even when no stirring was done.",
+    "acceptance": [
+      "Tap-only, one-pointer, muted and clockwise/anticlockwise paths all complete.",
+      "One colour, all fifteen unique colour pairs, swirl and blend have specified outcomes.",
+      "Undo restores exact prior data, not a visual approximation."
+    ],
+    "implementation_notes": [
+      "Fifteen pair outputs are defined in the global colour contract; the earlier six blend entries were incomplete for unrestricted two-colour choice.",
+      "Opaque foam remains a magical craft presentation; pouring is a virtual process, not an instruction for making real toys."
+    ],
+    "placements": [
+      {
+        "id": "background",
+        "asset": "env_make_plate",
+        "landscape": [
+          0,
+          0,
+          1024,
+          768
+        ],
+        "portrait": [
+          0,
+          0,
+          768,
+          1024
+        ],
+        "z": 0,
+        "role": "decoration",
+        "action": null,
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "none",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "home",
+        "asset": "icon_home",
+        "landscape": [
+          16,
+          8,
+          96,
+          96
+        ],
+        "portrait": [
+          16,
+          8,
+          96,
+          96
+        ],
+        "z": 80,
+        "role": "button",
+        "action": "GLOBAL_HOME",
+        "note": "Checkpoint the draft, then hub; no silent discard.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "pause",
+        "asset": "icon_pause",
+        "landscape": [
+          912,
+          8,
+          96,
+          96
+        ],
+        "portrait": [
+          656,
+          8,
+          96,
+          96
+        ],
+        "z": 80,
+        "role": "button",
+        "action": "GLOBAL_PAUSE",
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "back",
+        "asset": "icon_back",
+        "landscape": [
+          16,
+          656,
+          96,
+          96
+        ],
+        "portrait": [
+          16,
+          912,
+          96,
+          96
+        ],
+        "z": 80,
+        "role": "button",
+        "action": "BACK",
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "next",
+        "asset": "icon_next",
+        "landscape": [
+          912,
+          656,
+          96,
+          96
+        ],
+        "portrait": [
+          656,
+          912,
+          96,
+          96
+        ],
+        "z": 80,
+        "role": "button",
+        "action": "NEXT",
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "bowl",
+        "asset": "prop_bowl",
+        "landscape": [
+          260,
+          210,
+          504,
+          316
+        ],
+        "portrait": [
+          100,
+          264,
+          568,
+          328
+        ],
+        "z": 30,
+        "role": "manipulate",
+        "action": "STIR_GESTURE",
+        "note": "Front lip at z45, gel surface z32, rear wall z28; one render system owns sorting.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "visible-surface raycast; rect bounds only",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "paddle",
+        "asset": "prop_spatula",
+        "landscape": [
+          648,
+          132,
+          136,
+          296
+        ],
+        "portrait": [
+          536,
+          168,
+          120,
+          328
+        ],
+        "z": 40,
+        "role": "manipulate",
+        "action": "STIR_GESTURE",
+        "note": "Paddle tip projected/clamped to bowl safe ellipse.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "visible-surface raycast; rect bounds only",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "colour_1",
+        "asset": "palette_pink",
+        "landscape": [
+          128,
+          552,
+          112,
+          96
+        ],
+        "portrait": [
+          40,
+          672,
+          208,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "SET_COLOUR",
+        "note": "Choice index 0; source glyph inside hit rectangle, not a pre-baked label.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "colour_2",
+        "asset": "palette_blue",
+        "landscape": [
+          256,
+          552,
+          112,
+          96
+        ],
+        "portrait": [
+          280,
+          672,
+          208,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "SET_COLOUR",
+        "note": "Choice index 1; source glyph inside hit rectangle, not a pre-baked label.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "colour_3",
+        "asset": "palette_yellow",
+        "landscape": [
+          384,
+          552,
+          112,
+          96
+        ],
+        "portrait": [
+          520,
+          672,
+          208,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "SET_COLOUR",
+        "note": "Choice index 2; source glyph inside hit rectangle, not a pre-baked label.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "colour_4",
+        "asset": "palette_mint",
+        "landscape": [
+          512,
+          552,
+          112,
+          96
+        ],
+        "portrait": [
+          40,
+          792,
+          208,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "SET_COLOUR",
+        "note": "Choice index 3; source glyph inside hit rectangle, not a pre-baked label.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "colour_5",
+        "asset": "palette_lilac",
+        "landscape": [
+          640,
+          552,
+          112,
+          96
+        ],
+        "portrait": [
+          280,
+          792,
+          208,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "SET_COLOUR",
+        "note": "Choice index 4; source glyph inside hit rectangle, not a pre-baked label.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "colour_6",
+        "asset": "palette_peach",
+        "landscape": [
+          768,
+          552,
+          112,
+          96
+        ],
+        "portrait": [
+          520,
+          792,
+          208,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "SET_COLOUR",
+        "note": "Choice index 5; source glyph inside hit rectangle, not a pre-baked label.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "slot_a",
+        "asset": "ui_swatch",
+        "landscape": [
+          168,
+          128,
+          96,
+          96
+        ],
+        "portrait": [
+          40,
+          136,
+          96,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "SELECT_SLOT_A",
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "slot_b",
+        "asset": "ui_swatch",
+        "landscape": [
+          168,
+          240,
+          96,
+          96
+        ],
+        "portrait": [
+          40,
+          248,
+          96,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "SELECT_SLOT_B",
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "clear_b",
+        "asset": "icon_close",
+        "landscape": [
+          168,
+          352,
+          96,
+          96
+        ],
+        "portrait": [
+          40,
+          360,
+          96,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "CLEAR_SECOND",
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "auto_stir",
+        "asset": "icon_stir",
+        "landscape": [
+          808,
+          164,
+          96,
+          96
+        ],
+        "portrait": [
+          656,
+          136,
+          96,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "AUTO_STIR",
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "blend",
+        "asset": "icon_colour",
+        "landscape": [
+          808,
+          276,
+          96,
+          96
+        ],
+        "portrait": [
+          656,
+          248,
+          96,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "BLEND",
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "undo",
+        "asset": "icon_undo",
+        "landscape": [
+          808,
+          388,
+          96,
+          96
+        ],
+        "portrait": [
+          656,
+          360,
+          96,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "UNDO_COLOUR",
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      }
+    ],
+    "actions": [
+      {
+        "id": "SET_COLOUR",
+        "trigger": "Tap swatch; A/B slot determines target",
+        "guard": "Catalogue palette ID; B is optional; same A/B colour collapses to single mode",
+        "command": "Push bounded undo snapshot; set selected slot; set single/swirl mode; reset mixAmount",
+        "state_write": "draft.recipe.colours; blendMode; recipeRevision and invalidation.",
+        "feedback": "Colour deposit ribbon and swatch symbol/check.",
+        "destination": "Stay 04",
+        "interrupt": "Cancel deposit tween resolves to current committed colour state.",
+        "master_animation_ids": [
+          "anim_colour_deposit"
+        ]
+      },
+      {
+        "id": "SELECT_SLOT_A",
+        "trigger": "Tap slot A",
+        "guard": "No blocking modal",
+        "command": "session.activeColourSlot=0",
+        "state_write": "Transient UI only",
+        "feedback": "Outline A; B no longer outlined.",
+        "destination": "Stay 04",
+        "interrupt": "No recipe invalidation merely selecting a slot.",
+        "master_animation_ids": [
+          "anim_button"
+        ]
+      },
+      {
+        "id": "SELECT_SLOT_B",
+        "trigger": "Tap slot B",
+        "guard": "No blocking modal",
+        "command": "session.activeColourSlot=1",
+        "state_write": "Transient UI only",
+        "feedback": "Outline B; next swatch supplies second colour.",
+        "destination": "Stay 04",
+        "interrupt": "Unused empty B does not prevent Next.",
+        "master_animation_ids": [
+          "anim_button"
+        ]
+      },
+      {
+        "id": "CLEAR_SECOND",
+        "trigger": "Tap clear B",
+        "guard": "Second colour exists",
+        "command": "Undo snapshot; remove B; blendMode=single; mixAmount=0",
+        "state_write": "Bump recipeRevision; invalidate downstream fill/reveal/photo.",
+        "feedback": "B chip empties.",
+        "destination": "Stay 04",
+        "interrupt": "Already single is a no-op.",
+        "master_animation_ids": [
+          "anim_button"
+        ]
+      },
+      {
+        "id": "STIR_GESTURE",
+        "trigger": "Drag within bowl or manipulate paddle",
+        "guard": "Pointer captured on bowl safe surface; no competing blend tween",
+        "command": "Unwrap polar angle; accumulate bounded swirlAngle; animate surface and paddle; do not force mixAmount to 1",
+        "state_write": "Checkpoint swirlAngle at end/debounced changes.",
+        "feedback": "Soft swirl and bounded audio loop.",
+        "destination": "Stay 04",
+        "interrupt": "Pointer cancel stops stir and audio, retaining current state. Ignore near-centre unstable angle.",
+        "master_animation_ids": [
+          "anim_stir",
+          "anim_stir_settle"
+        ]
+      },
+      {
+        "id": "AUTO_STIR",
+        "trigger": "Tap Stir",
+        "guard": "Ready or current manual stir ended",
+        "command": "Run same controller for two revolutions over 2.4s, then settle",
+        "state_write": "Persist resulting swirlAngle.",
+        "feedback": "Equivalent visual path, no dexterity requirement.",
+        "destination": "Stay 04",
+        "interrupt": "Second tap stops at current state; repeat does not erase prior colour.",
+        "master_animation_ids": [
+          "anim_stir",
+          "anim_stir_settle"
+        ]
+      },
+      {
+        "id": "BLEND",
+        "trigger": "Tap Blend",
+        "guard": "Two distinct colour IDs",
+        "command": "Push undo; blend mixAmount toward 1 over 1.2s using curated pair target",
+        "state_write": "Set blendMode=blend; checkpoint final/interrupted mix scalar; bump revision.",
+        "feedback": "Swirl narrows into selected pair target.",
+        "destination": "Stay 04",
+        "interrupt": "Cancel keeps scalar; no abrupt rest reset.",
+        "master_animation_ids": [
+          "anim_mix"
+        ]
+      },
+      {
+        "id": "UNDO_COLOUR",
+        "trigger": "Tap Undo",
+        "guard": "Undo snapshot exists in this draft session",
+        "command": "Restore previous colour/mix/swirl snapshot atomically",
+        "state_write": "Bump recipeRevision; reset dependent completion flags.",
+        "feedback": "Reverse chip selection, avoid replaying full pour sound.",
+        "destination": "Stay 04",
+        "interrupt": "Repeated undo stops at oldest retained snapshot; no credit changes.",
+        "master_animation_ids": [
+          "anim_button"
+        ]
+      },
+      {
+        "id": "NEXT",
+        "trigger": "Tap next",
+        "guard": "At least one valid palette ID",
+        "command": "Checkpoint then route.push(05)",
+        "state_write": "lastStep=05.",
+        "feedback": "Short confirm.",
+        "destination": "05",
+        "interrupt": "No mandatory blending, stirring duration or precise motion.",
+        "master_animation_ids": [
+          "anim_button"
+        ]
+      }
+    ],
+    "master_animation_ids": [
+      "anim_button",
+      "anim_colour_deposit",
+      "anim_focus",
+      "anim_mix",
+      "anim_scene",
+      "anim_stir",
+      "anim_stir_settle"
+    ],
+    "audio_asset_ids": [
+      "sfx_colour_drop",
+      "sfx_stir",
+      "sfx_mix_settle",
+      "vo_colour",
+      "vo_stir",
+      "vo_colour_pink",
+      "vo_colour_blue",
+      "vo_colour_yellow",
+      "vo_colour_mint",
+      "vo_colour_lilac",
+      "vo_colour_peach"
+    ],
+    "master_asset_ids": [
+      "blend_blue_lilac",
+      "blend_blue_yellow",
+      "blend_mint_lilac",
+      "blend_peach_pink",
+      "blend_pink_blue",
+      "blend_pink_yellow",
+      "env_make_plate",
+      "fx_colour_ribbon",
+      "icon_back",
+      "icon_close",
+      "icon_colour",
+      "icon_focus",
+      "icon_home",
+      "icon_next",
+      "icon_pause",
+      "icon_stir",
+      "icon_undo",
+      "palette_blue",
+      "palette_lilac",
+      "palette_mint",
+      "palette_peach",
+      "palette_pink",
+      "palette_yellow",
+      "prop_bowl",
+      "prop_colour_dropper",
+      "prop_spatula",
+      "sfx_colour_drop",
+      "sfx_mix_settle",
+      "sfx_music_workshop",
+      "sfx_stir",
+      "sys_animation_events",
+      "sys_mix_field",
+      "tex_swirl_mask",
+      "ui_button_round",
+      "ui_swatch",
+      "vo_colour",
+      "vo_colour_blue",
+      "vo_colour_lilac",
+      "vo_colour_mint",
+      "vo_colour_peach",
+      "vo_colour_pink",
+      "vo_colour_yellow",
+      "vo_stir"
+    ],
+    "master_source_scene_id": "scene_04"
+  }
+}

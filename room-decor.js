@@ -1,0 +1,8 @@
+/* Read-only room projection. Only the decoration transaction service changes equipment. */
+(() => {
+'use strict';
+const api=window.SquishyLabHub,canvas=document.createElement('canvas');canvas.id='hub-decoration';canvas.setAttribute('aria-hidden','true');canvas.width=1024;canvas.height=768;document.getElementById('world').prepend(canvas);const painter=SquishyScene14Renderer.create(document.createElement('canvas')),c=canvas.getContext('2d'),cushions=new Map;let loaded=false;
+function refresh(){if(!loaded)return;const state=api.getState(),room=SquishyScene14Model.room(state);c.clearRect(0,0,1024,768);if(room.cabinet!=='default_cabinet')painter.cosmetic(c,room.cabinet,[278,415,450,240]);if(room.cushion!=='default_cushion')painter.cosmetic(c,room.cushion,[370,350,275,110]);if(room.wall_picture)painter.cosmetic(c,room.wall_picture,[120,170,140,130]);if(room.plant)painter.cosmetic(c,room.plant,[730,295,115,155])}
+function getCushion(fallback){if(!loaded)return fallback;const room=SquishyScene14Model.room(api.getState());if(room.cushion==='default_cushion')return fallback;if(cushions.has(room.cushion))return cushions.get(room.cushion);const out=document.createElement('canvas');out.width=512;out.height=256;painter.cosmetic(out.getContext('2d'),room.cushion,[0,0,512,256]);cushions.set(room.cushion,out);return out}
+painter.ready.then(result=>{loaded=result.every(Boolean);refresh()});window.addEventListener('squishylab:cosmetics-changed',refresh);window.addEventListener('squishylab:safe-boundary',refresh);window.addEventListener('hashchange',refresh);window.SquishyRoomDecor={refresh,getCushion};
+})();

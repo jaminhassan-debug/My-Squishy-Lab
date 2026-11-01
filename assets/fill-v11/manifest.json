@@ -1,0 +1,22 @@
+{
+  "version": "0.11",
+  "mode": "built-in OpenAI imagegen",
+  "images": [
+    "dumpling_open.png",
+    "dumpling_closed.png",
+    "pour_jug.png"
+  ],
+  "imageFit": "contain",
+  "selector": "complete img elements, no atlas",
+  "pour": "one depth-tested geometry path",
+  "jug": "single complete asset + continuous calibrated-spout pivot",
+  "bodyDepthFactor": 0.62,
+  "geometry": "assets/fill-v11/geometry.json",
+  "browserVerified": false,
+  "offlineFramesInspected": [
+    "empty",
+    "flowing",
+    "settling",
+    "filled"
+  ]
+}

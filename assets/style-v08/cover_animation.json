@@ -1,0 +1,61 @@
+{
+  "timing": {
+    "anticipation": 1100,
+    "peel": 5600,
+    "total": 6800,
+    "maxDelta": 100
+  },
+  "keys": [
+    {
+      "ms": 0,
+      "opening": 0,
+      "landing": 0,
+      "cue": "A little surprise is inside…"
+    },
+    {
+      "ms": 1100,
+      "opening": 0,
+      "landing": 0,
+      "cue": "Slowly… here comes your squishy!"
+    },
+    {
+      "ms": 2200,
+      "opening": 0.1500466392318244,
+      "landing": 0,
+      "cue": "Slowly… here comes your squishy!"
+    },
+    {
+      "ms": 3200,
+      "opening": 0.45007407407407407,
+      "landing": 0,
+      "cue": "Slowly… here comes your squishy!"
+    },
+    {
+      "ms": 4200,
+      "opening": 0.7698545953360768,
+      "landing": 0,
+      "cue": "Slowly… here comes your squishy!"
+    },
+    {
+      "ms": 5600,
+      "opening": 1,
+      "landing": 0,
+      "cue": "A gentle bounce, then time to play"
+    },
+    {
+      "ms": 6200,
+      "opening": 1,
+      "landing": 0.5,
+      "cue": "A gentle bounce, then time to play"
+    },
+    {
+      "ms": 6800,
+      "opening": 1,
+      "landing": 1,
+      "cue": "A gentle bounce, then time to play"
+    }
+  ],
+  "curve": "opening=smoothstep((elapsed-1100)/4500), clipped0..1",
+  "pose": "signed yaw0.62*opening, display offset±0.73span*opening, scale1-0.46opening",
+  "runtime": "mould-geometry.js + scene08-render.js"
+}

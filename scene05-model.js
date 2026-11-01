@@ -1,0 +1,14 @@
+(() => {
+'use strict';
+const materials=['foam','gel','bounce'],recoveryMs={foam:2800,gel:1100,bounce:550};
+const draft=s=>s.drafts[s.activeDraftId],unique=a=>[...new Set((Array.isArray(a)?a:[]).filter(x=>materials.includes(x)))];
+function ensure(s){const n=structuredClone(s),d=draft(n);if(!d)throw Error('A creation draft is required');if(d.recipe.materialId&&!materials.includes(d.recipe.materialId))throw Error('Unknown material. The original recipe has been kept.');d.recipe.materialId??='gel';d.triedMaterials=unique(d.triedMaterials);n.profile.discoveryMetrics={...n.profile.discoveryMetrics,triedMaterials:unique(n.profile.discoveryMetrics?.triedMaterials)};n.profile.rewardLedger={...n.profile.rewardLedger};n.profile.pendingCelebrations=Array.isArray(n.profile.pendingCelebrations)?n.profile.pendingCelebrations:[];d.lastStep='05';d.lastSafeStep='05';return n}
+function select(s,id){if(!materials.includes(id))throw Error('Unknown material');const n=ensure(s),d=draft(n);if(d.recipe.materialId===id)return n;d.recipe.materialId=id;d.bodyRevision=(d.bodyRevision||0)+1;d.recipeRevision=(d.recipeRevision||0)+1;d.fillProgress=0;d.revealComplete=false;for(const field of ['fillSourceBodyRevision','filledBodyRevision','revealedBodyRevision','thumbnailRevision','captureRecipeRevision','capturedRecipeRevision','thumbnail'])d[field]=null;d.dirtyFields=[...new Set([...(d.dirtyFields||[]),'materialId'])];return n}
+function tried(s,id){if(!materials.includes(id))throw Error('Unknown material');const n=ensure(s),d=draft(n),p=n.profile;d.triedMaterials=unique([...d.triedMaterials,id]);p.discoveryMetrics.triedMaterials=unique([...p.discoveryMetrics.triedMaterials,id]);let granted=false;if(p.discoveryMetrics.triedMaterials.length===3&&!Object.hasOwn(p.rewardLedger,'discovery_02')){p.rewardLedger.discovery_02={id:'discovery_02',coins:10,unlock:'bits_foil_heart'};p.wallet=(Number.isSafeInteger(p.wallet)?p.wallet:0)+10;n.earnedUnlocks=[...new Set([...(n.earnedUnlocks||[]),'bits_foil_heart'])];if(!p.pendingCelebrations.some(x=>x.id==='discovery_02'))p.pendingCelebrations.push({id:'discovery_02',acknowledged:false});granted=true}return {state:n,granted}}
+function next(s){const n=ensure(s);draft(n).lastStep='06';draft(n).lastSafeStep='06';return n}
+function back(s){const n=structuredClone(s);draft(n).lastStep='04';draft(n).lastSafeStep='04';return n}
+function depthAtPress(ms,from=0){return Math.min(1,from+(1-from)*(1-Math.exp(-Math.max(0,ms)/180)))}
+function recover(id,from,elapsed){const t=Math.max(0,elapsed)/recoveryMs[id],envelope=Math.exp(-3*t);return Math.max(-.18,Math.min(1,from*envelope*(id==='bounce'?Math.cos(Math.PI*4*t):1)))}
+function nearRest(id,from,elapsed){return elapsed>=recoveryMs[id]&&Math.abs(recover(id,from,elapsed))<=Math.max(.05*Math.abs(from),.00001)+1e-9}
+globalThis.SquishyScene05Model={materials,recoveryMs,ensure,select,tried,next,back,depthAtPress,recover,nearRest};
+})();

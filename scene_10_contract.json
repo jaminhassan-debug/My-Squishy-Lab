@@ -1,0 +1,542 @@
+{
+  "id": "scene_10",
+  "number": 10,
+  "name": "Photo and finish",
+  "purpose": "Choose optional face/photo styling, capture a thumbnail and save exactly once.",
+  "on_enter": [
+    "Draft context must be revealed for current revision; otherwise return to last incomplete creation step.",
+    "Saved context is view-only by default; new face choices require explicit Remix.",
+    "This scene owns the previously unspecified eight-face selector. Faces are optional; start with none, not a forced face."
+  ],
+  "on_exit": [
+    "Checkpoint photo choices and a valid thumbnail reference; a failed save keeps draft and all UI state."
+  ],
+  "substates": [
+    "ready",
+    "style_drawer",
+    "capture_pending",
+    "captured",
+    "saving",
+    "save_failed",
+    "saved"
+  ],
+  "persistence": "draft photoOptions={backgroundId,frameId,rotation}; faceId belongs only to recipe. Capture stores capturedRecipeRevision and capturedPhotoRevision. Saving commits immutable recipe, thumbnail, shelf slot, completion ledger and discoverable grants in one logical transaction.",
+  "back_rule": "Back 09 with same context. After successful save use delivery return flow if request active, else show queued 13 overlays then 11.",
+  "acceptance": [
+    "Double-tap Save creates one toy and at most one completion grant.",
+    "Changing face/background/rotation/frame invalidates old capture before Save.",
+    "Storage failure never shows Saved or grants uncommitted coins."
+  ],
+  "implementation_notes": [
+    "Capture uses the renderer, not device camera or screenshot of UI. No photo permission requested.",
+    "In saved view-only context capture can preview locally but cannot earn/save a duplicate; Remix is explicit."
+  ],
+  "placements": [
+    {
+      "id": "background",
+      "asset": "env_photo_plate",
+      "landscape": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "portrait": [
+        0,
+        0,
+        768,
+        1024
+      ],
+      "z": 0,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "home",
+      "asset": "icon_home",
+      "landscape": [
+        16,
+        8,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        8,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "GLOBAL_HOME",
+      "note": "Checkpoint the draft, then hub; no silent discard.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "pause",
+      "asset": "icon_pause",
+      "landscape": [
+        912,
+        8,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        8,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "GLOBAL_PAUSE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "back",
+      "asset": "icon_back",
+      "landscape": [
+        16,
+        656,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        912,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "BACK",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "plinth",
+      "asset": "prop_photo_plinth",
+      "landscape": [
+        276,
+        404,
+        472,
+        136
+      ],
+      "portrait": [
+        128,
+        508,
+        512,
+        136
+      ],
+      "z": 20,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "toy",
+      "asset": "toy_cube",
+      "landscape": [
+        320,
+        144,
+        384,
+        384
+      ],
+      "portrait": [
+        144,
+        168,
+        480,
+        448
+      ],
+      "z": 40,
+      "role": "manipulate",
+      "action": "PHOTO_ROTATE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "visible-surface raycast; rect bounds only",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "photo_tool_0",
+      "asset": "icon_colour",
+      "landscape": [
+        128,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        40,
+        672,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "BACKGROUND_DRAWER",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "photo_tool_1",
+      "asset": "ui_photo_frame_cream",
+      "landscape": [
+        256,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        280,
+        672,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "FRAME_DRAWER",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "photo_tool_2",
+      "asset": "face_smile",
+      "landscape": [
+        384,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        520,
+        672,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "FACE_DRAWER",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "photo_tool_3",
+      "asset": "icon_rotate_left",
+      "landscape": [
+        512,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        40,
+        792,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "PHOTO_ROTATE_LEFT",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "photo_tool_4",
+      "asset": "icon_rotate_right",
+      "landscape": [
+        640,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        280,
+        792,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "PHOTO_ROTATE_RIGHT",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "photo_tool_5",
+      "asset": "icon_camera",
+      "landscape": [
+        768,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        520,
+        792,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "CAPTURE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "save",
+      "asset": "icon_check",
+      "landscape": [
+        912,
+        656,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        912,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "SAVE",
+      "note": "Enabled only after valid capture and editable draft; aria-disabled during transaction.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    }
+  ],
+  "actions": [
+    {
+      "id": "BACKGROUND_DRAWER",
+      "trigger": "Tap background tool",
+      "guard": "Ready, not saving",
+      "command": "Open bounded choice drawer with cream/mint/lilac; confirmed selection changes preview",
+      "state_write": "photoRevision++; clear captured marker.",
+      "feedback": "New photo backdrop, toy recipe unchanged.",
+      "destination": "Stay 10 drawer",
+      "interrupt": "Close without selection preserves prior value.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "FRAME_DRAWER",
+      "trigger": "Tap frame tool",
+      "guard": "Ready, not saving",
+      "command": "Choose none/cream/lilac/star; frame is photo decoration, not gel material",
+      "state_write": "photoRevision++; capture invalid.",
+      "feedback": "Frame visible only in photo output, not live toy.",
+      "destination": "Stay 10 drawer",
+      "interrupt": "Back closes drawer first.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "FACE_DRAWER",
+      "trigger": "Tap face tool",
+      "guard": "Editable draft or explicit remix accepted",
+      "command": "Choose none or one of eight IDs: smile, sleepy, surprise, wink, cheer, curious, blush, neutral",
+      "state_write": "recipe.faceId changes; recipeRevision++; bump photoRevision; do not invalidate already-filled physical body for a face-only decal. Do not change filledBodyRevision or revealedBodyRevision for a face-only change.",
+      "feedback": "Face follows surface UV; chosen outline.",
+      "destination": "Stay 10 drawer",
+      "interrupt": "Saved original never changes. See bodyRevision/recipeRevision separation in data contract.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "PHOTO_ROTATE",
+      "trigger": "Drag toy in photo stage",
+      "guard": "Ready",
+      "command": "Rotate within \u00b130 degree yaw / \u00b115 pitch from approved view, or tap step controls",
+      "state_write": "photoRevision++; capture invalid.",
+      "feedback": "No squish gesture in photo mode.",
+      "destination": "Stay 10",
+      "interrupt": "Cancel retains bounded angle, no reset.",
+      "master_animation_ids": [
+        "anim_rotate"
+      ]
+    },
+    {
+      "id": "PHOTO_ROTATE_LEFT",
+      "trigger": "Tap rotation control",
+      "guard": "Ready",
+      "command": "Apply bounded \u221215 degree yaw step",
+      "state_write": "photoRevision++; capture invalid.",
+      "feedback": "250ms rotation, no blur in quiet mode.",
+      "destination": "Stay 10",
+      "interrupt": "No overlapping rotation tweens.",
+      "master_animation_ids": [
+        "anim_rotate"
+      ]
+    },
+    {
+      "id": "PHOTO_ROTATE_RIGHT",
+      "trigger": "Tap rotation control",
+      "guard": "Ready",
+      "command": "Apply bounded +15 degree yaw step",
+      "state_write": "photoRevision++; capture invalid.",
+      "feedback": "250ms rotation, no blur in quiet mode.",
+      "destination": "Stay 10",
+      "interrupt": "No overlapping rotation tweens.",
+      "master_animation_ids": [
+        "anim_rotate"
+      ]
+    },
+    {
+      "id": "CAPTURE",
+      "trigger": "Tap camera",
+      "guard": "Renderable valid recipe/photo state; not saving",
+      "command": "Wait next stable render frame, capture 384px long-edge thumbnail, store capture revisions",
+      "state_write": "Thumbnail temporary record keyed by draft/capture ID.",
+      "feedback": "Gentle shutter + check, no full-screen white flash.",
+      "destination": "Stay 10 captured",
+      "interrupt": "Cancel/error leaves previous valid capture only if revisions still match.",
+      "master_animation_ids": [
+        "anim_snapshot"
+      ]
+    },
+    {
+      "id": "SAVE",
+      "trigger": "Tap save",
+      "guard": "Editable draft, valid captured recipe/photo revisions, transaction not in flight",
+      "command": "saveCreation(draftId,stableCreationId) atomic service; allocate next free shelf slot; evaluate grants; retain active request association",
+      "state_write": "Immutable recipe and thumbnail + shelf + reward ledger + metrics + pending discovery queue + draft.savedCreationId. Acknowledge only after commit.",
+      "feedback": "Saved check then one short shelf placement, no speculative coin count.",
+      "destination": "12 deliverable request context, otherwise pending 13 queue returning 11, then 11",
+      "interrupt": "On transaction abort restore Save with Retry; same IDs used on retry; no partial wallet or missing thumbnail.",
+      "master_animation_ids": [
+        "anim_save_shelf",
+        "anim_storage_error"
+      ]
+    }
+  ],
+  "master_animation_ids": [
+    "anim_button",
+    "anim_focus",
+    "anim_rotate",
+    "anim_save_shelf",
+    "anim_scene",
+    "anim_snapshot",
+    "anim_storage_error"
+  ],
+  "audio_asset_ids": [
+    "sfx_snapshot",
+    "sfx_ui_confirm",
+    "vo_saved"
+  ],
+  "master_asset_ids": [
+    "bits_foil_heart",
+    "bits_foil_star",
+    "bits_fruit_kiwi",
+    "bits_fruit_orange",
+    "bits_fruit_strawberry",
+    "bits_gem_diamond",
+    "bits_gem_round",
+    "bits_pearl",
+    "bits_sprinkle",
+    "blend_blue_lilac",
+    "blend_blue_yellow",
+    "blend_mint_lilac",
+    "blend_peach_pink",
+    "blend_pink_blue",
+    "blend_pink_yellow",
+    "env_photo_plate",
+    "face_blush",
+    "face_cheer",
+    "face_curious",
+    "face_neutral",
+    "face_sleepy",
+    "face_smile",
+    "face_surprise",
+    "face_wink",
+    "icon_back",
+    "icon_camera",
+    "icon_check",
+    "icon_colour",
+    "icon_focus",
+    "icon_home",
+    "icon_pause",
+    "icon_rotate_left",
+    "icon_rotate_right",
+    "icon_warning",
+    "mat_bounce",
+    "mat_foam",
+    "mat_foil",
+    "mat_gel",
+    "mat_gem",
+    "mat_pearl",
+    "palette_blue",
+    "palette_lilac",
+    "palette_mint",
+    "palette_peach",
+    "palette_pink",
+    "palette_yellow",
+    "photo_cream",
+    "photo_lilac",
+    "photo_mint",
+    "prop_cabinet",
+    "prop_photo_plinth",
+    "sfx_music_workshop",
+    "sfx_snapshot",
+    "sfx_ui_confirm",
+    "sys_animation_events",
+    "sys_camera_rig",
+    "sys_deform_field",
+    "sys_save_contract",
+    "sys_thumbnail",
+    "tex_face_atlas",
+    "tex_swirl_mask",
+    "toy_bear",
+    "toy_blob",
+    "toy_cloud",
+    "toy_cube",
+    "toy_heart",
+    "toy_star",
+    "ui_button_round",
+    "ui_photo_frame_cream",
+    "ui_photo_frame_lilac",
+    "ui_photo_frame_star",
+    "ui_storage_notice",
+    "ui_toast_saved",
+    "vo_saved"
+  ],
+  "master_source_scene_id": "scene_10",
+  "version": "0.8",
+  "moulds_v08": {
+    "source": "docs/moulds_reveal_v08.md",
+    "inner_scale": 1.035,
+    "outer_scale": 1.105,
+    "reveal_ms": 6800,
+    "new_native_cells": 12,
+    "browser_GPU_QA": false
+  }
+}

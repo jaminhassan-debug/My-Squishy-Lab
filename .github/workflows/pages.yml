@@ -1,0 +1,72 @@
+name: Publish My Squishy Lab
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out game
+        uses: actions/checkout@v6
+      - name: Validate playable files
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          root = Path('.')
+          for name in ['index.html', 'preview.html', 'scene_01/preview.html', 'scene-boot.js', 'raster-ui.js']:
+              assert (root / name).is_file(), name
+          art = json.loads((root / 'assets/ui-raster-v13/manifest.json').read_text())
+          assert len(art['icons']) == 64 and len(art['surfaces']) == 6
+          for source in [*art['icons'].values(), *art['surfaces'].values()]:
+              assert (root / source).is_file(), source
+          assert 'shared-ui.js' not in (root / 'preview.html').read_text()
+          print('Play entry points and all 70 raster UI assets are present.')
+          PY
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload game
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .
+      - name: Publish game
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Check live game and artwork
+        env:
+          GAME_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          python3 - <<'PY'
+          import os, time, urllib.request, urllib.parse
+          from pathlib import Path
+          import hashlib
+          base = os.environ['GAME_URL'].rstrip('/') + '/'
+          probes = ['index.html', 'scene_01/preview.html', 'scene_01/welcome.js', 'scene_01/assets/welcome_controls_2x2.png', 'preview.html', 'scene-boot.js', 'raster-ui.js', 'assets/ui-raster-v13/surface-mint-rest.png', 'scene09-volume-render.js']
+          for name in probes:
+              url = urllib.parse.urljoin(base, name)
+              for attempt in range(5):
+                  try:
+                      with urllib.request.urlopen(url, timeout=30) as response:
+                          actual = response.read()
+                      expected = Path(name).read_bytes()
+                      assert hashlib.sha256(actual).digest() == hashlib.sha256(expected).digest(), name + ' content mismatch'
+                      print('LIVE OK', name)
+                      break
+                  except Exception:
+                      if attempt == 4:
+                          raise
+                      time.sleep(6)
+          print('Playable game deployed at', base)
+          PY

@@ -1,0 +1,1428 @@
+{
+  "release": "0.13",
+  "source": "OpenAI built-in image_gen",
+  "style": "Glossy sculpted toy resin, mint / pearl cream / lilac, warm workshop lighting",
+  "sheets": {
+    "common": {
+      "file": "assets/ui-raster-v13/common-atlas.png",
+      "width": 1448,
+      "height": 1086,
+      "crops": [
+        {
+          "id": "home",
+          "left": 72,
+          "top": 35,
+          "width": 290,
+          "height": 267
+        },
+        {
+          "id": "back",
+          "left": 429,
+          "top": 42,
+          "width": 247,
+          "height": 260
+        },
+        {
+          "id": "next",
+          "left": 797,
+          "top": 38,
+          "width": 251,
+          "height": 266
+        },
+        {
+          "id": "pause",
+          "left": 1136,
+          "top": 59,
+          "width": 229,
+          "height": 222
+        },
+        {
+          "id": "help",
+          "left": 132,
+          "top": 322,
+          "width": 194,
+          "height": 257
+        },
+        {
+          "id": "reset",
+          "left": 447,
+          "top": 321,
+          "width": 235,
+          "height": 253
+        },
+        {
+          "id": "stir",
+          "left": 756,
+          "top": 307,
+          "width": 298,
+          "height": 272
+        },
+        {
+          "id": "pour",
+          "left": 1086,
+          "top": 317,
+          "width": 306,
+          "height": 263
+        },
+        {
+          "id": "poke",
+          "left": 77,
+          "top": 579,
+          "width": 283,
+          "height": 223
+        },
+        {
+          "id": "squeeze",
+          "left": 393,
+          "top": 601,
+          "width": 331,
+          "height": 201
+        },
+        {
+          "id": "pull",
+          "left": 738,
+          "top": 615,
+          "width": 340,
+          "height": 187
+        },
+        {
+          "id": "camera",
+          "left": 1120,
+          "top": 587,
+          "width": 268,
+          "height": 220
+        },
+        {
+          "id": "shelf",
+          "left": 61,
+          "top": 808,
+          "width": 301,
+          "height": 252
+        },
+        {
+          "id": "gift",
+          "left": 431,
+          "top": 807,
+          "width": 259,
+          "height": 252
+        },
+        {
+          "id": "palette",
+          "left": 771,
+          "top": 817,
+          "width": 292,
+          "height": 241
+        },
+        {
+          "id": "save",
+          "left": 1129,
+          "top": 815,
+          "width": 258,
+          "height": 242
+        }
+      ]
+    },
+    "utility": {
+      "file": "assets/ui-raster-v13/utility-atlas.png",
+      "width": 1448,
+      "height": 1086,
+      "crops": [
+        {
+          "id": "face",
+          "left": 96,
+          "top": 35,
+          "width": 266,
+          "height": 251
+        },
+        {
+          "id": "face-none",
+          "left": 421,
+          "top": 35,
+          "width": 263,
+          "height": 250
+        },
+        {
+          "id": "frame",
+          "left": 762,
+          "top": 32,
+          "width": 258,
+          "height": 257
+        },
+        {
+          "id": "background",
+          "left": 1096,
+          "top": 63,
+          "width": 290,
+          "height": 215
+        },
+        {
+          "id": "music",
+          "left": 90,
+          "top": 303,
+          "width": 241,
+          "height": 234
+        },
+        {
+          "id": "sound",
+          "left": 431,
+          "top": 330,
+          "width": 252,
+          "height": 206
+        },
+        {
+          "id": "voice",
+          "left": 796,
+          "top": 303,
+          "width": 198,
+          "height": 243
+        },
+        {
+          "id": "quiet",
+          "left": 1125,
+          "top": 324,
+          "width": 248,
+          "height": 223
+        },
+        {
+          "id": "coin",
+          "left": 83,
+          "top": 550,
+          "width": 266,
+          "height": 263
+        },
+        {
+          "id": "lock",
+          "left": 444,
+          "top": 545,
+          "width": 222,
+          "height": 261
+        },
+        {
+          "id": "settings",
+          "left": 762,
+          "top": 557,
+          "width": 259,
+          "height": 251
+        },
+        {
+          "id": "decorate",
+          "left": 1103,
+          "top": 567,
+          "width": 274,
+          "height": 224
+        },
+        {
+          "id": "sparkle",
+          "left": 74,
+          "top": 824,
+          "width": 262,
+          "height": 217
+        },
+        {
+          "id": "beads",
+          "left": 443,
+          "top": 823,
+          "width": 241,
+          "height": 225
+        },
+        {
+          "id": "charm-jar",
+          "left": 772,
+          "top": 814,
+          "width": 240,
+          "height": 240
+        },
+        {
+          "id": "dumpling",
+          "left": 1099,
+          "top": 814,
+          "width": 282,
+          "height": 240
+        }
+      ]
+    },
+    "actions": {
+      "file": "assets/ui-raster-v13/actions-atlas.png",
+      "width": 1267,
+      "height": 1241,
+      "crops": [
+        {
+          "id": "check",
+          "left": 30,
+          "top": 59,
+          "width": 286,
+          "height": 251
+        },
+        {
+          "id": "close",
+          "left": 359,
+          "top": 59,
+          "width": 266,
+          "height": 251
+        },
+        {
+          "id": "plus",
+          "left": 680,
+          "top": 50,
+          "width": 270,
+          "height": 261
+        },
+        {
+          "id": "minus",
+          "left": 984,
+          "top": 130,
+          "width": 256,
+          "height": 124
+        },
+        {
+          "id": "undo",
+          "left": 46,
+          "top": 354,
+          "width": 257,
+          "height": 264
+        },
+        {
+          "id": "rotate-left",
+          "left": 367,
+          "top": 354,
+          "width": 243,
+          "height": 252
+        },
+        {
+          "id": "rotate-right",
+          "left": 663,
+          "top": 354,
+          "width": 239,
+          "height": 252
+        },
+        {
+          "id": "view",
+          "left": 950,
+          "top": 397,
+          "width": 287,
+          "height": 207
+        },
+        {
+          "id": "look-up",
+          "left": 75,
+          "top": 638,
+          "width": 197,
+          "height": 258
+        },
+        {
+          "id": "look-down",
+          "left": 394,
+          "top": 640,
+          "width": 205,
+          "height": 257
+        },
+        {
+          "id": "front",
+          "left": 674,
+          "top": 662,
+          "width": 224,
+          "height": 220
+        },
+        {
+          "id": "amount",
+          "left": 950,
+          "top": 678,
+          "width": 297,
+          "height": 192
+        },
+        {
+          "id": "move",
+          "left": 33,
+          "top": 920,
+          "width": 280,
+          "height": 270
+        },
+        {
+          "id": "remix",
+          "left": 353,
+          "top": 933,
+          "width": 280,
+          "height": 243
+        },
+        {
+          "id": "shield",
+          "left": 668,
+          "top": 921,
+          "width": 251,
+          "height": 269
+        },
+        {
+          "id": "trash",
+          "left": 988,
+          "top": 911,
+          "width": 236,
+          "height": 273
+        }
+      ]
+    },
+    "extras": {
+      "file": "assets/ui-raster-v13/extras-atlas.png",
+      "width": 1293,
+      "height": 1216,
+      "crops": [
+        {
+          "id": "circle",
+          "left": 56,
+          "top": 48,
+          "width": 267,
+          "height": 269
+        },
+        {
+          "id": "square",
+          "left": 380,
+          "top": 50,
+          "width": 264,
+          "height": 257
+        },
+        {
+          "id": "star",
+          "left": 674,
+          "top": 50,
+          "width": 274,
+          "height": 257
+        },
+        {
+          "id": "info",
+          "left": 979,
+          "top": 52,
+          "width": 274,
+          "height": 268
+        },
+        {
+          "id": "archive",
+          "left": 44,
+          "top": 357,
+          "width": 279,
+          "height": 251
+        },
+        {
+          "id": "restore",
+          "left": 323,
+          "top": 357,
+          "width": 319,
+          "height": 251
+        },
+        {
+          "id": "upload",
+          "left": 678,
+          "top": 351,
+          "width": 265,
+          "height": 257
+        },
+        {
+          "id": "download",
+          "left": 994,
+          "top": 367,
+          "width": 261,
+          "height": 241
+        },
+        {
+          "id": "heart",
+          "left": 47,
+          "top": 649,
+          "width": 276,
+          "height": 233
+        },
+        {
+          "id": "pinch",
+          "left": 373,
+          "top": 637,
+          "width": 273,
+          "height": 241
+        },
+        {
+          "id": "mould",
+          "left": 681,
+          "top": 637,
+          "width": 264,
+          "height": 253
+        },
+        {
+          "id": "charm",
+          "left": 1011,
+          "top": 621,
+          "width": 228,
+          "height": 261
+        },
+        {
+          "id": "jar",
+          "left": 54,
+          "top": 906,
+          "width": 269,
+          "height": 270
+        },
+        {
+          "id": "unlocked",
+          "left": 407,
+          "top": 891,
+          "width": 224,
+          "height": 287
+        },
+        {
+          "id": "play",
+          "left": 685,
+          "top": 908,
+          "width": 267,
+          "height": 265
+        },
+        {
+          "id": "blank-face",
+          "left": 991,
+          "top": 907,
+          "width": 269,
+          "height": 263
+        }
+      ]
+    },
+    "surfaces": {
+      "file": "assets/ui-raster-v13/surfaces-atlas.png",
+      "width": 1024,
+      "height": 1536,
+      "crops": [
+        {
+          "id": "surface-cream-rest",
+          "left": 38,
+          "top": 47,
+          "width": 454,
+          "height": 431
+        },
+        {
+          "id": "surface-cream-pressed",
+          "left": 549,
+          "top": 71,
+          "width": 435,
+          "height": 400
+        },
+        {
+          "id": "surface-mint-rest",
+          "left": 38,
+          "top": 532,
+          "width": 454,
+          "height": 433
+        },
+        {
+          "id": "surface-mint-pressed",
+          "left": 549,
+          "top": 558,
+          "width": 435,
+          "height": 400
+        },
+        {
+          "id": "surface-lilac-rest",
+          "left": 38,
+          "top": 1024,
+          "width": 454,
+          "height": 431
+        },
+        {
+          "id": "surface-lilac-pressed",
+          "left": 549,
+          "top": 1051,
+          "width": 435,
+          "height": 398
+        }
+      ]
+    }
+  },
+  "icons": {
+    "home": "assets/ui-raster-v13/home.png",
+    "help": "assets/ui-raster-v13/help.png",
+    "poke": "assets/ui-raster-v13/poke.png",
+    "shelf": "assets/ui-raster-v13/shelf.png",
+    "back": "assets/ui-raster-v13/back.png",
+    "reset": "assets/ui-raster-v13/reset.png",
+    "squeeze": "assets/ui-raster-v13/squeeze.png",
+    "gift": "assets/ui-raster-v13/gift.png",
+    "next": "assets/ui-raster-v13/next.png",
+    "stir": "assets/ui-raster-v13/stir.png",
+    "pull": "assets/ui-raster-v13/pull.png",
+    "palette": "assets/ui-raster-v13/palette.png",
+    "pause": "assets/ui-raster-v13/pause.png",
+    "pour": "assets/ui-raster-v13/pour.png",
+    "camera": "assets/ui-raster-v13/camera.png",
+    "save": "assets/ui-raster-v13/save.png",
+    "face": "assets/ui-raster-v13/face.png",
+    "music": "assets/ui-raster-v13/music.png",
+    "coin": "assets/ui-raster-v13/coin.png",
+    "sparkle": "assets/ui-raster-v13/sparkle.png",
+    "face-none": "assets/ui-raster-v13/face-none.png",
+    "sound": "assets/ui-raster-v13/sound.png",
+    "lock": "assets/ui-raster-v13/lock.png",
+    "beads": "assets/ui-raster-v13/beads.png",
+    "frame": "assets/ui-raster-v13/frame.png",
+    "voice": "assets/ui-raster-v13/voice.png",
+    "settings": "assets/ui-raster-v13/settings.png",
+    "charm-jar": "assets/ui-raster-v13/charm-jar.png",
+    "background": "assets/ui-raster-v13/background.png",
+    "quiet": "assets/ui-raster-v13/quiet.png",
+    "decorate": "assets/ui-raster-v13/decorate.png",
+    "dumpling": "assets/ui-raster-v13/dumpling.png",
+    "check": "assets/ui-raster-v13/check.png",
+    "undo": "assets/ui-raster-v13/undo.png",
+    "look-up": "assets/ui-raster-v13/look-up.png",
+    "move": "assets/ui-raster-v13/move.png",
+    "close": "assets/ui-raster-v13/close.png",
+    "rotate-left": "assets/ui-raster-v13/rotate-left.png",
+    "look-down": "assets/ui-raster-v13/look-down.png",
+    "remix": "assets/ui-raster-v13/remix.png",
+    "plus": "assets/ui-raster-v13/plus.png",
+    "rotate-right": "assets/ui-raster-v13/rotate-right.png",
+    "front": "assets/ui-raster-v13/front.png",
+    "shield": "assets/ui-raster-v13/shield.png",
+    "minus": "assets/ui-raster-v13/minus.png",
+    "view": "assets/ui-raster-v13/view.png",
+    "amount": "assets/ui-raster-v13/amount.png",
+    "trash": "assets/ui-raster-v13/trash.png",
+    "circle": "assets/ui-raster-v13/circle.png",
+    "archive": "assets/ui-raster-v13/archive.png",
+    "heart": "assets/ui-raster-v13/heart.png",
+    "jar": "assets/ui-raster-v13/jar.png",
+    "square": "assets/ui-raster-v13/square.png",
+    "restore": "assets/ui-raster-v13/restore.png",
+    "pinch": "assets/ui-raster-v13/pinch.png",
+    "unlocked": "assets/ui-raster-v13/unlocked.png",
+    "star": "assets/ui-raster-v13/star.png",
+    "upload": "assets/ui-raster-v13/upload.png",
+    "mould": "assets/ui-raster-v13/mould.png",
+    "play": "assets/ui-raster-v13/play.png",
+    "info": "assets/ui-raster-v13/info.png",
+    "download": "assets/ui-raster-v13/download.png",
+    "charm": "assets/ui-raster-v13/charm.png",
+    "blank-face": "assets/ui-raster-v13/blank-face.png"
+  },
+  "surfaces": {
+    "surface-cream-rest": "assets/ui-raster-v13/surface-cream-rest.png",
+    "surface-mint-rest": "assets/ui-raster-v13/surface-mint-rest.png",
+    "surface-lilac-rest": "assets/ui-raster-v13/surface-lilac-rest.png",
+    "surface-cream-pressed": "assets/ui-raster-v13/surface-cream-pressed.png",
+    "surface-mint-pressed": "assets/ui-raster-v13/surface-mint-pressed.png",
+    "surface-lilac-pressed": "assets/ui-raster-v13/surface-lilac-pressed.png"
+  },
+  "bindings": {
+    "s3-home": {
+      "icon": "home",
+      "tone": "cream",
+      "compact": false
+    },
+    "s3-pause": {
+      "icon": "pause",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s3-help": {
+      "icon": "help",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s3-back": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": false
+    },
+    "s3-next": {
+      "icon": "next",
+      "tone": "mint",
+      "compact": false
+    },
+    "s3-close": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "s4-home": {
+      "icon": "home",
+      "tone": "cream",
+      "compact": false
+    },
+    "s4-pause": {
+      "icon": "pause",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s4-help": {
+      "icon": "help",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s4-back": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": false
+    },
+    "s4-next": {
+      "icon": "next",
+      "tone": "mint",
+      "compact": false
+    },
+    "s4-close": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "s5-home": {
+      "icon": "home",
+      "tone": "cream",
+      "compact": false
+    },
+    "s5-pause": {
+      "icon": "pause",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s5-help": {
+      "icon": "help",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s5-back": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": false
+    },
+    "s5-next": {
+      "icon": "next",
+      "tone": "mint",
+      "compact": false
+    },
+    "s5-close": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "s6-home": {
+      "icon": "home",
+      "tone": "cream",
+      "compact": false
+    },
+    "s6-pause": {
+      "icon": "pause",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s6-help": {
+      "icon": "help",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s6-back": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": false
+    },
+    "s6-next": {
+      "icon": "next",
+      "tone": "mint",
+      "compact": false
+    },
+    "s6-close": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "s7-home": {
+      "icon": "home",
+      "tone": "cream",
+      "compact": false
+    },
+    "s7-pause": {
+      "icon": "pause",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s7-help": {
+      "icon": "help",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s7-back": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": false
+    },
+    "s7-next": {
+      "icon": "next",
+      "tone": "mint",
+      "compact": false
+    },
+    "s7-close": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "s8-home": {
+      "icon": "home",
+      "tone": "cream",
+      "compact": false
+    },
+    "s8-pause": {
+      "icon": "pause",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s8-help": {
+      "icon": "help",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s8-back": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": false
+    },
+    "s8-next": {
+      "icon": "next",
+      "tone": "mint",
+      "compact": false
+    },
+    "s8-close": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "s9-home": {
+      "icon": "home",
+      "tone": "cream",
+      "compact": false
+    },
+    "s9-pause": {
+      "icon": "pause",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s9-help": {
+      "icon": "help",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s9-back": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": false
+    },
+    "s9-next": {
+      "icon": "next",
+      "tone": "mint",
+      "compact": false
+    },
+    "s9-close": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "s10-home": {
+      "icon": "home",
+      "tone": "cream",
+      "compact": false
+    },
+    "s10-pause": {
+      "icon": "pause",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s10-help": {
+      "icon": "help",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s10-back": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": false
+    },
+    "s10-next": {
+      "icon": "next",
+      "tone": "mint",
+      "compact": false
+    },
+    "s10-close": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "s11-home": {
+      "icon": "home",
+      "tone": "cream",
+      "compact": false
+    },
+    "s11-pause": {
+      "icon": "pause",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s11-help": {
+      "icon": "help",
+      "tone": "lilac",
+      "compact": true
+    },
+    "s11-back": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": false
+    },
+    "s11-next": {
+      "icon": "next",
+      "tone": "mint",
+      "compact": false
+    },
+    "s11-close": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "s12-home": {
+      "icon": "home",
+      "tone": "cream",
+      "compact": false
+    },
+    "s12-pause": {
+      "icon": "pause",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s12-help": {
+      "icon": "help",
+      "tone": "lilac",
+      "compact": true
+    },
+    "s12-back": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": false
+    },
+    "s12-next": {
+      "icon": "next",
+      "tone": "mint",
+      "compact": false
+    },
+    "s12-close": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "s13-home": {
+      "icon": "home",
+      "tone": "cream",
+      "compact": true
+    },
+    "s13-pause": {
+      "icon": "pause",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s13-help": {
+      "icon": "help",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s13-back": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "s13-next": {
+      "icon": "next",
+      "tone": "mint",
+      "compact": false
+    },
+    "s13-close": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "s14-home": {
+      "icon": "home",
+      "tone": "cream",
+      "compact": false
+    },
+    "s14-pause": {
+      "icon": "pause",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s14-help": {
+      "icon": "help",
+      "tone": "lilac",
+      "compact": true
+    },
+    "s14-back": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": false
+    },
+    "s14-next": {
+      "icon": "next",
+      "tone": "mint",
+      "compact": false
+    },
+    "s14-close": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "make_button": {
+      "icon": "mould",
+      "tone": "mint",
+      "compact": false
+    },
+    "squish_button": {
+      "icon": "squeeze",
+      "tone": "mint",
+      "compact": false
+    },
+    "shelf_button": {
+      "icon": "shelf",
+      "tone": "cream",
+      "compact": false
+    },
+    "home": {
+      "icon": "home",
+      "tone": "cream",
+      "compact": false
+    },
+    "pause": {
+      "icon": "pause",
+      "tone": "lilac",
+      "compact": false
+    },
+    "requests": {
+      "icon": "gift",
+      "tone": "cream",
+      "compact": false
+    },
+    "decorate": {
+      "icon": "decorate",
+      "tone": "cream",
+      "compact": false
+    },
+    "auto-squeeze": {
+      "icon": "squeeze",
+      "tone": "cream",
+      "compact": true
+    },
+    "s3-prev": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": false
+    },
+    "s3-page-next": {
+      "icon": "next",
+      "tone": "mint",
+      "compact": false
+    },
+    "s3-dialog-close": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "s3-simple": {
+      "icon": "mould",
+      "tone": "cream",
+      "compact": true
+    },
+    "s3-standard": {
+      "icon": "mould",
+      "tone": "cream",
+      "compact": true
+    },
+    "s3-dumplings": {
+      "icon": "dumpling",
+      "tone": "cream",
+      "compact": true
+    },
+    "s4-clear-b": {
+      "icon": "minus",
+      "tone": "cream",
+      "compact": false
+    },
+    "s4-auto": {
+      "icon": "stir",
+      "tone": "mint",
+      "compact": false
+    },
+    "s4-blend": {
+      "icon": "stir",
+      "tone": "mint",
+      "compact": false
+    },
+    "s4-undo": {
+      "icon": "undo",
+      "tone": "cream",
+      "compact": false
+    },
+    "s4-finish-plain": {
+      "icon": "circle",
+      "tone": "cream",
+      "compact": true
+    },
+    "s4-finish-glitter": {
+      "icon": "sparkle",
+      "tone": "mint",
+      "compact": true
+    },
+    "s5-squeeze": {
+      "icon": "squeeze",
+      "tone": "mint",
+      "compact": false
+    },
+    "s6-amount": {
+      "icon": "amount",
+      "tone": "cream",
+      "compact": false
+    },
+    "s6-undo": {
+      "icon": "undo",
+      "tone": "cream",
+      "compact": false
+    },
+    "s6-jar_prev": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": false
+    },
+    "s6-jar_next": {
+      "icon": "next",
+      "tone": "cream",
+      "compact": false
+    },
+    "s6-category_0": {
+      "icon": "sparkle",
+      "tone": "cream",
+      "compact": false
+    },
+    "s6-category_1": {
+      "icon": "beads",
+      "tone": "cream",
+      "compact": false
+    },
+    "s6-category_2": {
+      "icon": "charm",
+      "tone": "cream",
+      "compact": false
+    },
+    "s7-pour_button": {
+      "icon": "pour",
+      "tone": "mint",
+      "compact": false
+    },
+    "s7-pause_flow": {
+      "icon": "pause",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s8-skip": {
+      "icon": "next",
+      "tone": "cream",
+      "compact": false
+    },
+    "s9-play": {
+      "icon": "poke",
+      "tone": "mint",
+      "compact": false
+    },
+    "s9-view": {
+      "icon": "view",
+      "tone": "cream",
+      "compact": false
+    },
+    "s9-tool_0": {
+      "icon": "squeeze",
+      "tone": "mint",
+      "compact": false
+    },
+    "s9-tool_1": {
+      "icon": "reset",
+      "tone": "cream",
+      "compact": false
+    },
+    "s9-tool_2": {
+      "icon": "rotate-left",
+      "tone": "cream",
+      "compact": false
+    },
+    "s9-tool_3": {
+      "icon": "rotate-right",
+      "tone": "cream",
+      "compact": false
+    },
+    "s9-tool_4": {
+      "icon": "camera",
+      "tone": "mint",
+      "compact": false
+    },
+    "s9-tool_5": {
+      "icon": "shelf",
+      "tone": "cream",
+      "compact": false
+    },
+    "s9-pull-demo": {
+      "icon": "pull",
+      "tone": "cream",
+      "compact": true
+    },
+    "s9-look-top": {
+      "icon": "look-up",
+      "tone": "cream",
+      "compact": true
+    },
+    "s9-look-bottom": {
+      "icon": "look-down",
+      "tone": "cream",
+      "compact": true
+    },
+    "s9-look-front": {
+      "icon": "front",
+      "tone": "cream",
+      "compact": true
+    },
+    "s9-face-choice": {
+      "icon": "face",
+      "tone": "cream",
+      "compact": true
+    },
+    "s10-photo_tool_0": {
+      "icon": "background",
+      "tone": "cream",
+      "compact": false
+    },
+    "s10-photo_tool_1": {
+      "icon": "frame",
+      "tone": "cream",
+      "compact": false
+    },
+    "s10-photo_tool_2": {
+      "icon": "face",
+      "tone": "cream",
+      "compact": false
+    },
+    "s10-photo_tool_3": {
+      "icon": "rotate-left",
+      "tone": "cream",
+      "compact": false
+    },
+    "s10-photo_tool_4": {
+      "icon": "rotate-right",
+      "tone": "cream",
+      "compact": false
+    },
+    "s10-photo_tool_5": {
+      "icon": "camera",
+      "tone": "mint",
+      "compact": false
+    },
+    "s10-save": {
+      "icon": "save",
+      "tone": "mint",
+      "compact": false
+    },
+    "s10-remix": {
+      "icon": "remix",
+      "tone": "cream",
+      "compact": false
+    },
+    "s11-page_prev": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": false
+    },
+    "s14-previous": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": false
+    },
+    "s11-page_next": {
+      "icon": "next",
+      "tone": "cream",
+      "compact": false
+    },
+    "s14-next_page": {
+      "icon": "next",
+      "tone": "cream",
+      "compact": false
+    },
+    "s11-play_selected": {
+      "icon": "poke",
+      "tone": "mint",
+      "compact": false
+    },
+    "s11-remix": {
+      "icon": "remix",
+      "tone": "cream",
+      "compact": false
+    },
+    "s11-move": {
+      "icon": "move",
+      "tone": "cream",
+      "compact": false
+    },
+    "s11-new": {
+      "icon": "plus",
+      "tone": "mint",
+      "compact": false
+    },
+    "s11-make-empty": {
+      "icon": "mould",
+      "tone": "mint",
+      "compact": true
+    },
+    "s12-make": {
+      "icon": "mould",
+      "tone": "mint",
+      "compact": false
+    },
+    "s12-choose": {
+      "icon": "shelf",
+      "tone": "cream",
+      "compact": false
+    },
+    "s12-give": {
+      "icon": "gift",
+      "tone": "mint",
+      "compact": false
+    },
+    "s12-skip": {
+      "icon": "check",
+      "tone": "mint",
+      "compact": true
+    },
+    "s14-undo": {
+      "icon": "undo",
+      "tone": "cream",
+      "compact": false
+    },
+    "s14-confirm": {
+      "icon": "check",
+      "tone": "mint",
+      "compact": false
+    },
+    "s15-pause_0": {
+      "icon": "play",
+      "tone": "mint",
+      "compact": false
+    },
+    "s15-pause_1": {
+      "icon": "music",
+      "tone": "cream",
+      "compact": false
+    },
+    "s15-pause_2": {
+      "icon": "sound",
+      "tone": "cream",
+      "compact": false
+    },
+    "s15-pause_3": {
+      "icon": "voice",
+      "tone": "cream",
+      "compact": false
+    },
+    "s15-pause_4": {
+      "icon": "quiet",
+      "tone": "cream",
+      "compact": false
+    },
+    "s15-pause_5": {
+      "icon": "help",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s15-home": {
+      "icon": "home",
+      "tone": "cream",
+      "compact": false
+    },
+    "s15-adult": {
+      "icon": "shield",
+      "tone": "lilac",
+      "compact": false
+    },
+    "s15-help-show": {
+      "icon": "play",
+      "tone": "mint",
+      "compact": true
+    },
+    "s15-help-back": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "s15-parent-back": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "s15-help-resume": {
+      "icon": "play",
+      "tone": "mint",
+      "compact": true
+    },
+    "s15-retry": {
+      "icon": "reset",
+      "tone": "cream",
+      "compact": true
+    },
+    "s16-return": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": false
+    },
+    "s16-tab_play": {
+      "icon": "play",
+      "tone": "cream",
+      "compact": true
+    },
+    "s16-tab_audio": {
+      "icon": "sound",
+      "tone": "cream",
+      "compact": true
+    },
+    "s16-tab_data": {
+      "icon": "archive",
+      "tone": "cream",
+      "compact": true
+    },
+    "s16-dialog-close": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    },
+    "s13-continue": {
+      "icon": "check",
+      "tone": "mint",
+      "compact": false
+    },
+    "s13-try": {
+      "icon": "squeeze",
+      "tone": "cream",
+      "compact": true
+    },
+    "s13-skip": {
+      "icon": "next",
+      "tone": "cream",
+      "compact": true
+    },
+    "squish-open": {
+      "icon": "squeeze",
+      "tone": "mint",
+      "compact": true
+    },
+    "squish-auto": {
+      "icon": "squeeze",
+      "tone": "mint",
+      "compact": true
+    },
+    "squish-reset": {
+      "icon": "reset",
+      "tone": "cream",
+      "compact": true
+    },
+    "squish-close": {
+      "icon": "back",
+      "tone": "cream",
+      "compact": true
+    }
+  }
+}

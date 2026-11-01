@@ -1,0 +1,40 @@
+{
+  "initial_wallet": 0,
+  "qualifying_new_save_coins": 10,
+  "discovery_coins": 10,
+  "direct_request_coins": 0,
+  "cosmetics": [
+    {
+      "id": "cosmetic_cabinet_lilac",
+      "slot": "cabinet",
+      "price": 20
+    },
+    {
+      "id": "cosmetic_cabinet_peach",
+      "slot": "cabinet",
+      "price": 30
+    },
+    {
+      "id": "cosmetic_cushion_mint",
+      "slot": "cushion",
+      "price": 20
+    },
+    {
+      "id": "cosmetic_cushion_butter",
+      "slot": "cushion",
+      "price": 30
+    },
+    {
+      "id": "cosmetic_picture_rainbow",
+      "slot": "wall_picture",
+      "price": 40
+    },
+    {
+      "id": "cosmetic_plant_star",
+      "slot": "plant",
+      "price": 40
+    }
+  ],
+  "source": "My_Squishy_Lab_360_Blueprint.html v1.1, Deterministic economy and discoveries",
+  "source_sha256": "a24ac968a81762c7720b7ec7258302eba90f42be16db46d490db5e0f7082703d"
+}

@@ -1,0 +1,103 @@
+{
+  "collection_toys_3x2.png": {
+    "size": [
+      1536,
+      1024
+    ],
+    "frames": {
+      "star": {
+        "x": 0,
+        "y": 0,
+        "width": 512,
+        "height": 512,
+        "background_position": "0% 0%"
+      },
+      "blob": {
+        "x": 512,
+        "y": 0,
+        "width": 512,
+        "height": 512,
+        "background_position": "50% 0%"
+      },
+      "bear": {
+        "x": 1024,
+        "y": 0,
+        "width": 512,
+        "height": 512,
+        "background_position": "100% 0%"
+      },
+      "cloud": {
+        "x": 0,
+        "y": 512,
+        "width": 512,
+        "height": 512,
+        "background_position": "0% 100%"
+      },
+      "cube": {
+        "x": 512,
+        "y": 512,
+        "width": 512,
+        "height": 512,
+        "background_position": "50% 100%"
+      },
+      "heart": {
+        "x": 1024,
+        "y": 512,
+        "width": 512,
+        "height": 512,
+        "background_position": "100% 100%"
+      }
+    },
+    "style": "Original pastel translucent gel toys; preview sprites, not 3D recipe-rendered toys"
+  },
+  "hub_controls_3x2.png": {
+    "size": [
+      1536,
+      1024
+    ],
+    "frames": {
+      "make": {
+        "x": 0,
+        "y": 0,
+        "width": 512,
+        "height": 512,
+        "background_position": "0% 0%"
+      },
+      "squish": {
+        "x": 512,
+        "y": 0,
+        "width": 512,
+        "height": 512,
+        "background_position": "50% 0%"
+      },
+      "shelf": {
+        "x": 1024,
+        "y": 0,
+        "width": 512,
+        "height": 512,
+        "background_position": "100% 0%"
+      },
+      "home": {
+        "x": 0,
+        "y": 512,
+        "width": 512,
+        "height": 512,
+        "background_position": "0% 100%"
+      },
+      "requests": {
+        "x": 512,
+        "y": 512,
+        "width": 512,
+        "height": 512,
+        "background_position": "50% 100%"
+      },
+      "back": {
+        "x": 1024,
+        "y": 512,
+        "width": 512,
+        "height": 512,
+        "background_position": "100% 100%"
+      }
+    }
+  }
+}

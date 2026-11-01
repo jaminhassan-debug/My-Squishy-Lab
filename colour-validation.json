@@ -1,0 +1,1125 @@
+{
+  "model": "Spectral.js 3.0.0, single-constant Kubelka-Munk",
+  "portion": "Equal digital slot portions, default tinting strength 1. Physical dye concentration is unspecified.",
+  "measured_physical_validation": false,
+  "checks": {
+    "independent_numeric_reference": true,
+    "sets": 56,
+    "ordered_permutations": 516,
+    "stir_samples_per_set": 7,
+    "qualitative_families": 6,
+    "complementary_reduction": 2
+  },
+  "sources": [
+    {
+      "url": "https://github.com/rvanwijnen/spectral.js/tree/3.0.0",
+      "purpose": "MIT implementation, spectral basis and published #3D933E numeric example"
+    },
+    {
+      "url": "https://goldenartistcolors.com/resources/color-mixing-guide",
+      "purpose": "subtractive primaries, tinting strength and complementary chroma reduction"
+    },
+    {
+      "url": "https://scottburns.us/subtractive-color-mixture-1/",
+      "purpose": "RGB does not uniquely identify reflectance or actual pigment mixing behaviour"
+    }
+  ],
+  "mixtures": [
+    {
+      "ids": [
+        "pink"
+      ],
+      "names": [
+        "Hot pink"
+      ],
+      "ratio": "1",
+      "result": "#FF24B8",
+      "oklch": [
+        0.674177,
+        0.270057,
+        346.205763
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "blue"
+      ],
+      "names": [
+        "Electric blue"
+      ],
+      "ratio": "1",
+      "result": "#00BFFF",
+      "oklch": [
+        0.75535,
+        0.153422,
+        231.639156
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "blue"
+      ],
+      "names": [
+        "Hot pink",
+        "Electric blue"
+      ],
+      "ratio": "1:1",
+      "result": "#6758D4",
+      "oklch": [
+        0.54275,
+        0.183429,
+        283.949443
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "yellow"
+      ],
+      "names": [
+        "Sunshine"
+      ],
+      "ratio": "1",
+      "result": "#FFE31A",
+      "oklch": [
+        0.911102,
+        0.185813,
+        100.010731
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "yellow"
+      ],
+      "names": [
+        "Hot pink",
+        "Sunshine"
+      ],
+      "ratio": "1:1",
+      "result": "#FF6E49",
+      "oklch": [
+        0.710433,
+        0.184985,
+        35.41636
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "blue",
+        "yellow"
+      ],
+      "names": [
+        "Electric blue",
+        "Sunshine"
+      ],
+      "ratio": "1:1",
+      "result": "#46D74B",
+      "oklch": [
+        0.774378,
+        0.218601,
+        143.568426
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "blue",
+        "yellow"
+      ],
+      "names": [
+        "Hot pink",
+        "Electric blue",
+        "Sunshine"
+      ],
+      "ratio": "1:1:1",
+      "result": "#75805C",
+      "oklch": [
+        0.580918,
+        0.054172,
+        121.892199
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "mint"
+      ],
+      "names": [
+        "Emerald"
+      ],
+      "ratio": "1",
+      "result": "#19DB83",
+      "oklch": [
+        0.78514,
+        0.187775,
+        155.603747
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "mint"
+      ],
+      "names": [
+        "Hot pink",
+        "Emerald"
+      ],
+      "ratio": "1:1",
+      "result": "#716695",
+      "oklch": [
+        0.539243,
+        0.073291,
+        294.55875
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "blue",
+        "mint"
+      ],
+      "names": [
+        "Electric blue",
+        "Emerald"
+      ],
+      "ratio": "1:1",
+      "result": "#00CF9D",
+      "oklch": [
+        0.75867,
+        0.154295,
+        167.633642
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "blue",
+        "mint"
+      ],
+      "names": [
+        "Hot pink",
+        "Electric blue",
+        "Emerald"
+      ],
+      "ratio": "1:1:1",
+      "result": "#6373A5",
+      "oklch": [
+        0.563205,
+        0.080153,
+        270.103328
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "yellow",
+        "mint"
+      ],
+      "names": [
+        "Sunshine",
+        "Emerald"
+      ],
+      "ratio": "1:1",
+      "result": "#5CE142",
+      "oklch": [
+        0.805462,
+        0.227818,
+        140.69716
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "yellow",
+        "mint"
+      ],
+      "names": [
+        "Hot pink",
+        "Sunshine",
+        "Emerald"
+      ],
+      "ratio": "1:1:1",
+      "result": "#848259",
+      "oklch": [
+        0.597795,
+        0.058222,
+        105.662976
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "blue",
+        "yellow",
+        "mint"
+      ],
+      "names": [
+        "Electric blue",
+        "Sunshine",
+        "Emerald"
+      ],
+      "ratio": "1:1:1",
+      "result": "#39D854",
+      "oklch": [
+        0.774945,
+        0.217189,
+        145.574176
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "blue",
+        "yellow",
+        "mint"
+      ],
+      "names": [
+        "Hot pink",
+        "Electric blue",
+        "Sunshine",
+        "Emerald"
+      ],
+      "ratio": "1:1:1:1",
+      "result": "#6D8962",
+      "oklch": [
+        0.597599,
+        0.06587,
+        137.028454
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "lilac"
+      ],
+      "names": [
+        "Violet"
+      ],
+      "ratio": "1",
+      "result": "#9347FF",
+      "oklch": [
+        0.593925,
+        0.253722,
+        296.66874
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "lilac"
+      ],
+      "names": [
+        "Hot pink",
+        "Violet"
+      ],
+      "ratio": "1:1",
+      "result": "#B834C8",
+      "oklch": [
+        0.582586,
+        0.23308,
+        323.150744
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "blue",
+        "lilac"
+      ],
+      "names": [
+        "Electric blue",
+        "Violet"
+      ],
+      "ratio": "1:1",
+      "result": "#407EFF",
+      "oklch": [
+        0.622909,
+        0.20284,
+        262.693116
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "blue",
+        "lilac"
+      ],
+      "names": [
+        "Hot pink",
+        "Electric blue",
+        "Violet"
+      ],
+      "ratio": "1:1:1",
+      "result": "#6355D9",
+      "oklch": [
+        0.53835,
+        0.194271,
+        282.489657
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "yellow",
+        "lilac"
+      ],
+      "names": [
+        "Sunshine",
+        "Violet"
+      ],
+      "ratio": "1:1",
+      "result": "#C4994B",
+      "oklch": [
+        0.707661,
+        0.108772,
+        80.329206
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "yellow",
+        "lilac"
+      ],
+      "names": [
+        "Hot pink",
+        "Sunshine",
+        "Violet"
+      ],
+      "ratio": "1:1:1",
+      "result": "#D26B53",
+      "oklch": [
+        0.643217,
+        0.135455,
+        34.291772
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "blue",
+        "yellow",
+        "lilac"
+      ],
+      "names": [
+        "Electric blue",
+        "Sunshine",
+        "Violet"
+      ],
+      "ratio": "1:1:1",
+      "result": "#51A65B",
+      "oklch": [
+        0.653413,
+        0.136973,
+        146.220982
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "blue",
+        "yellow",
+        "lilac"
+      ],
+      "names": [
+        "Hot pink",
+        "Electric blue",
+        "Sunshine",
+        "Violet"
+      ],
+      "ratio": "1:1:1:1",
+      "result": "#6E7A61",
+      "oklch": [
+        0.562264,
+        0.040053,
+        128.528934
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "mint",
+        "lilac"
+      ],
+      "names": [
+        "Emerald",
+        "Violet"
+      ],
+      "ratio": "1:1",
+      "result": "#488F96",
+      "oklch": [
+        0.60695,
+        0.0719,
+        203.92245
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "mint",
+        "lilac"
+      ],
+      "names": [
+        "Hot pink",
+        "Emerald",
+        "Violet"
+      ],
+      "ratio": "1:1:1",
+      "result": "#6B639D",
+      "oklch": [
+        0.531746,
+        0.089916,
+        289.291985
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "blue",
+        "mint",
+        "lilac"
+      ],
+      "names": [
+        "Electric blue",
+        "Emerald",
+        "Violet"
+      ],
+      "ratio": "1:1:1",
+      "result": "#349CA8",
+      "oklch": [
+        0.639236,
+        0.094032,
+        206.118523
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "blue",
+        "mint",
+        "lilac"
+      ],
+      "names": [
+        "Hot pink",
+        "Electric blue",
+        "Emerald",
+        "Violet"
+      ],
+      "ratio": "1:1:1:1",
+      "result": "#5E6EAA",
+      "oklch": [
+        0.551418,
+        0.095633,
+        271.619643
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "yellow",
+        "mint",
+        "lilac"
+      ],
+      "names": [
+        "Sunshine",
+        "Emerald",
+        "Violet"
+      ],
+      "ratio": "1:1:1",
+      "result": "#63AA57",
+      "oklch": [
+        0.671316,
+        0.137038,
+        140.849843
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "yellow",
+        "mint",
+        "lilac"
+      ],
+      "names": [
+        "Hot pink",
+        "Sunshine",
+        "Emerald",
+        "Violet"
+      ],
+      "ratio": "1:1:1:1",
+      "result": "#7D7C5E",
+      "oklch": [
+        0.578979,
+        0.043691,
+        106.095804
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "blue",
+        "yellow",
+        "mint",
+        "lilac"
+      ],
+      "names": [
+        "Electric blue",
+        "Sunshine",
+        "Emerald",
+        "Violet"
+      ],
+      "ratio": "1:1:1:1",
+      "result": "#47AF60",
+      "oklch": [
+        0.673806,
+        0.149879,
+        148.740406
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "peach"
+      ],
+      "names": [
+        "Tangerine"
+      ],
+      "ratio": "1",
+      "result": "#FF821C",
+      "oklch": [
+        0.735599,
+        0.181107,
+        52.052475
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "peach"
+      ],
+      "names": [
+        "Hot pink",
+        "Tangerine"
+      ],
+      "ratio": "1:1",
+      "result": "#FF503E",
+      "oklch": [
+        0.674073,
+        0.214085,
+        29.614213
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "blue",
+        "peach"
+      ],
+      "names": [
+        "Electric blue",
+        "Tangerine"
+      ],
+      "ratio": "1:1",
+      "result": "#579E49",
+      "oklch": [
+        0.632649,
+        0.139576,
+        140.418904
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "blue",
+        "peach"
+      ],
+      "names": [
+        "Hot pink",
+        "Electric blue",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1",
+      "result": "#6E6B59",
+      "oklch": [
+        0.525222,
+        0.027447,
+        99.441958
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "yellow",
+        "peach"
+      ],
+      "names": [
+        "Sunshine",
+        "Tangerine"
+      ],
+      "ratio": "1:1",
+      "result": "#FFAA20",
+      "oklch": [
+        0.802276,
+        0.165195,
+        71.782465
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "yellow",
+        "peach"
+      ],
+      "names": [
+        "Hot pink",
+        "Sunshine",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1",
+      "result": "#FF703A",
+      "oklch": [
+        0.711581,
+        0.187165,
+        39.937356
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "blue",
+        "yellow",
+        "peach"
+      ],
+      "names": [
+        "Electric blue",
+        "Sunshine",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1",
+      "result": "#69B43E",
+      "oklch": [
+        0.696511,
+        0.169588,
+        136.068013
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "blue",
+        "yellow",
+        "peach"
+      ],
+      "names": [
+        "Hot pink",
+        "Electric blue",
+        "Sunshine",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1:1",
+      "result": "#7D7F4C",
+      "oklch": [
+        0.58222,
+        0.071482,
+        110.35958
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "mint",
+        "peach"
+      ],
+      "names": [
+        "Emerald",
+        "Tangerine"
+      ],
+      "ratio": "1:1",
+      "result": "#67A546",
+      "oklch": [
+        0.658449,
+        0.143669,
+        136.064428
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "mint",
+        "peach"
+      ],
+      "names": [
+        "Hot pink",
+        "Emerald",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1",
+      "result": "#7B6F56",
+      "oklch": [
+        0.545951,
+        0.039771,
+        85.297528
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "blue",
+        "mint",
+        "peach"
+      ],
+      "names": [
+        "Electric blue",
+        "Emerald",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1",
+      "result": "#50AD56",
+      "oklch": [
+        0.670296,
+        0.152298,
+        144.846491
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "blue",
+        "mint",
+        "peach"
+      ],
+      "names": [
+        "Hot pink",
+        "Electric blue",
+        "Emerald",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1:1",
+      "result": "#697863",
+      "oklch": [
+        0.554041,
+        0.036474,
+        136.741053
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "yellow",
+        "mint",
+        "peach"
+      ],
+      "names": [
+        "Sunshine",
+        "Emerald",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1",
+      "result": "#79B83B",
+      "oklch": [
+        0.714827,
+        0.168642,
+        132.362931
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "yellow",
+        "mint",
+        "peach"
+      ],
+      "names": [
+        "Hot pink",
+        "Sunshine",
+        "Emerald",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1:1",
+      "result": "#8B824B",
+      "oklch": [
+        0.601696,
+        0.075751,
+        100.159942
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "blue",
+        "yellow",
+        "mint",
+        "peach"
+      ],
+      "names": [
+        "Electric blue",
+        "Sunshine",
+        "Emerald",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1:1",
+      "result": "#5DBA46",
+      "oklch": [
+        0.707006,
+        0.177351,
+        139.840307
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "lilac",
+        "peach"
+      ],
+      "names": [
+        "Violet",
+        "Tangerine"
+      ],
+      "ratio": "1:1",
+      "result": "#BA703E",
+      "oklch": [
+        0.616323,
+        0.114247,
+        52.986022
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "lilac",
+        "peach"
+      ],
+      "names": [
+        "Hot pink",
+        "Violet",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1",
+      "result": "#C8544C",
+      "oklch": [
+        0.593825,
+        0.14988,
+        26.552668
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "blue",
+        "lilac",
+        "peach"
+      ],
+      "names": [
+        "Electric blue",
+        "Violet",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1",
+      "result": "#568756",
+      "oklch": [
+        0.57512,
+        0.090999,
+        144.279412
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "blue",
+        "lilac",
+        "peach"
+      ],
+      "names": [
+        "Hot pink",
+        "Electric blue",
+        "Violet",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1:1",
+      "result": "#69695F",
+      "oklch": [
+        0.517707,
+        0.015344,
+        106.923778
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "yellow",
+        "lilac",
+        "peach"
+      ],
+      "names": [
+        "Sunshine",
+        "Violet",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1",
+      "result": "#D09139",
+      "oklch": [
+        0.703496,
+        0.12693,
+        71.710848
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "yellow",
+        "lilac",
+        "peach"
+      ],
+      "names": [
+        "Hot pink",
+        "Sunshine",
+        "Violet",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1:1",
+      "result": "#D86D44",
+      "oklch": [
+        0.652502,
+        0.145542,
+        40.974547
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "blue",
+        "yellow",
+        "lilac",
+        "peach"
+      ],
+      "names": [
+        "Electric blue",
+        "Sunshine",
+        "Violet",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1:1",
+      "result": "#679D49",
+      "oklch": [
+        0.638671,
+        0.1293,
+        135.585427
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "mint",
+        "lilac",
+        "peach"
+      ],
+      "names": [
+        "Emerald",
+        "Violet",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1",
+      "result": "#648C53",
+      "oklch": [
+        0.595768,
+        0.094019,
+        136.804762
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "pink",
+        "mint",
+        "lilac",
+        "peach"
+      ],
+      "names": [
+        "Hot pink",
+        "Emerald",
+        "Violet",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1:1",
+      "result": "#776B5C",
+      "oklch": [
+        0.534608,
+        0.027263,
+        73.338878
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "blue",
+        "mint",
+        "lilac",
+        "peach"
+      ],
+      "names": [
+        "Electric blue",
+        "Emerald",
+        "Violet",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1:1",
+      "result": "#509660",
+      "oklch": [
+        0.612619,
+        0.108271,
+        149.661325
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    },
+    {
+      "ids": [
+        "yellow",
+        "mint",
+        "lilac",
+        "peach"
+      ],
+      "names": [
+        "Sunshine",
+        "Emerald",
+        "Violet",
+        "Tangerine"
+      ],
+      "ratio": "1:1:1:1",
+      "result": "#769F47",
+      "oklch": [
+        0.652716,
+        0.126111,
+        130.035161
+      ],
+      "validation": "spectral simulation; qualitative colour-family checks, not physical measurements"
+    }
+  ]
+}

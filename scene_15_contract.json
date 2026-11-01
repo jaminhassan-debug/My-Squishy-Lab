@@ -1,0 +1,402 @@
+{
+  "id": "scene_15",
+  "number": 15,
+  "name": "Pause and quiet play overlay",
+  "purpose": "Pause safely and change sound/help/quiet settings without losing work.",
+  "on_enter": [
+    "Capture route context; stop accepting new toy contacts; resolve active contacts into paused recovery state. Pause flow, tool simulation and all audio loops.",
+    "Underlying scene remains visible with scrim; controls behind it are inert.",
+    "Quiet is a durable preference, distinct from temporarily paused play."
+  ],
+  "on_exit": [
+    "On Resume, restore saved logical scene/substate and recompute input bounds; never resume volume-changing flow without explicit local resume."
+  ],
+  "substates": [
+    "paused",
+    "help_view",
+    "settings_committing"
+  ],
+  "persistence": "settings.musicEnabled, effectsEnabled, voiceEnabled and quiet; underlying draft checkpoint. Resume does not grant rewards or alter recipes.",
+  "back_rule": "Back/Escape resumes. Home checkpoints and goes02. Adult goes16 gate then returns15.",
+  "acceptance": [
+    "Paused pour stays paused until player starts it; no lost volume.",
+    "Muted play retains visual cues.",
+    "Hidden-tab return does not play accumulated sounds or a large simulation dt."
+  ],
+  "implementation_notes": [
+    "Quiet sets effective music off, optional particles/bloom off and nonessential motion reduced; it does not overwrite preferred music/effect/voice values. Turning quiet off restores those preferences.",
+    "Operating-system reduced-motion also reduces optional motion independently of quiet audio choices."
+  ],
+  "placements": [
+    {
+      "id": "scrim",
+      "asset": "ui_modal_scrim",
+      "landscape": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "portrait": [
+        0,
+        0,
+        768,
+        1024
+      ],
+      "z": 90,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "panel",
+      "asset": "ui_panel",
+      "landscape": [
+        168,
+        96,
+        688,
+        552
+      ],
+      "portrait": [
+        40,
+        152,
+        688,
+        712
+      ],
+      "z": 100,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "pause_0",
+      "asset": "icon_resume",
+      "landscape": [
+        248,
+        176,
+        112,
+        112
+      ],
+      "portrait": [
+        96,
+        224,
+        224,
+        128
+      ],
+      "z": 115,
+      "role": "button",
+      "action": "RESUME",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "pause_1",
+      "asset": "icon_music",
+      "landscape": [
+        472,
+        176,
+        112,
+        112
+      ],
+      "portrait": [
+        448,
+        224,
+        224,
+        128
+      ],
+      "z": 115,
+      "role": "button",
+      "action": "TOGGLE_MUSIC",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "pause_2",
+      "asset": "icon_sound",
+      "landscape": [
+        696,
+        176,
+        112,
+        112
+      ],
+      "portrait": [
+        96,
+        384,
+        224,
+        128
+      ],
+      "z": 115,
+      "role": "button",
+      "action": "TOGGLE_EFFECTS",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "pause_3",
+      "asset": "icon_voice",
+      "landscape": [
+        248,
+        352,
+        112,
+        112
+      ],
+      "portrait": [
+        448,
+        384,
+        224,
+        128
+      ],
+      "z": 115,
+      "role": "button",
+      "action": "TOGGLE_VOICE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "pause_4",
+      "asset": "icon_quiet",
+      "landscape": [
+        472,
+        352,
+        112,
+        112
+      ],
+      "portrait": [
+        96,
+        544,
+        224,
+        128
+      ],
+      "z": 115,
+      "role": "button",
+      "action": "TOGGLE_QUIET",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "pause_5",
+      "asset": "icon_help",
+      "landscape": [
+        696,
+        352,
+        112,
+        112
+      ],
+      "portrait": [
+        448,
+        544,
+        224,
+        128
+      ],
+      "z": 115,
+      "role": "button",
+      "action": "HELP",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "home",
+      "asset": "icon_home",
+      "landscape": [
+        248,
+        536,
+        112,
+        96
+      ],
+      "portrait": [
+        96,
+        728,
+        160,
+        96
+      ],
+      "z": 115,
+      "role": "button",
+      "action": "PAUSE_HOME",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "adult",
+      "asset": "icon_adult",
+      "landscape": [
+        664,
+        536,
+        112,
+        96
+      ],
+      "portrait": [
+        512,
+        728,
+        160,
+        96
+      ],
+      "z": 115,
+      "role": "button",
+      "action": "PAUSE_PARENT",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    }
+  ],
+  "actions": [
+    {
+      "id": "RESUME",
+      "trigger": "Tap Resume/Back/Escape",
+      "guard": "No settings transaction in flight",
+      "command": "Close overlay and restore captured context",
+      "state_write": "Persist any accepted settings, keep current draft.",
+      "feedback": "Short fade; no automatic re-hint.",
+      "destination": "Captured scene",
+      "interrupt": "Paused pour/manual tool loops remain stopped until player starts them.",
+      "master_animation_ids": [
+        "anim_panel"
+      ]
+    },
+    {
+      "id": "TOGGLE_MUSIC",
+      "trigger": "Tap corresponding audio/quiet control",
+      "guard": "No transaction in flight",
+      "command": "Toggle stored preference via settings service; derive effective gains",
+      "state_write": "Settings transaction only.",
+      "feedback": "Icon shows on/off with accessible state and distinct symbol; no mandatory sound confirmation.",
+      "destination": "Stay15",
+      "interrupt": "Failure retains previous durable setting; session override may remain clearly marked to adult.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "TOGGLE_EFFECTS",
+      "trigger": "Tap corresponding audio/quiet control",
+      "guard": "No transaction in flight",
+      "command": "Toggle stored preference via settings service; derive effective gains",
+      "state_write": "Settings transaction only.",
+      "feedback": "Icon shows on/off with accessible state and distinct symbol; no mandatory sound confirmation.",
+      "destination": "Stay15",
+      "interrupt": "Failure retains previous durable setting; session override may remain clearly marked to adult.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "TOGGLE_VOICE",
+      "trigger": "Tap corresponding audio/quiet control",
+      "guard": "No transaction in flight",
+      "command": "Toggle stored preference via settings service; derive effective gains",
+      "state_write": "Settings transaction only.",
+      "feedback": "Icon shows on/off with accessible state and distinct symbol; no mandatory sound confirmation.",
+      "destination": "Stay15",
+      "interrupt": "Failure retains previous durable setting; session override may remain clearly marked to adult.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "TOGGLE_QUIET",
+      "trigger": "Tap corresponding audio/quiet control",
+      "guard": "No transaction in flight",
+      "command": "Toggle stored preference via settings service; derive effective gains",
+      "state_write": "Settings transaction only.",
+      "feedback": "Icon shows on/off with accessible state and distinct symbol; no mandatory sound confirmation.",
+      "destination": "Stay15",
+      "interrupt": "Failure retains previous durable setting; session override may remain clearly marked to adult.",
+      "master_animation_ids": [
+        "anim_quiet"
+      ]
+    },
+    {
+      "id": "HELP",
+      "trigger": "Tap Help",
+      "guard": "Captured scene exists",
+      "command": "Show one diagram for current scene action with tap alternative",
+      "state_write": "session hint viewed marker only.",
+      "feedback": "No repeating autonomous prompt.",
+      "destination": "15 help subview",
+      "interrupt": "Back closes help before resuming.",
+      "master_animation_ids": [
+        "anim_help"
+      ]
+    },
+    {
+      "id": "PAUSE_HOME",
+      "trigger": "Tap Home",
+      "guard": "Safe checkpoint possible, or memory draft retained with storage notice",
+      "command": "Checkpoint; close overlay; route02",
+      "state_write": "Draft.lastSafeStep.",
+      "feedback": "Hub fade.",
+      "destination": "02",
+      "interrupt": "Never discard draft to get Home working.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "PAUSE_PARENT",
+      "trigger": "Tap adult",
+      "guard": "No critical transaction",
+      "command": "Open16 gate with returnContext15",
+      "state_write": "None until gate passes.",
+      "feedback": "Grown-up local settings gate.",
+      "destination": "16 gate",
+      "interrupt": "Cancel returns15, not unpaused toy.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    }
+  ],
+  "master_animation_ids": [
+    "anim_button",
+    "anim_focus",
+    "anim_help",
+    "anim_panel",
+    "anim_quiet",
+    "anim_scene"
+  ],
+  "audio_asset_ids": [
+    "sfx_ui_tap",
+    "vo_quiet"
+  ],
+  "master_asset_ids": [
+    "env_play_plate",
+    "fx_touch_hint",
+    "icon_adult",
+    "icon_focus",
+    "icon_help",
+    "icon_home",
+    "icon_music",
+    "icon_quiet",
+    "icon_resume",
+    "icon_sound",
+    "icon_voice",
+    "sfx_music_workshop",
+    "sfx_ui_tap",
+    "sys_animation_events",
+    "sys_quality",
+    "ui_button_round",
+    "ui_modal_scrim",
+    "ui_panel",
+    "vo_quiet"
+  ],
+  "master_source_scene_id": "scene_15"
+}

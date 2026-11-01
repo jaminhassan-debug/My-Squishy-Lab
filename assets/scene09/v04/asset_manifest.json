@@ -1,0 +1,925 @@
+{
+  "version": "0.4",
+  "assets": {
+    "cube": {
+      "target": "cube.png",
+      "columns": 4,
+      "rows": 4,
+      "role": "artist turntable reference; runtime uses continuous 3D geometry",
+      "review_required": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          384,
+          256
+        ],
+        [
+          384,
+          0,
+          384,
+          256
+        ],
+        [
+          768,
+          0,
+          384,
+          256
+        ],
+        [
+          1152,
+          0,
+          384,
+          256
+        ],
+        [
+          0,
+          256,
+          384,
+          256
+        ],
+        [
+          384,
+          256,
+          384,
+          256
+        ],
+        [
+          768,
+          256,
+          384,
+          256
+        ],
+        [
+          1152,
+          256,
+          384,
+          256
+        ],
+        [
+          0,
+          512,
+          384,
+          256
+        ],
+        [
+          384,
+          512,
+          384,
+          256
+        ],
+        [
+          768,
+          512,
+          384,
+          256
+        ],
+        [
+          1152,
+          512,
+          384,
+          256
+        ],
+        [
+          0,
+          768,
+          384,
+          256
+        ],
+        [
+          384,
+          768,
+          384,
+          256
+        ],
+        [
+          768,
+          768,
+          384,
+          256
+        ],
+        [
+          1152,
+          768,
+          384,
+          256
+        ]
+      ],
+      "sha256": "37b625e443219b410a9978a1342384aeaaa7a7ad2ce663c2a01106c66f5f905a",
+      "source_handling": "Original native ImageGen PNG, unchanged"
+    },
+    "star": {
+      "target": "star.png",
+      "columns": 4,
+      "rows": 4,
+      "role": "artist turntable reference; runtime uses continuous 3D geometry",
+      "review_required": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          384,
+          256
+        ],
+        [
+          384,
+          0,
+          384,
+          256
+        ],
+        [
+          768,
+          0,
+          384,
+          256
+        ],
+        [
+          1152,
+          0,
+          384,
+          256
+        ],
+        [
+          0,
+          256,
+          384,
+          256
+        ],
+        [
+          384,
+          256,
+          384,
+          256
+        ],
+        [
+          768,
+          256,
+          384,
+          256
+        ],
+        [
+          1152,
+          256,
+          384,
+          256
+        ],
+        [
+          0,
+          512,
+          384,
+          256
+        ],
+        [
+          384,
+          512,
+          384,
+          256
+        ],
+        [
+          768,
+          512,
+          384,
+          256
+        ],
+        [
+          1152,
+          512,
+          384,
+          256
+        ],
+        [
+          0,
+          768,
+          384,
+          256
+        ],
+        [
+          384,
+          768,
+          384,
+          256
+        ],
+        [
+          768,
+          768,
+          384,
+          256
+        ],
+        [
+          1152,
+          768,
+          384,
+          256
+        ]
+      ],
+      "sha256": "dbb347c9a909b60e3aacec0c049e619faa2f51a9fcd36e161264cb96dcfa4452",
+      "source_handling": "Original native ImageGen PNG, unchanged"
+    },
+    "heart": {
+      "target": "heart.png",
+      "columns": 4,
+      "rows": 4,
+      "role": "artist turntable reference; runtime uses continuous 3D geometry",
+      "review_required": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          384,
+          256
+        ],
+        [
+          384,
+          0,
+          384,
+          256
+        ],
+        [
+          768,
+          0,
+          384,
+          256
+        ],
+        [
+          1152,
+          0,
+          384,
+          256
+        ],
+        [
+          0,
+          256,
+          384,
+          256
+        ],
+        [
+          384,
+          256,
+          384,
+          256
+        ],
+        [
+          768,
+          256,
+          384,
+          256
+        ],
+        [
+          1152,
+          256,
+          384,
+          256
+        ],
+        [
+          0,
+          512,
+          384,
+          256
+        ],
+        [
+          384,
+          512,
+          384,
+          256
+        ],
+        [
+          768,
+          512,
+          384,
+          256
+        ],
+        [
+          1152,
+          512,
+          384,
+          256
+        ],
+        [
+          0,
+          768,
+          384,
+          256
+        ],
+        [
+          384,
+          768,
+          384,
+          256
+        ],
+        [
+          768,
+          768,
+          384,
+          256
+        ],
+        [
+          1152,
+          768,
+          384,
+          256
+        ]
+      ],
+      "sha256": "69c28b5ad0139adfa4ed56dea727539e50959b9a86aa07948d93b4da4ba8c516",
+      "source_handling": "Original native ImageGen PNG, unchanged"
+    },
+    "cloud": {
+      "target": "cloud.png",
+      "columns": 4,
+      "rows": 4,
+      "role": "artist turntable reference; runtime uses continuous 3D geometry",
+      "review_required": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          384,
+          256
+        ],
+        [
+          384,
+          0,
+          384,
+          256
+        ],
+        [
+          768,
+          0,
+          384,
+          256
+        ],
+        [
+          1152,
+          0,
+          384,
+          256
+        ],
+        [
+          0,
+          256,
+          384,
+          256
+        ],
+        [
+          384,
+          256,
+          384,
+          256
+        ],
+        [
+          768,
+          256,
+          384,
+          256
+        ],
+        [
+          1152,
+          256,
+          384,
+          256
+        ],
+        [
+          0,
+          512,
+          384,
+          256
+        ],
+        [
+          384,
+          512,
+          384,
+          256
+        ],
+        [
+          768,
+          512,
+          384,
+          256
+        ],
+        [
+          1152,
+          512,
+          384,
+          256
+        ],
+        [
+          0,
+          768,
+          384,
+          256
+        ],
+        [
+          384,
+          768,
+          384,
+          256
+        ],
+        [
+          768,
+          768,
+          384,
+          256
+        ],
+        [
+          1152,
+          768,
+          384,
+          256
+        ]
+      ],
+      "sha256": "c564b3c94aa02944995c96ffd936c8e8a25155c9faf31abdf64a837fda0b0b59",
+      "source_handling": "Original native ImageGen PNG, unchanged"
+    },
+    "bear": {
+      "target": "bear.png",
+      "columns": 4,
+      "rows": 4,
+      "role": "artist turntable reference; runtime uses continuous 3D geometry",
+      "review_required": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          384,
+          256
+        ],
+        [
+          384,
+          0,
+          384,
+          256
+        ],
+        [
+          768,
+          0,
+          384,
+          256
+        ],
+        [
+          1152,
+          0,
+          384,
+          256
+        ],
+        [
+          0,
+          256,
+          384,
+          256
+        ],
+        [
+          384,
+          256,
+          384,
+          256
+        ],
+        [
+          768,
+          256,
+          384,
+          256
+        ],
+        [
+          1152,
+          256,
+          384,
+          256
+        ],
+        [
+          0,
+          512,
+          384,
+          256
+        ],
+        [
+          384,
+          512,
+          384,
+          256
+        ],
+        [
+          768,
+          512,
+          384,
+          256
+        ],
+        [
+          1152,
+          512,
+          384,
+          256
+        ],
+        [
+          0,
+          768,
+          384,
+          256
+        ],
+        [
+          384,
+          768,
+          384,
+          256
+        ],
+        [
+          768,
+          768,
+          384,
+          256
+        ],
+        [
+          1152,
+          768,
+          384,
+          256
+        ]
+      ],
+      "sha256": "ed55a0f8849d3aa23eb843592a7c5ea9a91c15c905b8b98517c9edffbf014a7f",
+      "source_handling": "Original native ImageGen PNG, unchanged"
+    },
+    "blob": {
+      "target": "blob.png",
+      "columns": 4,
+      "rows": 4,
+      "role": "artist turntable reference; runtime uses continuous 3D geometry",
+      "review_required": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          384,
+          256
+        ],
+        [
+          384,
+          0,
+          384,
+          256
+        ],
+        [
+          768,
+          0,
+          384,
+          256
+        ],
+        [
+          1152,
+          0,
+          384,
+          256
+        ],
+        [
+          0,
+          256,
+          384,
+          256
+        ],
+        [
+          384,
+          256,
+          384,
+          256
+        ],
+        [
+          768,
+          256,
+          384,
+          256
+        ],
+        [
+          1152,
+          256,
+          384,
+          256
+        ],
+        [
+          0,
+          512,
+          384,
+          256
+        ],
+        [
+          384,
+          512,
+          384,
+          256
+        ],
+        [
+          768,
+          512,
+          384,
+          256
+        ],
+        [
+          1152,
+          512,
+          384,
+          256
+        ],
+        [
+          0,
+          768,
+          384,
+          256
+        ],
+        [
+          384,
+          768,
+          384,
+          256
+        ],
+        [
+          768,
+          768,
+          384,
+          256
+        ],
+        [
+          1152,
+          768,
+          384,
+          256
+        ]
+      ],
+      "sha256": "3eff30f8ecd8fa2bc42045ea094257a2964ea551ddfb4052cbf4aacca55cd0a2",
+      "source_handling": "Original native ImageGen PNG, unchanged"
+    },
+    "poke": {
+      "target": "poke.png",
+      "columns": 4,
+      "rows": 2,
+      "role": "optional runtime gesture guide and hand-rig reference",
+      "review_required": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          384,
+          512
+        ],
+        [
+          384,
+          0,
+          384,
+          512
+        ],
+        [
+          768,
+          0,
+          384,
+          512
+        ],
+        [
+          1152,
+          0,
+          384,
+          512
+        ],
+        [
+          0,
+          512,
+          384,
+          512
+        ],
+        [
+          384,
+          512,
+          384,
+          512
+        ],
+        [
+          768,
+          512,
+          384,
+          512
+        ],
+        [
+          1152,
+          512,
+          384,
+          512
+        ]
+      ],
+      "sha256": "c016565cdf9750cdf577398dda85964236e2e82f72f7ca5a350cd029b4e7155e",
+      "source_handling": "Original native ImageGen PNG, unchanged"
+    },
+    "grip": {
+      "target": "grip.png",
+      "columns": 4,
+      "rows": 2,
+      "role": "optional runtime gesture guide and hand-rig reference",
+      "review_required": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          384,
+          512
+        ],
+        [
+          384,
+          0,
+          384,
+          512
+        ],
+        [
+          768,
+          0,
+          384,
+          512
+        ],
+        [
+          1152,
+          0,
+          384,
+          512
+        ],
+        [
+          0,
+          512,
+          384,
+          512
+        ],
+        [
+          384,
+          512,
+          384,
+          512
+        ],
+        [
+          768,
+          512,
+          384,
+          512
+        ],
+        [
+          1152,
+          512,
+          384,
+          512
+        ]
+      ],
+      "sha256": "abdfeb800c6f0880cbaa262f931b857d87c712aea0f894ea5cee6ddbe72a1cd4",
+      "source_handling": "Original native ImageGen PNG, unchanged"
+    },
+    "stretch": {
+      "target": "stretch.png",
+      "columns": 4,
+      "rows": 2,
+      "role": "optional runtime gesture guide and hand-rig reference",
+      "review_required": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          384,
+          512
+        ],
+        [
+          384,
+          0,
+          384,
+          512
+        ],
+        [
+          768,
+          0,
+          384,
+          512
+        ],
+        [
+          1152,
+          0,
+          384,
+          512
+        ],
+        [
+          0,
+          512,
+          384,
+          512
+        ],
+        [
+          384,
+          512,
+          384,
+          512
+        ],
+        [
+          768,
+          512,
+          384,
+          512
+        ],
+        [
+          1152,
+          512,
+          384,
+          512
+        ]
+      ],
+      "sha256": "90ca53dfc7cdaaf895b454aebe1d6cd914d8a730d62cd39a21809a2e37245b3a",
+      "source_handling": "Original native ImageGen PNG, unchanged"
+    },
+    "relief": {
+      "target": "relief.png",
+      "columns": 4,
+      "rows": 2,
+      "role": "material appearance reference, not calibrated PBR maps",
+      "review_required": true,
+      "size": [
+        1536,
+        1024
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          384,
+          512
+        ],
+        [
+          384,
+          0,
+          384,
+          512
+        ],
+        [
+          768,
+          0,
+          384,
+          512
+        ],
+        [
+          1152,
+          0,
+          384,
+          512
+        ],
+        [
+          0,
+          512,
+          384,
+          512
+        ],
+        [
+          384,
+          512,
+          384,
+          512
+        ],
+        [
+          768,
+          512,
+          384,
+          512
+        ],
+        [
+          1152,
+          512,
+          384,
+          512
+        ]
+      ],
+      "sha256": "f02f826d3b9af16cd664b5dc0c7174362ba08e44debac55f3b05e5e35e07e070",
+      "source_handling": "Original native ImageGen PNG, unchanged"
+    }
+  },
+  "generated_frame_count": 128,
+  "exact_turntable_angles_verified": false
+}

@@ -1,0 +1,76 @@
+{
+  "version": "0.6",
+  "inclusion_models": 10,
+  "reference_mesh_poses": 48,
+  "generated_reference_frames": 8,
+  "native_reference": "reveal_interior_reference.png",
+  "runtime": [
+    "squishy-interior.js",
+    "scene09-volume-render.js",
+    "scene09-webgl.js",
+    "scene08-render.js"
+  ],
+  "motion": "120Hz substeps; one-way deforming tetrahedral cage, spring/drag lag and limited piece separation; no random idle drift",
+  "limitations": [
+    "not a full fluid or two-way XPBD simulation",
+    "camera-independent 3D geometry, no ray-traced refraction",
+    "physical-device/GPU pixel review remains pending",
+    "generated eight-frame atlas is an art target, not the live reveal animation"
+  ],
+  "native_reference_size": [
+    1774,
+    887
+  ],
+  "native_reference_frames": [
+    [
+      0,
+      0,
+      444,
+      444
+    ],
+    [
+      444,
+      0,
+      443,
+      444
+    ],
+    [
+      887,
+      0,
+      443,
+      444
+    ],
+    [
+      1330,
+      0,
+      444,
+      444
+    ],
+    [
+      0,
+      444,
+      444,
+      443
+    ],
+    [
+      444,
+      444,
+      443,
+      443
+    ],
+    [
+      887,
+      444,
+      443,
+      443
+    ],
+    [
+      1330,
+      444,
+      444,
+      443
+    ]
+  ],
+  "native_reference_sha256": "bfea4e92c4411791800065355517a11d5e3fc8c4f4b111af2421734a545504a8",
+  "pose_registration_verified": false
+}

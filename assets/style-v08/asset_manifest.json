@@ -1,0 +1,111 @@
+{
+  "version": "0.8",
+  "native_new_cells": 12,
+  "fitted_mesh_halves": 12,
+  "body_authority": "scene09-volume.js",
+  "inner_scale": 1.035,
+  "outer_scale": 1.105,
+  "reveal_total_ms": 6800,
+  "assets": {
+    "deep_moulds": {
+      "file": "deep_moulds.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          512,
+          512
+        ],
+        [
+          512,
+          0,
+          512,
+          512
+        ],
+        [
+          1024,
+          0,
+          512,
+          512
+        ],
+        [
+          0,
+          512,
+          512,
+          512
+        ],
+        [
+          512,
+          512,
+          512,
+          512
+        ],
+        [
+          1024,
+          512,
+          512,
+          512
+        ]
+      ],
+      "native_unchanged": true,
+      "sha256": "3ff6130e138759df65c7fe626fb29bed6ef667d510fefc4167c531f8e1b1c6fc",
+      "art_registration_measured": false
+    },
+    "closed_shells": {
+      "file": "closed_shells.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          512,
+          512
+        ],
+        [
+          512,
+          0,
+          512,
+          512
+        ],
+        [
+          1024,
+          0,
+          512,
+          512
+        ],
+        [
+          0,
+          512,
+          512,
+          512
+        ],
+        [
+          512,
+          512,
+          512,
+          512
+        ],
+        [
+          1024,
+          512,
+          512,
+          512
+        ]
+      ],
+      "native_unchanged": true,
+      "sha256": "046339b9ea2e73b41c5ed22a297af6deccb85838db7b5f027f2713458a69be34",
+      "art_registration_measured": false
+    }
+  },
+  "crop_metadata": "crops.json",
+  "geometry": "fitted_shell_meshes.json",
+  "motion": "cover_animation.json",
+  "gpu_visual_QA": false
+}

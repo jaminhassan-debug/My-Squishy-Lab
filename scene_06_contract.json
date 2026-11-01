@@ -1,0 +1,594 @@
+{
+  "id": "scene_06",
+  "number": 6,
+  "name": "Add sparkle and bits",
+  "purpose": "Add bounded reusable ingredient batches and optionally choose subtypes.",
+  "on_enter": [
+    "Restore batches and active category; empty inclusions is a valid recipe.",
+    "Show four current jars plus previous/next page controls. Sparkle has stars/hearts; beads has pearls/sprinkles; charms has fruit and gem families.",
+    "Fruit chooses strawberry/kiwi/orange via a small subtype drawer; gems chooses round/diamond. All nine primitives map to six families."
+  ],
+  "on_exit": [
+    "Resolve airborne pieces to saved anchors; stop dispenser sounds and checkpoint batch IDs."
+  ],
+  "substates": [
+    "ready",
+    "jar_selected",
+    "dragging_jar",
+    "dropping_batch",
+    "subtype_drawer"
+  ],
+  "persistence": "Store max 6 batches, each with id, familyId, subtype, amount and seedOffset. Amount tokens map to 8/16/24 logical pieces; total maximum 120. Low tier draws a deterministic subset without changing the recipe.",
+  "back_rule": "Back 05; Next 07 even with no decoration. Undo removes the last batch; category browsing does not mutate recipe.",
+  "acceptance": [
+    "Tap jar then bowl and drag jar to bowl produce one equivalent batch.",
+    "Maximum density is readable and cannot create unbounded meshes.",
+    "Foam shows projected surface pieces and retains original batch data when switching to gel."
+  ],
+  "implementation_notes": [
+    "Use the amount chooser before adding a batch; at cap show a full-bowl symbol and Undo, not failure or paid refill.",
+    "A source sprite of six toy previews is not an inclusion material or a saved toy recipe."
+  ],
+  "placements": [
+    {
+      "id": "background",
+      "asset": "env_make_plate",
+      "landscape": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "portrait": [
+        0,
+        0,
+        768,
+        1024
+      ],
+      "z": 0,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "home",
+      "asset": "icon_home",
+      "landscape": [
+        16,
+        8,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        8,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "GLOBAL_HOME",
+      "note": "Checkpoint the draft, then hub; no silent discard.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "pause",
+      "asset": "icon_pause",
+      "landscape": [
+        912,
+        8,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        8,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "GLOBAL_PAUSE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "back",
+      "asset": "icon_back",
+      "landscape": [
+        16,
+        656,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        912,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "BACK",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "next",
+      "asset": "icon_next",
+      "landscape": [
+        912,
+        656,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        912,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "NEXT",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "bowl",
+      "asset": "prop_bowl",
+      "landscape": [
+        292,
+        230,
+        440,
+        292
+      ],
+      "portrait": [
+        128,
+        296,
+        512,
+        328
+      ],
+      "z": 30,
+      "role": "button",
+      "action": "ADD_SELECTED",
+      "note": "Broad bowl drop target; staged front/rear occlusion. No spill outside bowl.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "jar_0",
+      "asset": "prop_jar",
+      "landscape": [
+        176,
+        552,
+        144,
+        96
+      ],
+      "portrait": [
+        64,
+        672,
+        304,
+        96
+      ],
+      "z": 65,
+      "role": "button",
+      "action": "SELECT_JAR",
+      "note": "Jar slot 0; binding supplied by current category/page.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "jar_1",
+      "asset": "prop_jar",
+      "landscape": [
+        352,
+        552,
+        144,
+        96
+      ],
+      "portrait": [
+        400,
+        672,
+        304,
+        96
+      ],
+      "z": 65,
+      "role": "button",
+      "action": "SELECT_JAR",
+      "note": "Jar slot 1; binding supplied by current category/page.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "jar_2",
+      "asset": "prop_jar",
+      "landscape": [
+        528,
+        552,
+        144,
+        96
+      ],
+      "portrait": [
+        64,
+        792,
+        304,
+        96
+      ],
+      "z": 65,
+      "role": "button",
+      "action": "SELECT_JAR",
+      "note": "Jar slot 2; binding supplied by current category/page.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "jar_3",
+      "asset": "prop_jar",
+      "landscape": [
+        704,
+        552,
+        144,
+        96
+      ],
+      "portrait": [
+        400,
+        792,
+        304,
+        96
+      ],
+      "z": 65,
+      "role": "button",
+      "action": "SELECT_JAR",
+      "note": "Jar slot 3; binding supplied by current category/page.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "category_0",
+      "asset": "icon_sparkle",
+      "landscape": [
+        136,
+        128,
+        112,
+        96
+      ],
+      "portrait": [
+        176,
+        136,
+        128,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "SET_CATEGORY",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "category_1",
+      "asset": "icon_bead",
+      "landscape": [
+        264,
+        128,
+        112,
+        96
+      ],
+      "portrait": [
+        320,
+        136,
+        128,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "SET_CATEGORY",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "category_2",
+      "asset": "icon_charm",
+      "landscape": [
+        392,
+        128,
+        112,
+        96
+      ],
+      "portrait": [
+        464,
+        136,
+        128,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "SET_CATEGORY",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "amount",
+      "asset": "icon_amount_medium",
+      "landscape": [
+        800,
+        240,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        272,
+        96,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "SET_AMOUNT",
+      "note": "Cycles little/medium/lots with icon and voice; amount data shown before add.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "undo",
+      "asset": "icon_undo",
+      "landscape": [
+        800,
+        352,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        384,
+        96,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "UNDO_BATCH",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "jar_prev",
+      "asset": "icon_page_prev",
+      "landscape": [
+        16,
+        552,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        552,
+        96,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "PAGE_JARS",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "jar_next",
+      "asset": "icon_page_next",
+      "landscape": [
+        912,
+        552,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        552,
+        96,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "PAGE_JARS",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    }
+  ],
+  "actions": [
+    {
+      "id": "SELECT_JAR",
+      "trigger": "Tap jar or begin assisted drag",
+      "guard": "Known family/subtype; unlocked or Free Play",
+      "command": "session.selectedInclusion=family/subtype; open subtype drawer where required",
+      "state_write": "No recipe write before add accepted.",
+      "feedback": "Jar lifts 180ms; bowl outline appears.",
+      "destination": "Stay 06",
+      "interrupt": "Cancel returns jar; no accidental batch.",
+      "master_animation_ids": [
+        "anim_jar_pick"
+      ]
+    },
+    {
+      "id": "ADD_SELECTED",
+      "trigger": "Tap bowl after jar selection or release jar in broad bowl target",
+      "guard": "Selected usable family; batch count<6; total + amount<=120",
+      "command": "Commit batch ID/seed once, then animate drop to deterministic anchors",
+      "state_write": "Append batch; bump revision; reset fill/reveal/photo. Record distinct family tried once.",
+      "feedback": "450\u2013800ms falling pieces, then settle.",
+      "destination": "Stay 06",
+      "interrupt": "Cancel after logical commit resolves to anchors. Never commit again on animation completion.",
+      "master_animation_ids": [
+        "anim_jar_shake",
+        "anim_bits_drop"
+      ]
+    },
+    {
+      "id": "SET_CATEGORY",
+      "trigger": "Tap sparkle/bead/charm",
+      "guard": "Ready",
+      "command": "Set current category and page=0; preserve recipe",
+      "state_write": "Session only.",
+      "feedback": "Swap visible jar labels/previews.",
+      "destination": "Stay 06",
+      "interrupt": "Locked option opens pictorial requirement only.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "SET_AMOUNT",
+      "trigger": "Tap amount token",
+      "guard": "Ready",
+      "command": "Cycle 8\u219216\u219224\u21928; update amount icon",
+      "state_write": "Session only until next batch.",
+      "feedback": "Three clear amount symbols.",
+      "destination": "Stay 06",
+      "interrupt": "At density cap keep amount but block extra batch with gentle full cue.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "PAGE_JARS",
+      "trigger": "Tap previous/next",
+      "guard": "Another category page exists",
+      "command": "Change current jar page, retain selected valid family",
+      "state_write": "None.",
+      "feedback": "200ms tray fade; maintain focus.",
+      "destination": "Stay 06",
+      "interrupt": "No wrap into a different category without explicit action.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "UNDO_BATCH",
+      "trigger": "Tap undo",
+      "guard": "At least one batch exists",
+      "command": "Remove last batch ID; regenerate anchors from remaining batch seeds",
+      "state_write": "Revision++, invalidate downstream completion.",
+      "feedback": "150ms piece fade.",
+      "destination": "Stay 06",
+      "interrupt": "When empty disable with semantic description; no penalty.",
+      "master_animation_ids": [
+        "anim_bits_undo"
+      ]
+    },
+    {
+      "id": "NEXT",
+      "trigger": "Tap next",
+      "guard": "Valid recipe with 0..6 bounded batches",
+      "command": "Checkpoint then open 07 ready or restored fill state",
+      "state_write": "lastStep=07.",
+      "feedback": "Confirm.",
+      "destination": "07",
+      "interrupt": "Do not require a decorative ingredient.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    }
+  ],
+  "master_animation_ids": [
+    "anim_bits_drop",
+    "anim_bits_undo",
+    "anim_button",
+    "anim_focus",
+    "anim_jar_pick",
+    "anim_jar_shake",
+    "anim_scene",
+    "anim_stir"
+  ],
+  "audio_asset_ids": [
+    "sfx_jar_pick",
+    "sfx_jar_shake",
+    "sfx_bits_fall",
+    "sfx_ui_undo",
+    "vo_bits"
+  ],
+  "master_asset_ids": [
+    "bits_foil_heart",
+    "bits_foil_star",
+    "bits_fruit_kiwi",
+    "bits_fruit_orange",
+    "bits_fruit_strawberry",
+    "bits_gem_diamond",
+    "bits_gem_round",
+    "bits_pearl",
+    "bits_sprinkle",
+    "env_make_plate",
+    "fx_inclusion_drop",
+    "fx_selection_outline",
+    "icon_amount_medium",
+    "icon_back",
+    "icon_bead",
+    "icon_charm",
+    "icon_focus",
+    "icon_home",
+    "icon_next",
+    "icon_page_next",
+    "icon_page_prev",
+    "icon_pause",
+    "icon_sparkle",
+    "icon_undo",
+    "mat_foil",
+    "mat_gem",
+    "mat_pearl",
+    "palette_blue",
+    "palette_lilac",
+    "palette_mint",
+    "palette_peach",
+    "palette_pink",
+    "palette_yellow",
+    "prop_bowl",
+    "prop_jar",
+    "prop_spatula",
+    "sfx_bits_fall",
+    "sfx_jar_pick",
+    "sfx_jar_shake",
+    "sfx_music_workshop",
+    "sfx_stir",
+    "sfx_ui_undo",
+    "sys_animation_events",
+    "sys_interior_anchors",
+    "sys_mix_field",
+    "ui_button_round",
+    "ui_tray",
+    "vo_bits"
+  ],
+  "master_source_scene_id": "scene_06",
+  "version": "0.7",
+  "style_v07": {
+    "source": "docs/style-v07.md",
+    "native_runtime_cells": 20,
+    "body": "dense softly coloured volume and glossy skin",
+    "browser_visual_QA": false
+  }
+}

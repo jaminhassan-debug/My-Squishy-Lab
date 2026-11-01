@@ -1,0 +1,38 @@
+{
+  "version": "0.10",
+  "mode": "built-in OpenAI imagegen",
+  "assets": [
+    "mould_bear.png",
+    "mould_blob.png",
+    "mould_cloud.png",
+    "mould_cube.png",
+    "mould_heart.png",
+    "mould_star.png",
+    "neutral_bodies.png",
+    "pour_material.png",
+    "sparkles.png"
+  ],
+  "bodyFaceDefault": "none",
+  "faceChooser": "Scene09 Face: optional and Scene10 Finish/photo",
+  "glitterFacets": 900,
+  "sparkleDoseDust": [
+    360,
+    900
+  ],
+  "sampling": "volume-weighted tetrahedra with uniform barycentric positions",
+  "pourSource": "final scene09-volume.js mesh clipped by height",
+  "sceneConsumers": [
+    "03",
+    "05",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14"
+  ],
+  "docs": "docs/visual-polish-v10.md",
+  "browserVerified": false
+}

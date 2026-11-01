@@ -1,0 +1,57 @@
+Colours,Digital ratio,Predicted hex,OKLCh lightness,OKLCh chroma,OKLCh hue
+Hot pink,1,#FF24B8,0.674177,0.270057,346.205763
+Electric blue,1,#00BFFF,0.75535,0.153422,231.639156
+Hot pink + Electric blue,1:1,#6758D4,0.54275,0.183429,283.949443
+Sunshine,1,#FFE31A,0.911102,0.185813,100.010731
+Hot pink + Sunshine,1:1,#FF6E49,0.710433,0.184985,35.41636
+Electric blue + Sunshine,1:1,#46D74B,0.774378,0.218601,143.568426
+Hot pink + Electric blue + Sunshine,1:1:1,#75805C,0.580918,0.054172,121.892199
+Emerald,1,#19DB83,0.78514,0.187775,155.603747
+Hot pink + Emerald,1:1,#716695,0.539243,0.073291,294.55875
+Electric blue + Emerald,1:1,#00CF9D,0.75867,0.154295,167.633642
+Hot pink + Electric blue + Emerald,1:1:1,#6373A5,0.563205,0.080153,270.103328
+Sunshine + Emerald,1:1,#5CE142,0.805462,0.227818,140.69716
+Hot pink + Sunshine + Emerald,1:1:1,#848259,0.597795,0.058222,105.662976
+Electric blue + Sunshine + Emerald,1:1:1,#39D854,0.774945,0.217189,145.574176
+Hot pink + Electric blue + Sunshine + Emerald,1:1:1:1,#6D8962,0.597599,0.06587,137.028454
+Violet,1,#9347FF,0.593925,0.253722,296.66874
+Hot pink + Violet,1:1,#B834C8,0.582586,0.23308,323.150744
+Electric blue + Violet,1:1,#407EFF,0.622909,0.20284,262.693116
+Hot pink + Electric blue + Violet,1:1:1,#6355D9,0.53835,0.194271,282.489657
+Sunshine + Violet,1:1,#C4994B,0.707661,0.108772,80.329206
+Hot pink + Sunshine + Violet,1:1:1,#D26B53,0.643217,0.135455,34.291772
+Electric blue + Sunshine + Violet,1:1:1,#51A65B,0.653413,0.136973,146.220982
+Hot pink + Electric blue + Sunshine + Violet,1:1:1:1,#6E7A61,0.562264,0.040053,128.528934
+Emerald + Violet,1:1,#488F96,0.60695,0.0719,203.92245
+Hot pink + Emerald + Violet,1:1:1,#6B639D,0.531746,0.089916,289.291985
+Electric blue + Emerald + Violet,1:1:1,#349CA8,0.639236,0.094032,206.118523
+Hot pink + Electric blue + Emerald + Violet,1:1:1:1,#5E6EAA,0.551418,0.095633,271.619643
+Sunshine + Emerald + Violet,1:1:1,#63AA57,0.671316,0.137038,140.849843
+Hot pink + Sunshine + Emerald + Violet,1:1:1:1,#7D7C5E,0.578979,0.043691,106.095804
+Electric blue + Sunshine + Emerald + Violet,1:1:1:1,#47AF60,0.673806,0.149879,148.740406
+Tangerine,1,#FF821C,0.735599,0.181107,52.052475
+Hot pink + Tangerine,1:1,#FF503E,0.674073,0.214085,29.614213
+Electric blue + Tangerine,1:1,#579E49,0.632649,0.139576,140.418904
+Hot pink + Electric blue + Tangerine,1:1:1,#6E6B59,0.525222,0.027447,99.441958
+Sunshine + Tangerine,1:1,#FFAA20,0.802276,0.165195,71.782465
+Hot pink + Sunshine + Tangerine,1:1:1,#FF703A,0.711581,0.187165,39.937356
+Electric blue + Sunshine + Tangerine,1:1:1,#69B43E,0.696511,0.169588,136.068013
+Hot pink + Electric blue + Sunshine + Tangerine,1:1:1:1,#7D7F4C,0.58222,0.071482,110.35958
+Emerald + Tangerine,1:1,#67A546,0.658449,0.143669,136.064428
+Hot pink + Emerald + Tangerine,1:1:1,#7B6F56,0.545951,0.039771,85.297528
+Electric blue + Emerald + Tangerine,1:1:1,#50AD56,0.670296,0.152298,144.846491
+Hot pink + Electric blue + Emerald + Tangerine,1:1:1:1,#697863,0.554041,0.036474,136.741053
+Sunshine + Emerald + Tangerine,1:1:1,#79B83B,0.714827,0.168642,132.362931
+Hot pink + Sunshine + Emerald + Tangerine,1:1:1:1,#8B824B,0.601696,0.075751,100.159942
+Electric blue + Sunshine + Emerald + Tangerine,1:1:1:1,#5DBA46,0.707006,0.177351,139.840307
+Violet + Tangerine,1:1,#BA703E,0.616323,0.114247,52.986022
+Hot pink + Violet + Tangerine,1:1:1,#C8544C,0.593825,0.14988,26.552668
+Electric blue + Violet + Tangerine,1:1:1,#568756,0.57512,0.090999,144.279412
+Hot pink + Electric blue + Violet + Tangerine,1:1:1:1,#69695F,0.517707,0.015344,106.923778
+Sunshine + Violet + Tangerine,1:1:1,#D09139,0.703496,0.12693,71.710848
+Hot pink + Sunshine + Violet + Tangerine,1:1:1:1,#D86D44,0.652502,0.145542,40.974547
+Electric blue + Sunshine + Violet + Tangerine,1:1:1:1,#679D49,0.638671,0.1293,135.585427
+Emerald + Violet + Tangerine,1:1:1,#648C53,0.595768,0.094019,136.804762
+Hot pink + Emerald + Violet + Tangerine,1:1:1:1,#776B5C,0.534608,0.027263,73.338878
+Electric blue + Emerald + Violet + Tangerine,1:1:1:1,#509660,0.612619,0.108271,149.661325
+Sunshine + Emerald + Violet + Tangerine,1:1:1:1,#769F47,0.652716,0.126111,130.035161

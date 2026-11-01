@@ -1,0 +1,24 @@
+{
+  "version": "0.4",
+  "type": "archived v0.4 hand reference, disabled in v0.5",
+  "runtime_enabled": false,
+  "renderer": "scene09-volume-render.js",
+  "parts": [
+    "palm",
+    "wrist",
+    "thumb_proximal",
+    "thumb_distal",
+    "index_proximal",
+    "index_distal",
+    "middle",
+    "ring",
+    "little"
+  ],
+  "behaviour": {
+    "poke": "index pad follows barycentric surface anchor and normal",
+    "hold": "palm behind toy, thumb and four fingers wrap camera-relative grip axis",
+    "stretch": "one pinch hand at each selected surface contact; single-pointer assisted pull supported",
+    "release": "digits open and hands withdraw during material recovery"
+  },
+  "production_upgrade": "Authored skinned GLB with joint limits, surface collision, IK and per-finger contact constraints"
+}

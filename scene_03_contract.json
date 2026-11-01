@@ -1,0 +1,476 @@
+{
+  "blueprint_version": "1.1",
+  "scene": {
+    "id": "scene_03",
+    "number": 3,
+    "name": "Pick a mould",
+    "purpose": "Choose one of six clearly distinct shapes and preserve an editable recipe.",
+    "on_enter": [
+      "Require a draft ID. If absent, create a fresh draft before rendering choices.",
+      "Load six shape previews and active mould; default cube selected on new drafts.",
+      "Access uses earnedUnlocks union temporaryFreePlayAccess; locked items can be inspected without starting a purchase."
+    ],
+    "on_exit": [
+      "Persist selected mould and seed; release turntable selection animation."
+    ],
+    "substates": [
+      "ready",
+      "selection_animating",
+      "locked_info"
+    ],
+    "persistence": "Write draft.recipe.mouldId, recipeRevision, dirty fields and lastStep=03. Shape change invalidates fill/reveal/photo validation but keeps colour/material/inclusion IDs and seed.",
+    "back_rule": "Back returns 02 with draft intact. Next goes 04. Editing an existing saved toy first creates a remix draft; never edits a saved recipe in place.",
+    "acceptance": [
+      "Cube, blob and heart start usable; star/cloud/bear obey discovery access.",
+      "Changing shape keeps compatible choices and deterministic inclusion layout.",
+      "All six choices are reachable in simple and expanded modes."
+    ],
+    "implementation_notes": [
+      "Generated scene-02 tray is a station prop, not six independent mould meshes. Commission/export the six actual mould sources listed in the asset master.",
+      "Simple mode paginates three choices per tray row; the six registered positions remain the expanded tablet layout."
+    ],
+    "placements": [
+      {
+        "id": "background",
+        "asset": "env_make_plate",
+        "landscape": [
+          0,
+          0,
+          1024,
+          768
+        ],
+        "portrait": [
+          0,
+          0,
+          768,
+          1024
+        ],
+        "z": 0,
+        "role": "decoration",
+        "action": null,
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "none",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "home",
+        "asset": "icon_home",
+        "landscape": [
+          16,
+          8,
+          96,
+          96
+        ],
+        "portrait": [
+          16,
+          8,
+          96,
+          96
+        ],
+        "z": 80,
+        "role": "button",
+        "action": "GLOBAL_HOME",
+        "note": "Checkpoint the draft, then hub; no silent discard.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "pause",
+        "asset": "icon_pause",
+        "landscape": [
+          912,
+          8,
+          96,
+          96
+        ],
+        "portrait": [
+          656,
+          8,
+          96,
+          96
+        ],
+        "z": 80,
+        "role": "button",
+        "action": "GLOBAL_PAUSE",
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "back",
+        "asset": "icon_back",
+        "landscape": [
+          16,
+          656,
+          96,
+          96
+        ],
+        "portrait": [
+          16,
+          912,
+          96,
+          96
+        ],
+        "z": 80,
+        "role": "button",
+        "action": "BACK",
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "next",
+        "asset": "icon_next",
+        "landscape": [
+          912,
+          656,
+          96,
+          96
+        ],
+        "portrait": [
+          656,
+          912,
+          96,
+          96
+        ],
+        "z": 80,
+        "role": "button",
+        "action": "NEXT",
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "pip",
+        "asset": "char_pip",
+        "landscape": [
+          800,
+          382,
+          120,
+          112
+        ],
+        "portrait": [
+          568,
+          502,
+          144,
+          128
+        ],
+        "z": 50,
+        "role": "button",
+        "action": "PIP_HELP",
+        "note": "Idle/blink outside hero target; demonstration once, then remain quiet.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "turntable",
+        "asset": "prop_turntable",
+        "landscape": [
+          324,
+          368,
+          376,
+          152
+        ],
+        "portrait": [
+          148,
+          456,
+          472,
+          168
+        ],
+        "z": 20,
+        "role": "decoration",
+        "action": null,
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "none",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "active_mould",
+        "asset": "mould_cube",
+        "landscape": [
+          344,
+          148,
+          336,
+          352
+        ],
+        "portrait": [
+          184,
+          192,
+          400,
+          416
+        ],
+        "z": 30,
+        "role": "button",
+        "action": "PREVIEW_MOULD",
+        "note": "Resolve selected shape at runtime; tap replays selection response without counting progression.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "shape_1",
+        "asset": "mould_cube",
+        "landscape": [
+          128,
+          552,
+          112,
+          96
+        ],
+        "portrait": [
+          40,
+          672,
+          208,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "SELECT_SHAPE",
+        "note": "Choice index 0; source glyph inside hit rectangle, not a pre-baked label.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "shape_2",
+        "asset": "mould_blob",
+        "landscape": [
+          256,
+          552,
+          112,
+          96
+        ],
+        "portrait": [
+          280,
+          672,
+          208,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "SELECT_SHAPE",
+        "note": "Choice index 1; source glyph inside hit rectangle, not a pre-baked label.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "shape_3",
+        "asset": "mould_heart",
+        "landscape": [
+          384,
+          552,
+          112,
+          96
+        ],
+        "portrait": [
+          520,
+          672,
+          208,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "SELECT_SHAPE",
+        "note": "Choice index 2; source glyph inside hit rectangle, not a pre-baked label.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "shape_4",
+        "asset": "mould_star",
+        "landscape": [
+          512,
+          552,
+          112,
+          96
+        ],
+        "portrait": [
+          40,
+          792,
+          208,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "SELECT_SHAPE",
+        "note": "Choice index 3; source glyph inside hit rectangle, not a pre-baked label.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "shape_5",
+        "asset": "mould_cloud",
+        "landscape": [
+          640,
+          552,
+          112,
+          96
+        ],
+        "portrait": [
+          280,
+          792,
+          208,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "SELECT_SHAPE",
+        "note": "Choice index 4; source glyph inside hit rectangle, not a pre-baked label.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "shape_6",
+        "asset": "mould_bear",
+        "landscape": [
+          768,
+          552,
+          112,
+          96
+        ],
+        "portrait": [
+          520,
+          792,
+          208,
+          96
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "SELECT_SHAPE",
+        "note": "Choice index 5; source glyph inside hit rectangle, not a pre-baked label.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      }
+    ],
+    "actions": [
+      {
+        "id": "SELECT_SHAPE",
+        "trigger": "Tap choice, keyboard activate, or select from simple-mode paged tray",
+        "guard": "Item unlocked or Free Play access; reject unknown catalogue IDs",
+        "command": "draft.setMould(id); remap interior anchors from recipe seed; invalidate dependent completion flags",
+        "state_write": "Increment recipeRevision; fillProgress=0; revealComplete=false; thumbnailRevision=null.",
+        "feedback": "250\u2013350ms lift; selected outline/check; optional spoken shape.",
+        "destination": "Stay 03",
+        "interrupt": "New choice supersedes previous tween; only committed selected ID persists.",
+        "master_animation_ids": [
+          "anim_mould_pick",
+          "anim_shape_swap"
+        ]
+      },
+      {
+        "id": "LOCKED_INFO",
+        "trigger": "Tap locked choice",
+        "guard": "Known but inaccessible mould",
+        "command": "Show pictorial milestone and Back; never route to real-money flow",
+        "state_write": "None",
+        "feedback": "One item preview, current/required creation count.",
+        "destination": "Stay 03 overlay",
+        "interrupt": "Close restores exact prior selection.",
+        "master_animation_ids": [
+          "anim_button"
+        ]
+      },
+      {
+        "id": "NEXT",
+        "trigger": "Tap next",
+        "guard": "A usable mould is selected",
+        "command": "Checkpoint draft; route.push(04)",
+        "state_write": "lastStep=04 only after transition checkpoint.",
+        "feedback": "Mint next acknowledges.",
+        "destination": "04",
+        "interrupt": "On checkpoint error retain in-memory draft and show recoverable storage notice.",
+        "master_animation_ids": [
+          "anim_button"
+        ]
+      },
+      {
+        "id": "PREVIEW_MOULD",
+        "trigger": "Tap central mould",
+        "guard": "Ready",
+        "command": "Replay short mould lift; no recipe change",
+        "state_write": "None",
+        "feedback": "Soft silicone bounce.",
+        "destination": "Stay 03",
+        "interrupt": "Stop before subsequent shape swap.",
+        "master_animation_ids": [
+          "anim_button"
+        ]
+      }
+    ],
+    "master_animation_ids": [
+      "anim_button",
+      "anim_focus",
+      "anim_help",
+      "anim_mould_pick",
+      "anim_pip_blink",
+      "anim_pip_delight",
+      "anim_pip_idle",
+      "anim_scene",
+      "anim_shape_swap"
+    ],
+    "audio_asset_ids": [
+      "sfx_mould_pick",
+      "sfx_mould_place",
+      "sfx_ui_confirm",
+      "vo_shape"
+    ],
+    "master_asset_ids": [
+      "char_pip",
+      "env_make_plate",
+      "fx_touch_hint",
+      "icon_back",
+      "icon_focus",
+      "icon_home",
+      "icon_next",
+      "icon_pause",
+      "mat_gel",
+      "mat_silicone",
+      "mould_bear",
+      "mould_blob",
+      "mould_cloud",
+      "mould_cube",
+      "mould_heart",
+      "mould_star",
+      "prop_mould_tray",
+      "prop_turntable",
+      "sfx_mould_pick",
+      "sfx_mould_place",
+      "sfx_music_workshop",
+      "sfx_ui_confirm",
+      "sys_animation_events",
+      "sys_deform_field",
+      "sys_fill_volume",
+      "sys_interior_anchors",
+      "toy_bear",
+      "toy_blob",
+      "toy_cloud",
+      "toy_cube",
+      "toy_heart",
+      "toy_star",
+      "ui_button_round",
+      "ui_stepper",
+      "vo_shape"
+    ],
+    "master_source_scene_id": "scene_03"
+  },
+  "version": "0.8",
+  "moulds_v08": {
+    "source": "docs/moulds_reveal_v08.md",
+    "inner_scale": 1.035,
+    "outer_scale": 1.105,
+    "reveal_ms": 6800,
+    "new_native_cells": 12,
+    "browser_GPU_QA": false
+  }
+}

@@ -1,0 +1,440 @@
+{
+  "id": "scene_12",
+  "number": 12,
+  "name": "Friend request",
+  "purpose": "Accept an optional offline suggestion and later give a saved virtual copy.",
+  "on_enter": [
+    "Load existing active request or select first eligible request in deterministic catalogue order. Only offer unlocked shape requests unless Free Play.",
+    "Two pictorial preferences maximum: one colour and one shape. Matching is a suggestion, never a failure condition.",
+    "If a draft was saved with this requestId, enter ready_to_give and preview that saved creation. Otherwise offer Make or choose an existing saved toy."
+  ],
+  "on_exit": [
+    "Persist active request state without deadline or loss on exit."
+  ],
+  "substates": [
+    "offer",
+    "accepted",
+    "creation_in_progress",
+    "ready_to_give",
+    "thanking",
+    "completed"
+  ],
+  "persistence": "requestProgress keyed requestInstanceId stores catalogueId, accepted, associatedDraftId, offeredCreationId, deliveredCreationId and completion ledger key. Giving never removes the creation.",
+  "back_rule": "Back02 at any time. Accept\u219203; save from10\u219212 ready_to_give; Give\u2192thanks\u219202 with queued13 overlays after thanks.",
+  "acceptance": [
+    "Wrong-colour toy is accepted kindly and completes the optional request.",
+    "Giving twice, reloading or skipping thanks cannot repeat metrics or reward grants.",
+    "No network messaging, actual customer queue or real recipient."
+  ],
+  "implementation_notes": [
+    "An existing toy can be selected via 11 with selectionPurpose=request and returns here instead of going to play. This subflow overrides ordinary selected-card actions.",
+    "Offer colour+shape only; do not add hidden matching criteria or grade the child."
+  ],
+  "placements": [
+    {
+      "id": "background",
+      "asset": "env_friend_plate",
+      "landscape": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "portrait": [
+        0,
+        0,
+        768,
+        1024
+      ],
+      "z": 0,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "home",
+      "asset": "icon_home",
+      "landscape": [
+        16,
+        8,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        8,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "GLOBAL_HOME",
+      "note": "Checkpoint the draft, then hub; no silent discard.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "pause",
+      "asset": "icon_pause",
+      "landscape": [
+        912,
+        8,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        8,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "GLOBAL_PAUSE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "back",
+      "asset": "icon_back",
+      "landscape": [
+        16,
+        656,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        912,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "BACK",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "friend",
+      "asset": "char_bear",
+      "landscape": [
+        96,
+        224,
+        288,
+        304
+      ],
+      "portrait": [
+        32,
+        264,
+        304,
+        312
+      ],
+      "z": 30,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "thought",
+      "asset": "ui_thought_bubble",
+      "landscape": [
+        120,
+        112,
+        312,
+        136
+      ],
+      "portrait": [
+        32,
+        128,
+        344,
+        128
+      ],
+      "z": 50,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "colour_preference",
+      "asset": "palette_blue",
+      "landscape": [
+        160,
+        136,
+        96,
+        96
+      ],
+      "portrait": [
+        72,
+        144,
+        96,
+        96
+      ],
+      "z": 55,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "shape_preference",
+      "asset": "toy_star",
+      "landscape": [
+        284,
+        136,
+        96,
+        96
+      ],
+      "portrait": [
+        208,
+        144,
+        96,
+        96
+      ],
+      "z": 55,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "gift",
+      "asset": "prop_gift_box",
+      "landscape": [
+        536,
+        336,
+        304,
+        200
+      ],
+      "portrait": [
+        384,
+        440,
+        336,
+        224
+      ],
+      "z": 30,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "offered_toy",
+      "asset": "toy_cube",
+      "landscape": [
+        568,
+        192,
+        240,
+        240
+      ],
+      "portrait": [
+        416,
+        248,
+        272,
+        272
+      ],
+      "z": 40,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "make",
+      "asset": "icon_mould",
+      "landscape": [
+        248,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        40,
+        792,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "ACCEPT_REQUEST",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "choose",
+      "asset": "icon_shelf",
+      "landscape": [
+        456,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        280,
+        792,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "CHOOSE_EXISTING",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "give",
+      "asset": "icon_gift",
+      "landscape": [
+        664,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        520,
+        792,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "GIVE",
+      "note": "Only enabled when a valid saved offeredCreationId exists.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    }
+  ],
+  "actions": [
+    {
+      "id": "ACCEPT_REQUEST",
+      "trigger": "Tap Make",
+      "guard": "Eligible request; no transition lock",
+      "command": "Persist requestInstance; create associated fresh draft; initialise suggested shape/colour as editable defaults; open03",
+      "state_write": "activeRequestId; draft.requestInstanceId and defaults; park prior unrelated draft.",
+      "feedback": "Friend smile and preference icons remain available as optional hint.",
+      "destination": "03",
+      "interrupt": "Leaving creation retains active request; no disappointed reaction.",
+      "master_animation_ids": [
+        "anim_friend_enter",
+        "anim_bubble"
+      ]
+    },
+    {
+      "id": "CHOOSE_EXISTING",
+      "trigger": "Tap shelf choice",
+      "guard": "At least one saved toy",
+      "command": "Open11 with selectionPurpose=request and returnContext=12",
+      "state_write": "Transient selection context until valid ID chosen.",
+      "feedback": "Shelf displays Give this toy action.",
+      "destination": "11 selection \u219212 ready_to_give",
+      "interrupt": "Cancel returns12 without changing earlier offered toy.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "GIVE",
+      "trigger": "Tap gift",
+      "guard": "Saved offered toy exists; request not already delivered",
+      "command": "Commit delivery key and requests_completed metric once; evaluate discoveries; animate virtual duplicate into box",
+      "state_write": "Request complete; deliveredCreationId; no removal; no direct request coin bonus. Discovery coin bonuses may apply separately.",
+      "feedback": "700\u20131000ms thank-you regardless of match.",
+      "destination": "02 after thanks, optional13 queue returning02",
+      "interrupt": "Transaction first; skipping/reload resolves completed thank-you without repeated grant.",
+      "master_animation_ids": [
+        "anim_gift_open",
+        "anim_friend_thanks"
+      ]
+    }
+  ],
+  "master_animation_ids": [
+    "anim_bubble",
+    "anim_button",
+    "anim_focus",
+    "anim_friend_enter",
+    "anim_friend_thanks",
+    "anim_gift_open",
+    "anim_scene"
+  ],
+  "audio_asset_ids": [
+    "sfx_gift",
+    "sfx_friend",
+    "vo_friend"
+  ],
+  "master_asset_ids": [
+    "char_bear",
+    "char_bunny",
+    "char_kitten",
+    "env_friend_plate",
+    "icon_back",
+    "icon_check",
+    "icon_focus",
+    "icon_gift",
+    "icon_home",
+    "icon_mould",
+    "icon_pause",
+    "icon_shelf",
+    "mat_gel",
+    "palette_blue",
+    "palette_lilac",
+    "palette_mint",
+    "palette_peach",
+    "palette_pink",
+    "palette_yellow",
+    "prop_gift_box",
+    "request_01",
+    "request_02",
+    "request_03",
+    "request_04",
+    "request_05",
+    "request_06",
+    "request_07",
+    "request_08",
+    "request_09",
+    "request_10",
+    "request_11",
+    "request_12",
+    "sfx_friend",
+    "sfx_gift",
+    "sfx_music_workshop",
+    "sys_animation_events",
+    "sys_deform_field",
+    "toy_bear",
+    "toy_blob",
+    "toy_cloud",
+    "toy_cube",
+    "toy_heart",
+    "toy_star",
+    "ui_button_round",
+    "ui_thought_bubble",
+    "vo_friend"
+  ],
+  "master_source_scene_id": "scene_12"
+}

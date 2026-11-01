@@ -1,0 +1,454 @@
+{
+  "id": "scene_07",
+  "number": 7,
+  "name": "Pour",
+  "purpose": "Fill the chosen mould through an assisted, resumable virtual pour.",
+  "on_enter": [
+    "Validate recipe and load the matching cavity/fill mesh, jug and stream system.",
+    "If fillSourceBodyRevision != bodyRevision, fillProgress=0. If these revisions match, restore partial fill even when filledBodyRevision is not yet set.",
+    "At 100%, enter filled state; do not replay a finished pour after reload."
+  ],
+  "on_exit": [
+    "Stop flow/audio, checkpoint fill progress and revision; clear jug capture."
+  ],
+  "substates": [
+    "ready",
+    "aligning",
+    "flowing",
+    "paused",
+    "cutoff",
+    "settling",
+    "filled"
+  ],
+  "persistence": "Persist fillProgress[0..1], fillSourceBodyRevision, filledBodyRevision, pourState safe restore marker and current bodyRevision. Debounce progress writes to 250ms and checkpoint explicit pause/transitions.",
+  "back_rule": "Back 06 retains valid partial fill until recipe changes. Next 08 only at fill=1 and surface settling complete; filled state may wait indefinitely.",
+  "acceptance": [
+    "One tap fully completes; no tilt sensor or exact drag is required.",
+    "Close/reopen during fill restores coherent partial progress.",
+    "No overflow or double-completion event on resume."
+  ],
+  "implementation_notes": [
+    "Jug contents, stream tint and mould fill share recipe appearance; inside pieces share the recipe seed.",
+    "For foam, liquid-like magical fill transitions to matte foam at reveal; never suggest real chemical mixing."
+  ],
+  "placements": [
+    {
+      "id": "background",
+      "asset": "env_make_plate",
+      "landscape": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "portrait": [
+        0,
+        0,
+        768,
+        1024
+      ],
+      "z": 0,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "home",
+      "asset": "icon_home",
+      "landscape": [
+        16,
+        8,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        8,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "GLOBAL_HOME",
+      "note": "Checkpoint the draft, then hub; no silent discard.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "pause",
+      "asset": "icon_pause",
+      "landscape": [
+        912,
+        8,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        8,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "GLOBAL_PAUSE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "back",
+      "asset": "icon_back",
+      "landscape": [
+        16,
+        656,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        912,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "BACK",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "next",
+      "asset": "icon_next",
+      "landscape": [
+        912,
+        656,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        912,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "NEXT",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "mould",
+      "asset": "mould_cube",
+      "landscape": [
+        324,
+        330,
+        376,
+        208
+      ],
+      "portrait": [
+        168,
+        448,
+        432,
+        200
+      ],
+      "z": 35,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "fill",
+      "asset": "sys_fill_volume",
+      "landscape": [
+        340,
+        326,
+        344,
+        200
+      ],
+      "portrait": [
+        184,
+        444,
+        400,
+        192
+      ],
+      "z": 33,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "jug",
+      "asset": "prop_jug",
+      "landscape": [
+        176,
+        128,
+        256,
+        232
+      ],
+      "portrait": [
+        104,
+        184,
+        288,
+        256
+      ],
+      "z": 40,
+      "role": "manipulate",
+      "action": "POUR",
+      "note": "spout_tip anchor joins live stream. Drag enters broad target, tap runs assisted path.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "visible-surface raycast; rect bounds only",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "stream",
+      "asset": "sys_stream",
+      "landscape": [
+        400,
+        256,
+        192,
+        208
+      ],
+      "portrait": [
+        328,
+        328,
+        176,
+        248
+      ],
+      "z": 38,
+      "role": "decoration",
+      "action": null,
+      "note": "Bounding box is an emitter envelope; endpoints derive from jug spout and current surface, not these rectangle corners.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "pour_button",
+      "asset": "icon_pour",
+      "landscape": [
+        792,
+        320,
+        96,
+        96
+      ],
+      "portrait": [
+        624,
+        416,
+        96,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "POUR",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "progress",
+      "asset": "ui_stepper",
+      "landscape": [
+        336,
+        560,
+        352,
+        80
+      ],
+      "portrait": [
+        176,
+        704,
+        416,
+        80
+      ],
+      "z": 70,
+      "role": "decoration",
+      "action": null,
+      "note": "Pictorial filling indicator; no countdown or performance score.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "pause_flow",
+      "asset": "icon_pause",
+      "landscape": [
+        792,
+        432,
+        96,
+        96
+      ],
+      "portrait": [
+        624,
+        528,
+        96,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "PAUSE_POUR",
+      "note": "Separate from global Pause; toggles local flow/resume.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    }
+  ],
+  "actions": [
+    {
+      "id": "POUR",
+      "trigger": "Tap jug/Pour; or assisted drag into target",
+      "guard": "Recipe valid; state ready/paused; fill<1",
+      "command": "Set fillSourceBodyRevision=bodyRevision before first progress checkpoint. Align 300ms, ramp stream 200ms; increase fill over 2.7s for whole volume; clamp to 1; cutoff 300ms; settle 300ms",
+      "state_write": "Monotonic fill; at filled set filledBodyRevision=bodyRevision; event keyed draftId:bodyRevision:fill.",
+      "feedback": "Stream anchored at spout and surface; bounded ripples; one active pour loop.",
+      "destination": "Stay 07 filled; Next becomes enabled",
+      "interrupt": "Tap-start auto-pour continues after pointerup. Manual drag release pauses. pointercancel/page hide always pause both. This distinction prevents a tap cancelling itself.",
+      "master_animation_ids": [
+        "anim_jug_lift",
+        "anim_pour",
+        "anim_drip",
+        "anim_fill_settle"
+      ]
+    },
+    {
+      "id": "PAUSE_POUR",
+      "trigger": "Tap local pause/resume",
+      "guard": "Flowing or paused",
+      "command": "Pause immediately stops volume increase and stream/audio; Resume uses remaining volume",
+      "state_write": "Checkpoint fill/state on pause.",
+      "feedback": "Pause glyph becomes resume; partially filled mould remains.",
+      "destination": "Stay 07",
+      "interrupt": "Repeated toggles serialized; no additional start while aligning/cutoff.",
+      "master_animation_ids": [
+        "anim_pour_stop",
+        "anim_pour_resume"
+      ]
+    },
+    {
+      "id": "NEXT",
+      "trigger": "Tap next",
+      "guard": "fillProgress=1; filledBodyRevision=bodyRevision; settling complete",
+      "command": "Checkpoint and enter 08",
+      "state_write": "lastStep=08; do not award creation coins.",
+      "feedback": "Confirm and reveal stage.",
+      "destination": "08",
+      "interrupt": "Guard failure highlights Pour, not a text-only error.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    }
+  ],
+  "master_animation_ids": [
+    "anim_button",
+    "anim_drip",
+    "anim_fill_settle",
+    "anim_focus",
+    "anim_jug_lift",
+    "anim_pour",
+    "anim_pour_resume",
+    "anim_pour_stop",
+    "anim_scene"
+  ],
+  "audio_asset_ids": [
+    "sfx_jug_pick",
+    "sfx_pour",
+    "sfx_pour_end",
+    "vo_pour"
+  ],
+  "master_asset_ids": [
+    "bits_foil_heart",
+    "bits_foil_star",
+    "bits_fruit_kiwi",
+    "bits_fruit_orange",
+    "bits_fruit_strawberry",
+    "bits_gem_diamond",
+    "bits_gem_round",
+    "bits_pearl",
+    "bits_sprinkle",
+    "blend_blue_lilac",
+    "blend_blue_yellow",
+    "blend_mint_lilac",
+    "blend_peach_pink",
+    "blend_pink_blue",
+    "blend_pink_yellow",
+    "env_make_plate",
+    "fx_pour_ripple",
+    "icon_back",
+    "icon_focus",
+    "icon_home",
+    "icon_next",
+    "icon_pause",
+    "icon_pour",
+    "mat_bounce",
+    "mat_foam",
+    "mat_foil",
+    "mat_gel",
+    "mat_gem",
+    "mat_pearl",
+    "mat_silicone",
+    "mould_bear",
+    "mould_blob",
+    "mould_cloud",
+    "mould_cube",
+    "mould_heart",
+    "mould_star",
+    "palette_blue",
+    "palette_lilac",
+    "palette_mint",
+    "palette_peach",
+    "palette_pink",
+    "palette_yellow",
+    "prop_jug",
+    "sfx_jug_pick",
+    "sfx_music_workshop",
+    "sfx_pour",
+    "sfx_pour_end",
+    "sys_animation_events",
+    "sys_deform_field",
+    "sys_fill_volume",
+    "sys_stream",
+    "tex_droplet",
+    "tex_swirl_mask",
+    "toy_bear",
+    "toy_blob",
+    "toy_cloud",
+    "toy_cube",
+    "toy_heart",
+    "toy_star",
+    "ui_button_round",
+    "ui_stepper",
+    "vo_pour"
+  ],
+  "master_source_scene_id": "scene_07",
+  "version": "0.8",
+  "style_v07": {
+    "source": "docs/style-v07.md",
+    "native_runtime_cells": 20,
+    "body": "dense softly coloured volume and glossy skin",
+    "browser_visual_QA": false
+  },
+  "moulds_v08": {
+    "source": "docs/moulds_reveal_v08.md",
+    "inner_scale": 1.035,
+    "outer_scale": 1.105,
+    "reveal_ms": 6800,
+    "new_native_cells": 12,
+    "browser_GPU_QA": false
+  }
+}

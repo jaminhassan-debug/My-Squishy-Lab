@@ -1,0 +1,42 @@
+{
+  "version": "0.9",
+  "catalog": [
+    {
+      "id": "dumpling_s",
+      "label": "Small Dumpling",
+      "scale": 0.44,
+      "savedUnlock": 0,
+      "coins": 0
+    },
+    {
+      "id": "dumpling_m",
+      "label": "Medium Dumpling",
+      "scale": 0.6,
+      "savedUnlock": 3,
+      "coins": 20
+    },
+    {
+      "id": "dumpling_l",
+      "label": "Large Dumpling",
+      "scale": 0.8,
+      "savedUnlock": 7,
+      "coins": 40
+    },
+    {
+      "id": "dumpling_xl",
+      "label": "Super Large Dumpling",
+      "scale": 1.02,
+      "savedUnlock": 12,
+      "coins": 60
+    }
+  ],
+  "sources": [
+    "identity.png",
+    "relief.png",
+    "moulds.png",
+    "animation.png"
+  ],
+  "generation": "OpenAI built-in imagegen",
+  "research": "docs/dumplings-v09.md",
+  "runtime": "dumpling-catalog.js + scene09-volume.js + mould-geometry.js"
+}

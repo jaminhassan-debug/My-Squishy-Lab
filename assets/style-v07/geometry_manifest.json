@@ -1,0 +1,20 @@
+{
+  "version": "0.7",
+  "inclusion_models": 10,
+  "reference_mesh_poses": 48,
+  "generated_reference_frames": 8,
+  "native_reference": "reveal_interior_reference.png",
+  "runtime": [
+    "squishy-interior.js",
+    "scene09-volume-render.js",
+    "scene09-webgl.js",
+    "scene08-render.js"
+  ],
+  "motion": "120Hz substeps; one-way deforming tetrahedral cage, spring/drag lag and limited piece separation; no random idle drift",
+  "limitations": [
+    "not a full fluid or two-way XPBD simulation",
+    "camera-independent 3D geometry, no ray-traced refraction",
+    "physical-device/GPU pixel review remains pending",
+    "generated eight-frame atlas is an art target, not the live reveal animation"
+  ]
+}

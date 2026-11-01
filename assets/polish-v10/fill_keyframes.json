@@ -1,0 +1,492 @@
+[
+  {
+    "shape": "cube",
+    "progress": 0,
+    "level": -0.65,
+    "fillTriangles": 0,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "cube",
+    "progress": 0.1,
+    "level": -0.52,
+    "fillTriangles": 768,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "cube",
+    "progress": 0.25,
+    "level": -0.325,
+    "fillTriangles": 1056,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "cube",
+    "progress": 0.5,
+    "level": 0,
+    "fillTriangles": 1152,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "cube",
+    "progress": 0.75,
+    "level": 0.32500000000000007,
+    "fillTriangles": 1152,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "cube",
+    "progress": 0.9,
+    "level": 0.5200000000000001,
+    "fillTriangles": 1440,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "cube",
+    "progress": 1,
+    "level": 0.65,
+    "fillTriangles": 1824,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "star",
+    "progress": 0,
+    "level": -0.48,
+    "fillTriangles": 0,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "star",
+    "progress": 0.1,
+    "level": -0.384,
+    "fillTriangles": 672,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "star",
+    "progress": 0.25,
+    "level": -0.24,
+    "fillTriangles": 864,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "star",
+    "progress": 0.5,
+    "level": 0,
+    "fillTriangles": 1152,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "star",
+    "progress": 0.75,
+    "level": 0.24,
+    "fillTriangles": 1344,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "star",
+    "progress": 0.9,
+    "level": 0.384,
+    "fillTriangles": 1536,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "star",
+    "progress": 1,
+    "level": 0.48,
+    "fillTriangles": 1824,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "heart",
+    "progress": 0,
+    "level": -0.58,
+    "fillTriangles": 0,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "heart",
+    "progress": 0.1,
+    "level": -0.46399999999999997,
+    "fillTriangles": 672,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "heart",
+    "progress": 0.25,
+    "level": -0.29,
+    "fillTriangles": 864,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "heart",
+    "progress": 0.5,
+    "level": 0,
+    "fillTriangles": 1152,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "heart",
+    "progress": 0.75,
+    "level": 0.2899999999999999,
+    "fillTriangles": 1344,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "heart",
+    "progress": 0.9,
+    "level": 0.4640000000000001,
+    "fillTriangles": 1536,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "heart",
+    "progress": 1,
+    "level": 0.58,
+    "fillTriangles": 1824,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "cloud",
+    "progress": 0,
+    "level": -0.52,
+    "fillTriangles": 0,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "cloud",
+    "progress": 0.1,
+    "level": -0.41600000000000004,
+    "fillTriangles": 672,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "cloud",
+    "progress": 0.25,
+    "level": -0.26,
+    "fillTriangles": 864,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "cloud",
+    "progress": 0.5,
+    "level": 0,
+    "fillTriangles": 1152,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "cloud",
+    "progress": 0.75,
+    "level": 0.26,
+    "fillTriangles": 1344,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "cloud",
+    "progress": 0.9,
+    "level": 0.41600000000000004,
+    "fillTriangles": 1536,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "cloud",
+    "progress": 1,
+    "level": 0.52,
+    "fillTriangles": 1824,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "bear",
+    "progress": 0,
+    "level": -0.56,
+    "fillTriangles": 0,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "bear",
+    "progress": 0.1,
+    "level": -0.44800000000000006,
+    "fillTriangles": 672,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "bear",
+    "progress": 0.25,
+    "level": -0.28,
+    "fillTriangles": 864,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "bear",
+    "progress": 0.5,
+    "level": 0,
+    "fillTriangles": 1152,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "bear",
+    "progress": 0.75,
+    "level": 0.28,
+    "fillTriangles": 1344,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "bear",
+    "progress": 0.9,
+    "level": 0.4480000000000002,
+    "fillTriangles": 1536,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "bear",
+    "progress": 1,
+    "level": 0.56,
+    "fillTriangles": 1824,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "blob",
+    "progress": 0,
+    "level": -0.62,
+    "fillTriangles": 0,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "blob",
+    "progress": 0.1,
+    "level": -0.496,
+    "fillTriangles": 672,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "blob",
+    "progress": 0.25,
+    "level": -0.31,
+    "fillTriangles": 864,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "blob",
+    "progress": 0.5,
+    "level": 0,
+    "fillTriangles": 1152,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "blob",
+    "progress": 0.75,
+    "level": 0.30999999999999994,
+    "fillTriangles": 1344,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "blob",
+    "progress": 0.9,
+    "level": 0.4960000000000001,
+    "fillTriangles": 1536,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "blob",
+    "progress": 1,
+    "level": 0.62,
+    "fillTriangles": 1824,
+    "shellTriangles": 336
+  },
+  {
+    "shape": "dumpling_s",
+    "progress": 0,
+    "level": -0.34035044058115316,
+    "fillTriangles": 0,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_s",
+    "progress": 0.1,
+    "level": -0.27228035246492255,
+    "fillTriangles": 304,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_s",
+    "progress": 0.25,
+    "level": -0.17017522029057658,
+    "fillTriangles": 630,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_s",
+    "progress": 0.5,
+    "level": 0,
+    "fillTriangles": 1119,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_s",
+    "progress": 0.75,
+    "level": 0.17017522029057652,
+    "fillTriangles": 1610,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_s",
+    "progress": 0.9,
+    "level": 0.27228035246492255,
+    "fillTriangles": 1808,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_s",
+    "progress": 1,
+    "level": 0.34035044058115316,
+    "fillTriangles": 1824,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_m",
+    "progress": 0,
+    "level": -0.46411423715611794,
+    "fillTriangles": 0,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_m",
+    "progress": 0.1,
+    "level": -0.37129138972489434,
+    "fillTriangles": 304,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_m",
+    "progress": 0.25,
+    "level": -0.23205711857805897,
+    "fillTriangles": 630,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_m",
+    "progress": 0.5,
+    "level": 0,
+    "fillTriangles": 1118,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_m",
+    "progress": 0.75,
+    "level": 0.23205711857805894,
+    "fillTriangles": 1610,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_m",
+    "progress": 0.9,
+    "level": 0.37129138972489434,
+    "fillTriangles": 1808,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_m",
+    "progress": 1,
+    "level": 0.46411423715611794,
+    "fillTriangles": 1824,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_l",
+    "progress": 0,
+    "level": -0.618818982874824,
+    "fillTriangles": 0,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_l",
+    "progress": 0.1,
+    "level": -0.4950551862998592,
+    "fillTriangles": 304,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_l",
+    "progress": 0.25,
+    "level": -0.309409491437412,
+    "fillTriangles": 630,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_l",
+    "progress": 0.5,
+    "level": 0,
+    "fillTriangles": 1117,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_l",
+    "progress": 0.75,
+    "level": 0.30940949143741203,
+    "fillTriangles": 1610,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_l",
+    "progress": 0.9,
+    "level": 0.49505518629985923,
+    "fillTriangles": 1808,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_l",
+    "progress": 1,
+    "level": 0.618818982874824,
+    "fillTriangles": 1824,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_xl",
+    "progress": 0,
+    "level": -0.7889942031654005,
+    "fillTriangles": 0,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_xl",
+    "progress": 0.1,
+    "level": -0.6311953625323203,
+    "fillTriangles": 304,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_xl",
+    "progress": 0.25,
+    "level": -0.39449710158270024,
+    "fillTriangles": 630,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_xl",
+    "progress": 0.5,
+    "level": 0,
+    "fillTriangles": 1118,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_xl",
+    "progress": 0.75,
+    "level": 0.3944971015827001,
+    "fillTriangles": 1610,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_xl",
+    "progress": 0.9,
+    "level": 0.6311953625323203,
+    "fillTriangles": 1808,
+    "shellTriangles": 280
+  },
+  {
+    "shape": "dumpling_xl",
+    "progress": 1,
+    "level": 0.7889942031654005,
+    "fillTriangles": 1824,
+    "shellTriangles": 280
+  }
+]

@@ -1,0 +1,75 @@
+{
+  "anim_jar_pick": {
+    "duration_ms": 180,
+    "frames": [
+      0,
+      1,
+      2
+    ],
+    "sheet": "jar"
+  },
+  "anim_jar_shake": {
+    "duration_ms": 640,
+    "frames": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "sheet": "jar"
+  },
+  "anim_bits_drop": {
+    "duration_ms": 800,
+    "bowl_frames": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "logical_commit": "before first animation frame",
+    "interrupt": "settle directly to deterministic anchors; never recommit"
+  },
+  "anim_bits_undo": {
+    "duration_ms": 150,
+    "render": "fade removed batch only; logical removal is immediate"
+  },
+  "quiet": "Show settled state immediately, suppress repeated movement and optional sound/voice",
+  "seeded_anchors": "recipe seed + batch seedOffset + logical piece index; low tier draws every second piece at identical coordinates",
+  "families": {
+    "foil_star": [
+      "bits_foil_star"
+    ],
+    "foil_heart": [
+      "bits_foil_heart"
+    ],
+    "pearl": [
+      "bits_pearl"
+    ],
+    "sprinkle": [
+      "bits_sprinkle"
+    ],
+    "fruit": [
+      "bits_fruit_strawberry",
+      "bits_fruit_kiwi",
+      "bits_fruit_orange"
+    ],
+    "gem": [
+      "bits_gem_round",
+      "bits_gem_diamond"
+    ]
+  },
+  "style_v07": {
+    "native_gel_frames": 8,
+    "native_mould_shapes": 6,
+    "native_toy_reliefs": 6,
+    "reveal": "shared3D body, native thick mould peeling transform and mesh landing/recovery"
+  }
+}

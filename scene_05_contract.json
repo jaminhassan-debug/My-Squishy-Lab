@@ -1,0 +1,344 @@
+{
+  "blueprint_version": "1.1",
+  "scene": {
+    "id": "scene_05",
+    "number": 5,
+    "name": "Choose a feel",
+    "purpose": "Compare foam, dense gel and bounce, then apply one profile to the recipe.",
+    "on_enter": [
+      "Build three equal-scale sample toys with the current colour. Restore material selection; gel default.",
+      "The first press selects and demonstrates a sample. A separate Squeeze button can replay the selected sample.",
+      "Count a material as tried once its first completed press/release cycle reaches near-rest; a tap auto-cycle qualifies."
+    ],
+    "on_exit": [
+      "Stop sample solvers and audio; commit chosen material."
+    ],
+    "substates": [
+      "ready",
+      "sample_pressed",
+      "sample_recovering"
+    ],
+    "persistence": "draft.recipe.materialId and triedMaterials set. First-time material trial updates durable profile.discoveryMetrics; evaluate unlocks but queue celebrations until a safe boundary.",
+    "back_rule": "Back 04; Next 06 without requiring all three trials. All material trials are optional exploration.",
+    "acceptance": [
+      "Material identity is visible with no sound.",
+      "30/60fps and fixed-pressure input produce coherent responses.",
+      "Revisiting the same sample does not repeat a discovery grant."
+    ],
+    "implementation_notes": [
+      "Foam renders stored inclusions as sparse surface decoration instead of implying visible internal transparency.",
+      "No real finger-pressure detection is required, and the screen cannot physically resist the finger."
+    ],
+    "placements": [
+      {
+        "id": "background",
+        "asset": "env_make_plate",
+        "landscape": [
+          0,
+          0,
+          1024,
+          768
+        ],
+        "portrait": [
+          0,
+          0,
+          768,
+          1024
+        ],
+        "z": 0,
+        "role": "decoration",
+        "action": null,
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "none",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "home",
+        "asset": "icon_home",
+        "landscape": [
+          16,
+          8,
+          96,
+          96
+        ],
+        "portrait": [
+          16,
+          8,
+          96,
+          96
+        ],
+        "z": 80,
+        "role": "button",
+        "action": "GLOBAL_HOME",
+        "note": "Checkpoint the draft, then hub; no silent discard.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "pause",
+        "asset": "icon_pause",
+        "landscape": [
+          912,
+          8,
+          96,
+          96
+        ],
+        "portrait": [
+          656,
+          8,
+          96,
+          96
+        ],
+        "z": 80,
+        "role": "button",
+        "action": "GLOBAL_PAUSE",
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "back",
+        "asset": "icon_back",
+        "landscape": [
+          16,
+          656,
+          96,
+          96
+        ],
+        "portrait": [
+          16,
+          912,
+          96,
+          96
+        ],
+        "z": 80,
+        "role": "button",
+        "action": "BACK",
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "next",
+        "asset": "icon_next",
+        "landscape": [
+          912,
+          656,
+          96,
+          96
+        ],
+        "portrait": [
+          656,
+          912,
+          96,
+          96
+        ],
+        "z": 80,
+        "role": "button",
+        "action": "NEXT",
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "feel_0",
+        "asset": "mat_foam",
+        "landscape": [
+          120,
+          200,
+          240,
+          280
+        ],
+        "portrait": [
+          64,
+          176,
+          288,
+          248
+        ],
+        "z": 30,
+        "role": "manipulate",
+        "action": "TRY_MATERIAL",
+        "note": "Hit the visible sample, or activate its associated semantic sample button.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "visible-surface raycast; rect bounds only",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "feel_1",
+        "asset": "mat_gel",
+        "landscape": [
+          392,
+          200,
+          240,
+          280
+        ],
+        "portrait": [
+          392,
+          176,
+          288,
+          248
+        ],
+        "z": 30,
+        "role": "manipulate",
+        "action": "TRY_MATERIAL",
+        "note": "Hit the visible sample, or activate its associated semantic sample button.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "visible-surface raycast; rect bounds only",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "feel_2",
+        "asset": "mat_bounce",
+        "landscape": [
+          664,
+          200,
+          240,
+          280
+        ],
+        "portrait": [
+          64,
+          464,
+          288,
+          248
+        ],
+        "z": 30,
+        "role": "manipulate",
+        "action": "TRY_MATERIAL",
+        "note": "Hit the visible sample, or activate its associated semantic sample button.",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "visible-surface raycast; rect bounds only",
+        "visible_when": "Scene root active; no higher modal covers input."
+      },
+      {
+        "id": "auto_squeeze",
+        "asset": "icon_hand",
+        "landscape": [
+          464,
+          552,
+          96,
+          96
+        ],
+        "portrait": [
+          560,
+          464,
+          128,
+          128
+        ],
+        "z": 75,
+        "role": "button",
+        "action": "AUTO_SAMPLE",
+        "note": "",
+        "anchor": "top-left rectangle; actor support pivot bottom-centre",
+        "hit_policy": "semantic rectangle",
+        "visible_when": "Scene root active; no higher modal covers input."
+      }
+    ],
+    "actions": [
+      {
+        "id": "TRY_MATERIAL",
+        "trigger": "Press/release sample or activate its semantic button",
+        "guard": "Known material and sample loaded",
+        "command": "Select material; run contact or auto-cycle; at near-rest call recordMaterialTried(id)",
+        "state_write": "Set materialId; bump recipeRevision only if changed; tried set/grants use idempotent ledger.",
+        "feedback": "Foam 2.8s, gel 1.1s, bounce 0.55s near-rest starting targets.",
+        "destination": "Stay 05",
+        "interrupt": "Cancel is release; incomplete abandoned press without completed cycle does not mark tried.",
+        "master_animation_ids": [
+          "anim_press",
+          "anim_recover_foam",
+          "anim_recover_gel",
+          "anim_recover_bounce"
+        ]
+      },
+      {
+        "id": "AUTO_SAMPLE",
+        "trigger": "Tap Squeeze",
+        "guard": "A sample selected",
+        "command": "Run 350ms centre press then chosen profile recovery",
+        "state_write": "Same tried-material write rules.",
+        "feedback": "No pressure or multi-touch needed.",
+        "destination": "Stay 05",
+        "interrupt": "New press supersedes solver continuously; no stacked cycles.",
+        "master_animation_ids": [
+          "anim_auto_squeeze"
+        ]
+      },
+      {
+        "id": "NEXT",
+        "trigger": "Tap next",
+        "guard": "Valid material ID",
+        "command": "Checkpoint; route.push(06); show queued discovery only once scene is ready",
+        "state_write": "lastStep=06.",
+        "feedback": "Confirm without forcing comparison.",
+        "destination": "06, optional 13 overlay returning to 06",
+        "interrupt": "Do not show unlock during active sample contact.",
+        "master_animation_ids": [
+          "anim_button"
+        ]
+      }
+    ],
+    "master_animation_ids": [
+      "anim_auto_squeeze",
+      "anim_button",
+      "anim_focus",
+      "anim_press",
+      "anim_recover_bounce",
+      "anim_recover_foam",
+      "anim_recover_gel",
+      "anim_scene"
+    ],
+    "audio_asset_ids": [
+      "sfx_gel_press",
+      "sfx_gel_release",
+      "sfx_foam_press",
+      "sfx_foam_release",
+      "sfx_bounce_press",
+      "sfx_bounce_release",
+      "vo_feel"
+    ],
+    "master_asset_ids": [
+      "env_make_plate",
+      "icon_back",
+      "icon_focus",
+      "icon_hand",
+      "icon_home",
+      "icon_next",
+      "icon_pause",
+      "mat_bounce",
+      "mat_contact_shadow",
+      "mat_foam",
+      "mat_gel",
+      "prop_sample_pad",
+      "sfx_bounce_press",
+      "sfx_bounce_release",
+      "sfx_foam_press",
+      "sfx_foam_release",
+      "sfx_gel_press",
+      "sfx_gel_release",
+      "sfx_music_workshop",
+      "sys_animation_events",
+      "sys_deform_field",
+      "sys_interior_anchors",
+      "sys_pick_proxy",
+      "toy_cube",
+      "ui_button_round",
+      "ui_material_card",
+      "vo_feel"
+    ],
+    "master_source_scene_id": "scene_05"
+  },
+  "version": "0.8",
+  "moulds_v08": {
+    "source": "docs/moulds_reveal_v08.md",
+    "inner_scale": 1.035,
+    "outer_scale": 1.105,
+    "reveal_ms": 6800,
+    "new_native_cells": 12,
+    "browser_GPU_QA": false
+  }
+}

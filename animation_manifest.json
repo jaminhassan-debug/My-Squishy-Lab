@@ -1,0 +1,30 @@
+{
+  "source": "scene03-motion.js",
+  "clips": [
+    "anim_mould_pick",
+    "anim_shape_swap",
+    "anim_button",
+    "anim_pip_delight",
+    "anim_help",
+    "anim_scene"
+  ],
+  "other_motion": {
+    "anim_pip_idle": "scene03.css",
+    "anim_pip_blink": "scene03.js"
+  },
+  "interruptions": "A new clip cancels the previous clip on the same element; dialogs call stopAll; quiet and reduced motion suppress clips.",
+  "generated_video": true,
+  "video_source": "User-supplied Gemini generation",
+  "video_runtime": "scene03-video.js",
+  "video_clip": "assets/scene03/moulds_demo.mp4",
+  "video_role": "Optional one-shot Pip help demonstration",
+  "cube_preview": {
+    "source": "Supplied individual cube clip",
+    "runtime": "scene03-cube.js",
+    "frames": 36,
+    "duration_ms": 1500,
+    "trigger": "Tap active cube preview",
+    "selection": "Existing 300\u2013320ms procedural response retained",
+    "sheet": "assets/scene03/cube/cube_preview_sheet.png"
+  }
+}

@@ -1,0 +1,455 @@
+{
+  "id": "scene_14",
+  "number": 14,
+  "name": "Workshop decoration",
+  "purpose": "Preview, buy or equip six room cosmetics with exact cost and undo rules.",
+  "on_enter": [
+    "Snapshot equipped cosmetic IDs and balance. Load six catalogue definitions, show four tiles per page.",
+    "If Free Play, all cosmetics can be equipped without changing earned ownership or wallet. Hide coin counter.",
+    "Preview changes only a separate previewRoomState; do not change persistent room until Confirm."
+  ],
+  "on_exit": [
+    "Discard unconfirmed preview. Keep confirmed ownership/equipped state. Expire purchase undo token on normal exit."
+  ],
+  "substates": [
+    "browse",
+    "preview",
+    "confirm_cost",
+    "committing",
+    "undo_available",
+    "insufficient_coins"
+  ],
+  "persistence": "Purchase transaction writes wallet, ownership, equip and spendLedger keyed actionId. Same-visit undo can reverse only the last un-undone purchase, before another purchase or leaving14.",
+  "back_rule": "Back cancels preview first; second Back02. Home02 discards preview. Owned item confirmation equips without a coin transaction.",
+  "acceptance": [
+    "Preview does not spend. Balance cannot go negative on duplicate confirm.",
+    "Purchased cosmetic never changes control icon meaning or access to creation.",
+    "Undo exactly restores prior wallet/ownership/equipment once."
+  ],
+  "implementation_notes": [
+    "Costs and default slots are in global economy table. Cabinet, cushion, wall art and plant are separate equip slots.",
+    "After exit, Undo still reverses unconfirmed previews but not historical purchases. No real money or paid currency exists."
+  ],
+  "placements": [
+    {
+      "id": "background",
+      "asset": "env_hub_plate",
+      "landscape": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "portrait": [
+        0,
+        0,
+        768,
+        1024
+      ],
+      "z": 0,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "home",
+      "asset": "icon_home",
+      "landscape": [
+        16,
+        8,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        8,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "GLOBAL_HOME",
+      "note": "Checkpoint the draft, then hub; no silent discard.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "pause",
+      "asset": "icon_pause",
+      "landscape": [
+        912,
+        8,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        8,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "GLOBAL_PAUSE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "back",
+      "asset": "icon_back",
+      "landscape": [
+        16,
+        656,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        912,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "BACK",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "room_target",
+      "asset": "prop_cabinet",
+      "landscape": [
+        224,
+        168,
+        576,
+        352
+      ],
+      "portrait": [
+        80,
+        216,
+        608,
+        400
+      ],
+      "z": 30,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "balance",
+      "asset": "ui_coin_counter",
+      "landscape": [
+        688,
+        16,
+        200,
+        80
+      ],
+      "portrait": [
+        432,
+        16,
+        200,
+        80
+      ],
+      "z": 75,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "cosmetic_0",
+      "asset": "ui_swatch",
+      "landscape": [
+        176,
+        552,
+        144,
+        96
+      ],
+      "portrait": [
+        64,
+        672,
+        304,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "PREVIEW_COSMETIC",
+      "note": "Bound to catalogue page, not hardcoded tile art.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "cosmetic_1",
+      "asset": "ui_swatch",
+      "landscape": [
+        352,
+        552,
+        144,
+        96
+      ],
+      "portrait": [
+        400,
+        672,
+        304,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "PREVIEW_COSMETIC",
+      "note": "Bound to catalogue page, not hardcoded tile art.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "cosmetic_2",
+      "asset": "ui_swatch",
+      "landscape": [
+        528,
+        552,
+        144,
+        96
+      ],
+      "portrait": [
+        64,
+        792,
+        304,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "PREVIEW_COSMETIC",
+      "note": "Bound to catalogue page, not hardcoded tile art.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "cosmetic_3",
+      "asset": "ui_swatch",
+      "landscape": [
+        704,
+        552,
+        144,
+        96
+      ],
+      "portrait": [
+        400,
+        792,
+        304,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "PREVIEW_COSMETIC",
+      "note": "Bound to catalogue page, not hardcoded tile art.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "previous",
+      "asset": "icon_page_prev",
+      "landscape": [
+        16,
+        552,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        552,
+        96,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "COSMETIC_PAGE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "next_page",
+      "asset": "icon_page_next",
+      "landscape": [
+        912,
+        552,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        552,
+        96,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "COSMETIC_PAGE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "undo",
+      "asset": "icon_undo",
+      "landscape": [
+        800,
+        432,
+        96,
+        96
+      ],
+      "portrait": [
+        624,
+        552,
+        96,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "UNDO_COSMETIC",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "confirm",
+      "asset": "icon_check",
+      "landscape": [
+        912,
+        656,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        912,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "CONFIRM_COSMETIC",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    }
+  ],
+  "actions": [
+    {
+      "id": "PREVIEW_COSMETIC",
+      "trigger": "Tap tile",
+      "guard": "Known cosmetic definition",
+      "command": "Set preview equip slot; show exact price token if unowned and not Free Play",
+      "state_write": "Session preview only.",
+      "feedback": "Room target crossfades 250ms; persistent room unchanged.",
+      "destination": "Stay14",
+      "interrupt": "Another preview replaces current preview, no spend/refund.",
+      "master_animation_ids": [
+        "anim_cosmetic_preview"
+      ]
+    },
+    {
+      "id": "CONFIRM_COSMETIC",
+      "trigger": "Tap confirm then pictorial price confirmation when unowned",
+      "guard": "Preview valid; no transaction; balance>=price unless owned/FreePlay",
+      "command": "Owned: equip. FreePlay: temporary equip access. Unowned: atomic spend+own+equip; create one undo token.",
+      "state_write": "wallet/ownership/equip/spend ledger; update revision.",
+      "feedback": "Confirm check after commit; coin count is true committed balance.",
+      "destination": "Stay14",
+      "interrupt": "Insufficient balance shows cost/progress pictorially and cancel; no ad-watch or purchase offer.",
+      "master_animation_ids": [
+        "anim_cosmetic_commit",
+        "anim_coin"
+      ]
+    },
+    {
+      "id": "UNDO_COSMETIC",
+      "trigger": "Tap Undo",
+      "guard": "Preview exists OR current-visit last purchase undo token valid",
+      "command": "First discard unconfirmed preview; else atomic inverse of last eligible purchase using reversal ledger key",
+      "state_write": "Restore captured prior wallet/ownership/equip once; consume token.",
+      "feedback": "Room returns to exact prior look.",
+      "destination": "Stay14",
+      "interrupt": "New purchase invalidates old token. Retry inverse uses same key. No multiple refunds.",
+      "master_animation_ids": [
+        "anim_cosmetic_preview"
+      ]
+    },
+    {
+      "id": "COSMETIC_PAGE",
+      "trigger": "Tap page arrows",
+      "guard": "Page exists",
+      "command": "Change tile page retaining current preview",
+      "state_write": "No persistent write.",
+      "feedback": "Tray fade.",
+      "destination": "Stay14",
+      "interrupt": "No automatic confirmation on paging.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    }
+  ],
+  "master_animation_ids": [
+    "anim_button",
+    "anim_coin",
+    "anim_cosmetic_commit",
+    "anim_cosmetic_preview",
+    "anim_focus",
+    "anim_scene"
+  ],
+  "audio_asset_ids": [
+    "sfx_ui_confirm",
+    "sfx_ui_undo",
+    "sfx_coin"
+  ],
+  "master_asset_ids": [
+    "cosmetic_cabinet_lilac",
+    "cosmetic_cabinet_peach",
+    "cosmetic_cushion_butter",
+    "cosmetic_cushion_mint",
+    "cosmetic_picture_rainbow",
+    "cosmetic_plant_star",
+    "env_hub_plate",
+    "fx_coin_travel",
+    "icon_back",
+    "icon_check",
+    "icon_focus",
+    "icon_home",
+    "icon_page_next",
+    "icon_page_prev",
+    "icon_pause",
+    "icon_undo",
+    "prop_cabinet",
+    "sfx_coin",
+    "sfx_music_workshop",
+    "sfx_ui_confirm",
+    "sfx_ui_undo",
+    "sys_animation_events",
+    "tex_cosmetic_masks",
+    "ui_button_round",
+    "ui_coin_counter",
+    "ui_swatch",
+    "ui_tray"
+  ],
+  "master_source_scene_id": "scene_14"
+}

@@ -1,0 +1,57 @@
+{
+  "source": "scene05-render.js + scene05.js + scene05-atlas.json",
+  "no_generated_video_required": true,
+  "clips": [
+    {
+      "id": "anim_press",
+      "frames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "timing": "Normalised compression grows as 1-exp(-holdMilliseconds/180); inferred from duration, never pressure hardware."
+    },
+    {
+      "id": "anim_auto_squeeze",
+      "press_ms": 350,
+      "control": "Tap sample, keyboard activate or Squeeze button; then profile-specific recovery."
+    },
+    {
+      "id": "anim_recover_foam",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "near_rest_ms": 2800,
+      "response": "Exponential slow rise, no spring overshoot."
+    },
+    {
+      "id": "anim_recover_gel",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "near_rest_ms": 1100,
+      "response": "Medium exponential return."
+    },
+    {
+      "id": "anim_recover_bounce",
+      "frames": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "near_rest_ms": 550,
+      "response": "Bounded damped oscillation; negative depth is capped at -0.18."
+    }
+  ],
+  "registration": "Largest foreground component bounds registered per frame; all images retained unchanged; common support pivot and common apparent rest width. Frame7 returns to frame0 for rest.",
+  "quiet": "Display still samples; explicit auto trial completes logically without requiring motion. Help remains non-mutating.",
+  "interruption": "New input supersedes the single owned cycle; pause, blur, resize and scene exit abandon an unfinished cycle; pointercancel releases visually without qualifying a trial."
+}

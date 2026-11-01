@@ -1,0 +1,57 @@
+{
+  "anim_jug_lift": {
+    "duration_ms": 300,
+    "poses": [
+      0,
+      1,
+      2,
+      3
+    ]
+  },
+  "anim_pour": {
+    "ramp_ms": 200,
+    "volume_ms": 2700,
+    "jug_poses": [
+      3,
+      4,
+      5
+    ],
+    "stream_frames": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "anchors": "Each pose supplies spout_tip; surface endpoint derives from current fill level and mould rectangle"
+  },
+  "anim_drip": {
+    "duration_ms": 300,
+    "stream_frames": [
+      6,
+      7
+    ]
+  },
+  "anim_fill_settle": {
+    "duration_ms": 300,
+    "bounded_ripples": true
+  },
+  "anim_pour_stop": {
+    "immediate": true,
+    "checkpoint": true
+  },
+  "anim_pour_resume": {
+    "align_ms": 300,
+    "ramp_ms": 200,
+    "remaining_volume_only": true
+  },
+  "quiet": "No stream ribbon, repeated ripples or jug lift motion. The calm fill indicator progresses on the same state machine.",
+  "foam": "Liquid-like magical filling presentation, matte material transition belongs to Scene 08",
+  "style_v07": {
+    "native_gel_frames": 8,
+    "native_mould_shapes": 6,
+    "native_toy_reliefs": 6,
+    "reveal": "shared3D body, native thick mould peeling transform and mesh landing/recovery"
+  }
+}

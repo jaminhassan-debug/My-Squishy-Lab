@@ -1,0 +1,27 @@
+{
+  "squish_runtime": "Live mesh field. No pre-rendered sequence determines squish deformation.",
+  "guidance": {
+    "image": "assets/scene09/hands.png",
+    "frames": 8,
+    "first_visit_demo_ms": 1000,
+    "hide_on_first_contact": true,
+    "quiet": "static hand"
+  },
+  "face_and_interior": "Part of the same generated recipe texture, warped by identical mesh triangles",
+  "play": "one or two toy-space anchors, bounded local dent/bulge and smush/stretch",
+  "view": "separate mode; \u00b115 degree buttons and explicit drag-to-turn",
+  "recovery_ms": {
+    "foam": 2800,
+    "gel": 1100,
+    "bounce": 550
+  },
+  "reset_ms": 250,
+  "auto_press_ms": 350,
+  "source_reveal": "../scene08-render.js getTexture; canonical full-strength palette and seed",
+  "style_v07": {
+    "native_gel_frames": 8,
+    "native_mould_shapes": 6,
+    "native_toy_reliefs": 6,
+    "reveal": "shared3D body, native thick mould peeling transform and mesh landing/recovery"
+  }
+}

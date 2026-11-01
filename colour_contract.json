@@ -1,0 +1,30 @@
+{
+  "palette": {
+    "pink": "#F16DB5",
+    "blue": "#42C8E9",
+    "yellow": "#FFD76A",
+    "mint": "#A7E6CF",
+    "lilac": "#C9B2EE",
+    "peach": "#FFB69F"
+  },
+  "pairs": {
+    "pink+blue": "#B28DE8",
+    "pink+yellow": "#F5A583",
+    "pink+mint": "#D4B3D1",
+    "pink+lilac": "#DE9BD6",
+    "pink+peach": "#F59FBC",
+    "blue+yellow": "#9ED998",
+    "blue+mint": "#7EDCD4",
+    "blue+lilac": "#95BDEB",
+    "blue+peach": "#A7CCD7",
+    "yellow+mint": "#D8E6A4",
+    "yellow+lilac": "#E1C9BD",
+    "yellow+peach": "#FFD09B",
+    "mint+lilac": "#BCD6E3",
+    "mint+peach": "#E0D4B9",
+    "lilac+peach": "#E8BFD8"
+  },
+  "max_colours": 4,
+  "three_and_four_colour_rule": "Equal-weight linear-light sRGB palette mean; slot-order independent",
+  "stir_blend_rule": "mixAmount += abs(deltaRadians)/(4*pi), clamped to [0,1]; persists on interruption"
+}

@@ -1,0 +1,852 @@
+{
+  "id": "scene_09",
+  "number": 9,
+  "name": "360-degree squishy playground",
+  "purpose": "Contact-driven three-dimensional sensory play with directional pokes, full-hand hold/squeeze, bounded two-contact pull and full azimuth orbit.",
+  "on_enter": [
+    "Resolve draft, immutable saved record or explicit sample. Construct a closed 3D shape using the recipe and seed.",
+    "Restore only draft.playView yaw/pitch. Keep the separate photo camera unchanged.",
+    "Load hand-guide art and a cushion. Live body and hands are real procedural 3D geometry."
+  ],
+  "on_exit": [
+    "Cancel contacts and pointer capture. Checkpoint recipe and draft camera only. Never persist live vertices, a contact or a half-complete hand pose."
+  ],
+  "substates": [
+    "ready",
+    "poke",
+    "hold",
+    "stretch",
+    "recovery",
+    "view_orbit",
+    "paused",
+    "context_recovery"
+  ],
+  "persistence": "Draft playView {yaw,pitch} is independent of photoOptions; saved records and thumbnails stay immutable. Gesture meshes and hands are transient. Existing idempotent material trials remain; no per-touch coins.",
+  "back_rule": "Back goes 08 for draft, 11 for saved, 02 for sample. Finish goes 10 for draft; saved shows Photo/view option without new completion reward; sample offers Make to create a real draft.",
+  "acceptance": [
+    "Six closed three-dimensional shapes; full 360-degree yaw and pitch from -89 to +89 with top and underside views.",
+    "Visible-surface perspective-correct picking on deformed triangles, including after the camera reaches the back.",
+    "Distinct fingertip poke, full five-digit mitten hold/squeeze and two-contact pull, with accessible single-pointer/button alternatives.",
+    "Stretch bounded to 0.67\u20131.50; documented active deformation volume ratio within 2%; exact recovery at material deadline.",
+    "No duplicate trial after two-contact release, cancellation, pause or repeated update. Third contact cannot steal either accepted contact.",
+    "Photo camera and immutable saved records are untouched by playground orbit. Backup/import validates playView.",
+    "WebGL smooth shading is primary; Canvas projection is a lower-fidelity fallback. Browser/device/GPU tests remain release gates."
+  ],
+  "implementation_notes": [
+    "The v0.4 prototype uses analytic 3D deformation and enclosed-volume rescaling. It is not XPBD, measured material physics, photoreal skin or authored production topology.",
+    "ImageGen turntables are artist references, not calibrated angle samples or runtime geometry. The runtime orbit is continuous.",
+    "Procedural hand geometry renders in the same depth-tested scene; optional sprite sheets are guides and rig references.",
+    "Production targets include tetrahedral XPBD/contact constraints, retopology/UVs, skinned hand IK/collision, refined transmission and target-device profiling.",
+    "See scene09-3d-spec.md and scene09-3d-validation.json for delivered scope and open verification."
+  ],
+  "placements": [
+    {
+      "id": "background",
+      "asset": "env_play_plate",
+      "landscape": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "portrait": [
+        0,
+        0,
+        768,
+        1024
+      ],
+      "z": 0,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "home",
+      "asset": "icon_home",
+      "landscape": [
+        16,
+        8,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        8,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "GLOBAL_HOME",
+      "note": "Checkpoint the draft, then hub; no silent discard.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "pause",
+      "asset": "icon_pause",
+      "landscape": [
+        912,
+        8,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        8,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "GLOBAL_PAUSE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "back",
+      "asset": "icon_back",
+      "landscape": [
+        16,
+        656,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        912,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "BACK",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "cushion",
+      "asset": "prop_cushion",
+      "landscape": [
+        220,
+        400,
+        584,
+        144
+      ],
+      "portrait": [
+        96,
+        528,
+        576,
+        136
+      ],
+      "z": 20,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "hero",
+      "asset": "toy_cube",
+      "landscape": [
+        224,
+        128,
+        576,
+        384
+      ],
+      "portrait": [
+        96,
+        160,
+        576,
+        480
+      ],
+      "z": 40,
+      "role": "manipulate",
+      "action": "CONTACT",
+      "note": "Actual rest silhouette contained in this viewport; camera fit maintains readable toy scale and support pivot.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "visible-surface raycast; rect bounds only",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "tool_0",
+      "asset": "icon_hand",
+      "landscape": [
+        128,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        40,
+        672,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "SQUEEZE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "tool_1",
+      "asset": "icon_reset",
+      "landscape": [
+        256,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        280,
+        672,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "RESET",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "tool_2",
+      "asset": "icon_rotate_left",
+      "landscape": [
+        384,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        520,
+        672,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "ROTATE_LEFT",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "tool_3",
+      "asset": "icon_rotate_right",
+      "landscape": [
+        512,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        40,
+        792,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "ROTATE_RIGHT",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "tool_4",
+      "asset": "icon_camera",
+      "landscape": [
+        640,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        280,
+        792,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "FINISH",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "tool_5",
+      "asset": "icon_shelf",
+      "landscape": [
+        768,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        520,
+        792,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "SHELF",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "gesture_poke",
+      "asset": "icon_home",
+      "landscape": [
+        20,
+        200,
+        112,
+        64
+      ],
+      "portrait": [
+        15,
+        266,
+        100,
+        64
+      ],
+      "z": 85,
+      "role": "button",
+      "action": "POKE_MODE",
+      "note": "Native accessible button; master asset is a style-family reference. Compact layout uses normal grid flow.",
+      "anchor": "top-left reference rectangle",
+      "hit_policy": "semantic button, minimum64px height",
+      "visible_when": "Scene09 active"
+    },
+    {
+      "id": "gesture_hold",
+      "asset": "icon_home",
+      "landscape": [
+        20,
+        274,
+        112,
+        64
+      ],
+      "portrait": [
+        15,
+        340,
+        100,
+        64
+      ],
+      "z": 85,
+      "role": "button",
+      "action": "HOLD_MODE",
+      "note": "Native accessible button; master asset is a style-family reference. Compact layout uses normal grid flow.",
+      "anchor": "top-left reference rectangle",
+      "hit_policy": "semantic button, minimum64px height",
+      "visible_when": "Scene09 active"
+    },
+    {
+      "id": "gesture_stretch",
+      "asset": "icon_home",
+      "landscape": [
+        20,
+        348,
+        112,
+        64
+      ],
+      "portrait": [
+        15,
+        414,
+        100,
+        64
+      ],
+      "z": 85,
+      "role": "button",
+      "action": "PULL_MODE",
+      "note": "Native accessible button; master asset is a style-family reference. Compact layout uses normal grid flow.",
+      "anchor": "top-left reference rectangle",
+      "hit_policy": "semantic button, minimum64px height",
+      "visible_when": "Scene09 active"
+    },
+    {
+      "id": "pull_demo",
+      "asset": "icon_home",
+      "landscape": [
+        20,
+        422,
+        112,
+        64
+      ],
+      "portrait": [
+        15,
+        488,
+        100,
+        64
+      ],
+      "z": 85,
+      "role": "button",
+      "action": "AUTO_PULL",
+      "note": "Native accessible button; master asset is a style-family reference. Compact layout uses normal grid flow.",
+      "anchor": "top-left reference rectangle",
+      "hit_policy": "semantic button, minimum64px height",
+      "visible_when": "Scene09 active"
+    },
+    {
+      "id": "look_top",
+      "asset": "icon_home",
+      "landscape": [
+        892,
+        200,
+        112,
+        64
+      ],
+      "portrait": [
+        653,
+        266,
+        100,
+        64
+      ],
+      "z": 85,
+      "role": "button",
+      "action": "LOOK_TOP",
+      "note": "Native accessible button; master asset is a style-family reference. Compact layout uses normal grid flow.",
+      "anchor": "top-left reference rectangle",
+      "hit_policy": "semantic button, minimum64px height",
+      "visible_when": "Scene09 active"
+    },
+    {
+      "id": "look_bottom",
+      "asset": "icon_home",
+      "landscape": [
+        892,
+        274,
+        112,
+        64
+      ],
+      "portrait": [
+        653,
+        340,
+        100,
+        64
+      ],
+      "z": 85,
+      "role": "button",
+      "action": "LOOK_BOTTOM",
+      "note": "Native accessible button; master asset is a style-family reference. Compact layout uses normal grid flow.",
+      "anchor": "top-left reference rectangle",
+      "hit_policy": "semantic button, minimum64px height",
+      "visible_when": "Scene09 active"
+    },
+    {
+      "id": "look_front",
+      "asset": "icon_home",
+      "landscape": [
+        892,
+        348,
+        112,
+        64
+      ],
+      "portrait": [
+        653,
+        414,
+        100,
+        64
+      ],
+      "z": 85,
+      "role": "button",
+      "action": "LOOK_FRONT",
+      "note": "Native accessible button; master asset is a style-family reference. Compact layout uses normal grid flow.",
+      "anchor": "top-left reference rectangle",
+      "hit_policy": "semantic button, minimum64px height",
+      "visible_when": "Scene09 active"
+    }
+  ],
+  "actions": [
+    {
+      "id": "CONTACT",
+      "trigger": "Pointerdown/move/up on visible hero; max two active contacts",
+      "guard": "Play mode; raycast hits live proxy; pointer ID not already captured",
+      "command": "Perspective-correct surface pick, then contact-driven 3D poke/hold/pull",
+      "state_write": "Transient vertices and hands only; existing material-trial qualification on complete recovery",
+      "feedback": "Local inward dent or volume-corrected squeeze/stretch; procedural hand follows anchor",
+      "destination": "Stay 09",
+      "interrupt": "pointercancel/lostcapture/orientation=release; one contact ending from stretch blends into single contact. Ignore third contact for the entire gesture.",
+      "master_animation_ids": [
+        "anim_press",
+        "anim_smush",
+        "anim_stretch",
+        "anim_interior_drift",
+        "anim_face_follow"
+      ]
+    },
+    {
+      "id": "SQUEEZE",
+      "trigger": "Tap Squeeze or keyboard activate",
+      "guard": "Renderer ready, no route modal",
+      "command": "Press centre 350ms with same solver then recover",
+      "state_write": "May mark material tried once if not previously recorded; no tap rewards.",
+      "feedback": "Same recovery as manual input.",
+      "destination": "Stay 09",
+      "interrupt": "New user contact takes priority over auto-cycle.",
+      "master_animation_ids": [
+        "anim_auto_squeeze"
+      ]
+    },
+    {
+      "id": "RESET",
+      "trigger": "Tap reset",
+      "guard": "Renderer ready",
+      "command": "Clear contacts and displacement to exact rest in 250ms",
+      "state_write": "No recipe change.",
+      "feedback": "Quiet mode immediate rest.",
+      "destination": "Stay 09",
+      "interrupt": "Cancel active auto-cycle and sound.",
+      "master_animation_ids": [
+        "anim_toy_reset"
+      ]
+    },
+    {
+      "id": "ROTATE_LEFT",
+      "trigger": "Tap rotate left",
+      "guard": "Renderer ready",
+      "command": "Orbit yaw by15 degrees in View; vertical drag changes pitch; no image-plane spin",
+      "state_write": "session.toyRotation.",
+      "feedback": "Quarter-second rotation; visible mode indicator.",
+      "destination": "Stay 09",
+      "interrupt": "Squeeze or touching Play tab exits view mode. Drag rotation only within explicit view mode.",
+      "master_animation_ids": [
+        "anim_rotate"
+      ]
+    },
+    {
+      "id": "ROTATE_RIGHT",
+      "trigger": "Tap rotate right",
+      "guard": "Renderer ready",
+      "command": "Orbit yaw by15 degrees in View; vertical drag changes pitch; no image-plane spin",
+      "state_write": "session.toyRotation.",
+      "feedback": "Same as left.",
+      "destination": "Stay 09",
+      "interrupt": "No gesture ambiguity.",
+      "master_animation_ids": [
+        "anim_rotate"
+      ]
+    },
+    {
+      "id": "FINISH",
+      "trigger": "Tap camera/finish",
+      "guard": "Draft revealed; or saved toy valid",
+      "command": "Draft\u219210 editable photo; saved\u219210 view-only, remix action for face changes; sample\u2192offer Make and create fresh draft only on acceptance",
+      "state_write": "No completion save here.",
+      "feedback": "Clear current material release before transition.",
+      "destination": "10 or 03 for chosen Make",
+      "interrupt": "No hidden auto-save based on number of squishes.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "SHELF",
+      "trigger": "Tap shelf",
+      "guard": "No pending explicit save transaction",
+      "command": "Checkpoint draft and open 11; retain returnContext for unfinished work",
+      "state_write": "No immutable creation save.",
+      "feedback": "Shelf view opens.",
+      "destination": "11",
+      "interrupt": "Unsaved draft remains resumable from hub; shelf does not pretend it is saved.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "POKE_MODE",
+      "trigger": "gesture_poke activation",
+      "guard": "Scene09 loaded; no blocking dialog",
+      "command": "chooseGesture / pullDemo / look",
+      "state_write": "Transient gesture or camera. Only camera checkpointed for draft.",
+      "feedback": "Selected control, contact-driven 3D response or specified view",
+      "destination": "Scene09",
+      "interrupt": "Cancel prior contacts without qualification; never modify saved recipe",
+      "master_animation_ids": [
+        "anim_press"
+      ]
+    },
+    {
+      "id": "HOLD_MODE",
+      "trigger": "gesture_hold activation",
+      "guard": "Scene09 loaded; no blocking dialog",
+      "command": "chooseGesture / pullDemo / look",
+      "state_write": "Transient gesture or camera. Only camera checkpointed for draft.",
+      "feedback": "Selected control, contact-driven 3D response or specified view",
+      "destination": "Scene09",
+      "interrupt": "Cancel prior contacts without qualification; never modify saved recipe",
+      "master_animation_ids": [
+        "anim_press"
+      ]
+    },
+    {
+      "id": "PULL_MODE",
+      "trigger": "gesture_stretch activation",
+      "guard": "Scene09 loaded; no blocking dialog",
+      "command": "chooseGesture / pullDemo / look",
+      "state_write": "Transient gesture or camera. Only camera checkpointed for draft.",
+      "feedback": "Selected control, contact-driven 3D response or specified view",
+      "destination": "Scene09",
+      "interrupt": "Cancel prior contacts without qualification; never modify saved recipe",
+      "master_animation_ids": [
+        "anim_press"
+      ]
+    },
+    {
+      "id": "AUTO_PULL",
+      "trigger": "pull_demo activation",
+      "guard": "Scene09 loaded; no blocking dialog",
+      "command": "chooseGesture / pullDemo / look",
+      "state_write": "Transient gesture or camera. Only camera checkpointed for draft.",
+      "feedback": "Selected control, contact-driven 3D response or specified view",
+      "destination": "Scene09",
+      "interrupt": "Cancel prior contacts without qualification; never modify saved recipe",
+      "master_animation_ids": [
+        "anim_stretch"
+      ]
+    },
+    {
+      "id": "LOOK_TOP",
+      "trigger": "look_top activation",
+      "guard": "Scene09 loaded; no blocking dialog",
+      "command": "chooseGesture / pullDemo / look",
+      "state_write": "Transient gesture or camera. Only camera checkpointed for draft.",
+      "feedback": "Selected control, contact-driven 3D response or specified view",
+      "destination": "Scene09",
+      "interrupt": "Cancel prior contacts without qualification; never modify saved recipe",
+      "master_animation_ids": [
+        "anim_rotate"
+      ]
+    },
+    {
+      "id": "LOOK_BOTTOM",
+      "trigger": "look_bottom activation",
+      "guard": "Scene09 loaded; no blocking dialog",
+      "command": "chooseGesture / pullDemo / look",
+      "state_write": "Transient gesture or camera. Only camera checkpointed for draft.",
+      "feedback": "Selected control, contact-driven 3D response or specified view",
+      "destination": "Scene09",
+      "interrupt": "Cancel prior contacts without qualification; never modify saved recipe",
+      "master_animation_ids": [
+        "anim_rotate"
+      ]
+    },
+    {
+      "id": "LOOK_FRONT",
+      "trigger": "look_front activation",
+      "guard": "Scene09 loaded; no blocking dialog",
+      "command": "chooseGesture / pullDemo / look",
+      "state_write": "Transient gesture or camera. Only camera checkpointed for draft.",
+      "feedback": "Selected control, contact-driven 3D response or specified view",
+      "destination": "Scene09",
+      "interrupt": "Cancel prior contacts without qualification; never modify saved recipe",
+      "master_animation_ids": [
+        "anim_rotate"
+      ]
+    }
+  ],
+  "master_animation_ids": [
+    "anim_auto_squeeze",
+    "anim_button",
+    "anim_face_follow",
+    "anim_focus",
+    "anim_interior_drift",
+    "anim_press",
+    "anim_recover_bounce",
+    "anim_recover_foam",
+    "anim_recover_gel",
+    "anim_rotate",
+    "anim_scene",
+    "anim_smush",
+    "anim_stretch",
+    "anim_toy_reset"
+  ],
+  "audio_asset_ids": [
+    "sfx_gel_press",
+    "sfx_gel_release",
+    "sfx_foam_press",
+    "sfx_foam_release",
+    "sfx_bounce_press",
+    "sfx_bounce_release",
+    "sfx_stretch",
+    "sfx_bead_tick",
+    "vo_press",
+    "vo_release"
+  ],
+  "master_asset_ids": [
+    "bits_foil_heart",
+    "bits_foil_star",
+    "bits_fruit_kiwi",
+    "bits_fruit_orange",
+    "bits_fruit_strawberry",
+    "bits_gem_diamond",
+    "bits_gem_round",
+    "bits_pearl",
+    "bits_sprinkle",
+    "blend_blue_lilac",
+    "blend_blue_yellow",
+    "blend_mint_lilac",
+    "blend_peach_pink",
+    "blend_pink_blue",
+    "blend_pink_yellow",
+    "env_play_plate",
+    "face_blush",
+    "face_cheer",
+    "face_curious",
+    "face_neutral",
+    "face_sleepy",
+    "face_smile",
+    "face_surprise",
+    "face_wink",
+    "icon_back",
+    "icon_camera",
+    "icon_focus",
+    "icon_hand",
+    "icon_home",
+    "icon_pause",
+    "icon_reset",
+    "icon_rotate_left",
+    "icon_rotate_right",
+    "icon_shelf",
+    "mat_bounce",
+    "mat_contact_shadow",
+    "mat_foam",
+    "mat_foil",
+    "mat_gel",
+    "mat_gem",
+    "mat_pearl",
+    "palette_blue",
+    "palette_lilac",
+    "palette_mint",
+    "palette_peach",
+    "palette_pink",
+    "palette_yellow",
+    "prop_cushion",
+    "sfx_bead_tick",
+    "sfx_bounce_press",
+    "sfx_bounce_release",
+    "sfx_foam_press",
+    "sfx_foam_release",
+    "sfx_gel_press",
+    "sfx_gel_release",
+    "sfx_music_workshop",
+    "sfx_stretch",
+    "sys_animation_events",
+    "sys_camera_rig",
+    "sys_deform_field",
+    "sys_interior_anchors",
+    "sys_pick_proxy",
+    "tex_face_atlas",
+    "tex_swirl_mask",
+    "toy_bear",
+    "toy_blob",
+    "toy_cloud",
+    "toy_cube",
+    "toy_heart",
+    "toy_star",
+    "ui_button_round",
+    "vo_press",
+    "vo_release"
+  ],
+  "master_source_scene_id": "scene_09",
+  "version": "0.8",
+  "runtime_geometry": {
+    "standard_vertices": 722,
+    "standard_triangles": 1440,
+    "compact_vertices": 354,
+    "compact_triangles": 704,
+    "max_pointers": 2,
+    "yaw": "continuous, normalised on checkpoint",
+    "pitch": [
+      -89,
+      89
+    ],
+    "physics": "analytic volume-corrected deformation",
+    "primary_renderer": "WebGL perspective/depth/smooth normals",
+    "fallback_renderer": "Canvas projected triangle shading",
+    "production_solver_target": "XPBD, not yet implemented"
+  },
+  "material_profiles": {
+    "foam": {
+      "poke_depth": 0.22,
+      "grip_compression": 0.3,
+      "recovery_ms": 2800
+    },
+    "gel": {
+      "poke_depth": 0.29,
+      "grip_compression": 0.34,
+      "recovery_ms": 1100
+    },
+    "bounce": {
+      "poke_depth": 0.25,
+      "grip_compression": 0.27,
+      "recovery_ms": 550
+    }
+  },
+  "source_research": [
+    {
+      "url": "https://mmacklin.com/xpbd.pdf",
+      "role": "production compliance/volume-constraint direction"
+    },
+    {
+      "url": "https://www.w3.org/TR/pointerevents3/",
+      "role": "pointer capture, cancellation and touch-action"
+    },
+    {
+      "url": "https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html",
+      "role": "morph targets, clips and GLB export"
+    }
+  ],
+  "touch_response_v05": {
+    "inference": true,
+    "max_contacts": 10,
+    "hands_visible": false,
+    "shapes": "canonical cavity shared between 07, 08 and 09",
+    "translucency": "alpha transmission with thickness/Fresnel shading",
+    "browser_device_QA": false
+  },
+  "interior_v06": {
+    "shared_reveal": true,
+    "contents": "true depth geometry inside deforming cages",
+    "render": "stencil + opaque interiors + translucent front skin",
+    "max_particles": 300,
+    "native_reference_frames": 8,
+    "reference_mesh_poses": 48,
+    "browser_GPU_QA": false
+  },
+  "style_v07": {
+    "source": "docs/style-v07.md",
+    "native_runtime_cells": 20,
+    "body": "dense softly coloured volume and glossy skin",
+    "browser_visual_QA": false
+  },
+  "moulds_v08": {
+    "source": "docs/moulds_reveal_v08.md",
+    "inner_scale": 1.035,
+    "outer_scale": 1.105,
+    "reveal_ms": 6800,
+    "new_native_cells": 12,
+    "browser_GPU_QA": false
+  }
+}

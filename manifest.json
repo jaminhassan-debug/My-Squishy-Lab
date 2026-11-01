@@ -1,0 +1,2055 @@
+{
+  "project": "My Squishy Lab",
+  "scene": "scene_16",
+  "name": "Grown-up area and pause/quiet play",
+  "version": "0.11",
+  "blueprint_version": "1.1",
+  "entry": "preview.html#scene16",
+  "connected_scenes": [
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16"
+  ],
+  "new_assets": {
+    "panel": {
+      "image": "assets/scene16/panel.png",
+      "size": [
+        1337,
+        1176
+      ],
+      "columns": 1,
+      "rows": 1,
+      "frames": [
+        [
+          0,
+          0,
+          1337,
+          1176
+        ]
+      ],
+      "crops": [
+        [
+          0,
+          0,
+          1337,
+          1176
+        ]
+      ],
+      "sha256": "f698fc736ec859c5f7ebbe507e266df9a7d268dfca448ce5fc3a2a97d292168a"
+    },
+    "icons": {
+      "image": "assets/scene16/icons.png",
+      "size": [
+        1448,
+        1086
+      ],
+      "columns": 4,
+      "rows": 3,
+      "frames": [
+        [
+          0,
+          0,
+          362,
+          362
+        ],
+        [
+          362,
+          0,
+          362,
+          362
+        ],
+        [
+          724,
+          0,
+          362,
+          362
+        ],
+        [
+          1086,
+          0,
+          362,
+          362
+        ],
+        [
+          0,
+          362,
+          362,
+          362
+        ],
+        [
+          362,
+          362,
+          362,
+          362
+        ],
+        [
+          724,
+          362,
+          362,
+          362
+        ],
+        [
+          1086,
+          362,
+          362,
+          362
+        ],
+        [
+          0,
+          724,
+          362,
+          362
+        ],
+        [
+          362,
+          724,
+          362,
+          362
+        ],
+        [
+          724,
+          724,
+          362,
+          362
+        ],
+        [
+          1086,
+          724,
+          362,
+          362
+        ]
+      ],
+      "crops": [
+        [
+          0,
+          0,
+          362,
+          362
+        ],
+        [
+          362,
+          0,
+          362,
+          362
+        ],
+        [
+          724,
+          0,
+          362,
+          362
+        ],
+        [
+          1086,
+          0,
+          362,
+          362
+        ],
+        [
+          0,
+          362,
+          362,
+          362
+        ],
+        [
+          362,
+          362,
+          362,
+          362
+        ],
+        [
+          724,
+          362,
+          362,
+          362
+        ],
+        [
+          1086,
+          362,
+          362,
+          362
+        ],
+        [
+          0,
+          724,
+          362,
+          362
+        ],
+        [
+          362,
+          724,
+          362,
+          362
+        ],
+        [
+          724,
+          724,
+          362,
+          362
+        ],
+        [
+          1086,
+          724,
+          362,
+          362
+        ]
+      ],
+      "sha256": "3fcc87c3987a863120eae9f50d92914559a89d4f46c065606f4f9b053b4d0568"
+    },
+    "gate": {
+      "image": "assets/scene16/gate.png",
+      "size": [
+        2172,
+        724
+      ],
+      "columns": 3,
+      "rows": 1,
+      "frames": [
+        [
+          0,
+          0,
+          724,
+          724
+        ],
+        [
+          724,
+          0,
+          724,
+          724
+        ],
+        [
+          1448,
+          0,
+          724,
+          724
+        ]
+      ],
+      "crops": [
+        [
+          0,
+          0,
+          724,
+          724
+        ],
+        [
+          724,
+          0,
+          724,
+          724
+        ],
+        [
+          1448,
+          0,
+          724,
+          724
+        ]
+      ],
+      "sha256": "0c4986e21a916ce9a30a338c2237cec831442f6f7b6a22598a825d34c81f276f"
+    },
+    "feedback": {
+      "image": "assets/scene16/feedback.png",
+      "size": [
+        1774,
+        887
+      ],
+      "columns": 4,
+      "rows": 2,
+      "frames": [
+        [
+          0,
+          0,
+          444,
+          444
+        ],
+        [
+          444,
+          0,
+          443,
+          444
+        ],
+        [
+          887,
+          0,
+          443,
+          444
+        ],
+        [
+          1330,
+          0,
+          444,
+          444
+        ],
+        [
+          0,
+          444,
+          444,
+          443
+        ],
+        [
+          444,
+          444,
+          443,
+          443
+        ],
+        [
+          887,
+          444,
+          443,
+          443
+        ],
+        [
+          1330,
+          444,
+          444,
+          443
+        ]
+      ],
+      "crops": [
+        [
+          0,
+          0,
+          444,
+          444
+        ],
+        [
+          444,
+          0,
+          443,
+          444
+        ],
+        [
+          887,
+          0,
+          443,
+          444
+        ],
+        [
+          1330,
+          0,
+          444,
+          444
+        ],
+        [
+          0,
+          444,
+          444,
+          443
+        ],
+        [
+          444,
+          444,
+          443,
+          443
+        ],
+        [
+          887,
+          444,
+          443,
+          443
+        ],
+        [
+          1330,
+          444,
+          444,
+          443
+        ]
+      ],
+      "sha256": "9970af73c57b554b60da556f313583935f4c12c17d2272d10353fdb708e99938"
+    }
+  },
+  "recent_scene_assets": {
+    "12": {
+      "background": {
+        "image": "assets/scene12/background.png",
+        "size": [
+          1448,
+          1086
+        ],
+        "columns": 1,
+        "rows": 1,
+        "frames": [
+          [
+            0,
+            0,
+            1448,
+            1086
+          ]
+        ],
+        "crops": [
+          [
+            0,
+            0,
+            1448,
+            1086
+          ]
+        ],
+        "sha256": "e95524d76aa062fdeb1ec65fd67403e75a5fac4108d6df1d9ededf8fa311c740"
+      },
+      "bear": {
+        "image": "assets/scene12/bear.png",
+        "size": [
+          1536,
+          1024
+        ],
+        "columns": 4,
+        "rows": 2,
+        "frames": [
+          [
+            0,
+            0,
+            384,
+            512
+          ],
+          [
+            384,
+            0,
+            384,
+            512
+          ],
+          [
+            768,
+            0,
+            384,
+            512
+          ],
+          [
+            1152,
+            0,
+            384,
+            512
+          ],
+          [
+            0,
+            512,
+            384,
+            512
+          ],
+          [
+            384,
+            512,
+            384,
+            512
+          ],
+          [
+            768,
+            512,
+            384,
+            512
+          ],
+          [
+            1152,
+            512,
+            384,
+            512
+          ]
+        ],
+        "crops": [
+          [
+            0,
+            0,
+            384,
+            512
+          ],
+          [
+            384,
+            0,
+            384,
+            512
+          ],
+          [
+            768,
+            0,
+            384,
+            512
+          ],
+          [
+            1152,
+            0,
+            384,
+            512
+          ],
+          [
+            0,
+            512,
+            384,
+            512
+          ],
+          [
+            384,
+            512,
+            384,
+            512
+          ],
+          [
+            768,
+            512,
+            384,
+            512
+          ],
+          [
+            1152,
+            512,
+            384,
+            512
+          ]
+        ],
+        "sha256": "dca657fa40d7beaba949b241a98540055e0fb785da0ad037c6cbd712511d9dfe"
+      },
+      "bunny": {
+        "image": "assets/scene12/bunny.png",
+        "size": [
+          1774,
+          887
+        ],
+        "columns": 4,
+        "rows": 2,
+        "frames": [
+          [
+            0,
+            0,
+            444,
+            444
+          ],
+          [
+            444,
+            0,
+            443,
+            444
+          ],
+          [
+            887,
+            0,
+            443,
+            444
+          ],
+          [
+            1330,
+            0,
+            444,
+            444
+          ],
+          [
+            0,
+            444,
+            444,
+            443
+          ],
+          [
+            444,
+            444,
+            443,
+            443
+          ],
+          [
+            887,
+            444,
+            443,
+            443
+          ],
+          [
+            1330,
+            444,
+            444,
+            443
+          ]
+        ],
+        "crops": [
+          [
+            0,
+            0,
+            444,
+            444
+          ],
+          [
+            444,
+            0,
+            443,
+            444
+          ],
+          [
+            887,
+            0,
+            443,
+            444
+          ],
+          [
+            1330,
+            0,
+            444,
+            444
+          ],
+          [
+            0,
+            444,
+            444,
+            443
+          ],
+          [
+            444,
+            444,
+            443,
+            443
+          ],
+          [
+            887,
+            444,
+            443,
+            443
+          ],
+          [
+            1330,
+            444,
+            444,
+            443
+          ]
+        ],
+        "sha256": "f585ef71b5536517146abc8da6fe85b6c43af838bfaff4b2fdd50a77df2810be"
+      },
+      "kitten": {
+        "image": "assets/scene12/kitten.png",
+        "size": [
+          1536,
+          1024
+        ],
+        "columns": 4,
+        "rows": 2,
+        "frames": [
+          [
+            0,
+            0,
+            384,
+            512
+          ],
+          [
+            384,
+            0,
+            384,
+            512
+          ],
+          [
+            768,
+            0,
+            384,
+            512
+          ],
+          [
+            1152,
+            0,
+            384,
+            512
+          ],
+          [
+            0,
+            512,
+            384,
+            512
+          ],
+          [
+            384,
+            512,
+            384,
+            512
+          ],
+          [
+            768,
+            512,
+            384,
+            512
+          ],
+          [
+            1152,
+            512,
+            384,
+            512
+          ]
+        ],
+        "crops": [
+          [
+            0,
+            0,
+            384,
+            512
+          ],
+          [
+            384,
+            0,
+            384,
+            512
+          ],
+          [
+            768,
+            0,
+            384,
+            512
+          ],
+          [
+            1152,
+            0,
+            384,
+            512
+          ],
+          [
+            0,
+            512,
+            384,
+            512
+          ],
+          [
+            384,
+            512,
+            384,
+            512
+          ],
+          [
+            768,
+            512,
+            384,
+            512
+          ],
+          [
+            1152,
+            512,
+            384,
+            512
+          ]
+        ],
+        "sha256": "0008025eec05ac714475b9fac738c709a48da6726fba2419e55769bd9d519ac6"
+      },
+      "gift": {
+        "image": "assets/scene12/gift.png",
+        "size": [
+          1774,
+          887
+        ],
+        "columns": 4,
+        "rows": 2,
+        "frames": [
+          [
+            0,
+            0,
+            444,
+            444
+          ],
+          [
+            444,
+            0,
+            443,
+            444
+          ],
+          [
+            887,
+            0,
+            443,
+            444
+          ],
+          [
+            1330,
+            0,
+            444,
+            444
+          ],
+          [
+            0,
+            444,
+            444,
+            443
+          ],
+          [
+            444,
+            444,
+            443,
+            443
+          ],
+          [
+            887,
+            444,
+            443,
+            443
+          ],
+          [
+            1330,
+            444,
+            444,
+            443
+          ]
+        ],
+        "crops": [
+          [
+            0,
+            0,
+            444,
+            444
+          ],
+          [
+            444,
+            0,
+            443,
+            444
+          ],
+          [
+            887,
+            0,
+            443,
+            444
+          ],
+          [
+            1330,
+            0,
+            444,
+            444
+          ],
+          [
+            0,
+            444,
+            444,
+            443
+          ],
+          [
+            444,
+            444,
+            443,
+            443
+          ],
+          [
+            887,
+            444,
+            443,
+            443
+          ],
+          [
+            1330,
+            444,
+            444,
+            443
+          ]
+        ],
+        "sha256": "523d0027349f9bc4b73ec54bbe72b9b587e9d0342d824793ef316c238e9f8da4"
+      },
+      "guide": {
+        "image": "assets/scene12/guide.png",
+        "size": [
+          1774,
+          887
+        ],
+        "columns": 4,
+        "rows": 2,
+        "frames": [
+          [
+            0,
+            0,
+            444,
+            444
+          ],
+          [
+            444,
+            0,
+            443,
+            444
+          ],
+          [
+            887,
+            0,
+            443,
+            444
+          ],
+          [
+            1330,
+            0,
+            444,
+            444
+          ],
+          [
+            0,
+            444,
+            444,
+            443
+          ],
+          [
+            444,
+            444,
+            443,
+            443
+          ],
+          [
+            887,
+            444,
+            443,
+            443
+          ],
+          [
+            1330,
+            444,
+            444,
+            443
+          ]
+        ],
+        "crops": [
+          [
+            0,
+            0,
+            444,
+            444
+          ],
+          [
+            444,
+            0,
+            443,
+            444
+          ],
+          [
+            887,
+            0,
+            443,
+            444
+          ],
+          [
+            1330,
+            0,
+            444,
+            444
+          ],
+          [
+            0,
+            444,
+            444,
+            443
+          ],
+          [
+            444,
+            444,
+            443,
+            443
+          ],
+          [
+            887,
+            444,
+            443,
+            443
+          ],
+          [
+            1330,
+            444,
+            444,
+            443
+          ]
+        ],
+        "sha256": "6f5abed359aa6ffe3b7fe2905d17dcc7f1e5e130cd80960abd32c88e03a60065"
+      },
+      "releaseguide": {
+        "image": "assets/scene12/releaseguide.png",
+        "size": [
+          1774,
+          887
+        ],
+        "columns": 4,
+        "rows": 2,
+        "frames": [
+          [
+            0,
+            0,
+            444,
+            444
+          ],
+          [
+            444,
+            0,
+            443,
+            444
+          ],
+          [
+            887,
+            0,
+            443,
+            444
+          ],
+          [
+            1330,
+            0,
+            444,
+            444
+          ],
+          [
+            0,
+            444,
+            444,
+            443
+          ],
+          [
+            444,
+            444,
+            443,
+            443
+          ],
+          [
+            887,
+            444,
+            443,
+            443
+          ],
+          [
+            1330,
+            444,
+            444,
+            443
+          ]
+        ],
+        "crops": [
+          [
+            0,
+            0,
+            444,
+            444
+          ],
+          [
+            444,
+            0,
+            443,
+            444
+          ],
+          [
+            887,
+            0,
+            443,
+            444
+          ],
+          [
+            1330,
+            0,
+            444,
+            444
+          ],
+          [
+            0,
+            444,
+            444,
+            443
+          ],
+          [
+            444,
+            444,
+            443,
+            443
+          ],
+          [
+            887,
+            444,
+            443,
+            443
+          ],
+          [
+            1330,
+            444,
+            444,
+            443
+          ]
+        ],
+        "sha256": "6d09321b46588dc9868380b81952ae3e6f3bf267b981c8c51ab73ee7020e7aea"
+      }
+    },
+    "13": {
+      "card": {
+        "image": "assets/scene13/card.png",
+        "size": [
+          1343,
+          1171
+        ],
+        "columns": 1,
+        "rows": 1,
+        "frames": [
+          [
+            0,
+            0,
+            1343,
+            1171
+          ]
+        ],
+        "crops": [
+          [
+            0,
+            0,
+            1343,
+            1171
+          ]
+        ],
+        "sha256": "7042392f54066817d2bdecbbf24bafa679e3122ac3b809e1e7fcd8b861168a13"
+      },
+      "rewards": {
+        "image": "assets/scene13/rewards.png",
+        "size": [
+          1774,
+          887
+        ],
+        "columns": 4,
+        "rows": 2,
+        "frames": [
+          [
+            0,
+            0,
+            444,
+            444
+          ],
+          [
+            444,
+            0,
+            443,
+            444
+          ],
+          [
+            887,
+            0,
+            443,
+            444
+          ],
+          [
+            1330,
+            0,
+            444,
+            444
+          ],
+          [
+            0,
+            444,
+            444,
+            443
+          ],
+          [
+            444,
+            444,
+            443,
+            443
+          ],
+          [
+            887,
+            444,
+            443,
+            443
+          ],
+          [
+            1330,
+            444,
+            444,
+            443
+          ]
+        ],
+        "crops": [
+          [
+            0,
+            0,
+            444,
+            444
+          ],
+          [
+            444,
+            0,
+            443,
+            444
+          ],
+          [
+            887,
+            0,
+            443,
+            444
+          ],
+          [
+            1330,
+            0,
+            444,
+            444
+          ],
+          [
+            0,
+            444,
+            444,
+            443
+          ],
+          [
+            444,
+            444,
+            443,
+            443
+          ],
+          [
+            887,
+            444,
+            443,
+            443
+          ],
+          [
+            1330,
+            444,
+            444,
+            443
+          ]
+        ],
+        "sha256": "2d5108bef56c2ce032af59414fe3180652f26d96a18f5f4f7ec397467cd7d2cf"
+      },
+      "star": {
+        "image": "assets/scene13/star.png",
+        "size": [
+          1774,
+          887
+        ],
+        "columns": 4,
+        "rows": 2,
+        "frames": [
+          [
+            0,
+            0,
+            444,
+            444
+          ],
+          [
+            444,
+            0,
+            443,
+            444
+          ],
+          [
+            887,
+            0,
+            443,
+            444
+          ],
+          [
+            1330,
+            0,
+            444,
+            444
+          ],
+          [
+            0,
+            444,
+            444,
+            443
+          ],
+          [
+            444,
+            444,
+            443,
+            443
+          ],
+          [
+            887,
+            444,
+            443,
+            443
+          ],
+          [
+            1330,
+            444,
+            444,
+            443
+          ]
+        ],
+        "crops": [
+          [
+            0,
+            0,
+            444,
+            444
+          ],
+          [
+            444,
+            0,
+            443,
+            444
+          ],
+          [
+            887,
+            0,
+            443,
+            444
+          ],
+          [
+            1330,
+            0,
+            444,
+            444
+          ],
+          [
+            0,
+            444,
+            444,
+            443
+          ],
+          [
+            444,
+            444,
+            443,
+            443
+          ],
+          [
+            887,
+            444,
+            443,
+            443
+          ],
+          [
+            1330,
+            444,
+            444,
+            443
+          ]
+        ],
+        "sha256": "a27a3f5c0c7cd4f38254bdcd6cb6ea1e9bf42778e9d4cea584636a643835ad87"
+      },
+      "fx": {
+        "image": "assets/scene13/fx.png",
+        "size": [
+          1774,
+          887
+        ],
+        "columns": 4,
+        "rows": 2,
+        "frames": [
+          [
+            0,
+            0,
+            444,
+            444
+          ],
+          [
+            444,
+            0,
+            443,
+            444
+          ],
+          [
+            887,
+            0,
+            443,
+            444
+          ],
+          [
+            1330,
+            0,
+            444,
+            444
+          ],
+          [
+            0,
+            444,
+            444,
+            443
+          ],
+          [
+            444,
+            444,
+            443,
+            443
+          ],
+          [
+            887,
+            444,
+            443,
+            443
+          ],
+          [
+            1330,
+            444,
+            444,
+            443
+          ]
+        ],
+        "crops": [
+          [
+            0,
+            0,
+            444,
+            444
+          ],
+          [
+            444,
+            0,
+            443,
+            444
+          ],
+          [
+            887,
+            0,
+            443,
+            444
+          ],
+          [
+            1330,
+            0,
+            444,
+            444
+          ],
+          [
+            0,
+            444,
+            444,
+            443
+          ],
+          [
+            444,
+            444,
+            443,
+            443
+          ],
+          [
+            887,
+            444,
+            443,
+            443
+          ],
+          [
+            1330,
+            444,
+            444,
+            443
+          ]
+        ],
+        "sha256": "d2bde15a563de3923aa134c4d26c54daeb42de7035d82b6f165830886419ba77"
+      }
+    }
+  },
+  "economy": {
+    "initial_wallet": 0,
+    "qualifying_new_save_coins": 10,
+    "discovery_coins": 10,
+    "direct_request_coins": 0,
+    "cosmetics": [
+      {
+        "id": "cosmetic_cabinet_lilac",
+        "slot": "cabinet",
+        "price": 20
+      },
+      {
+        "id": "cosmetic_cabinet_peach",
+        "slot": "cabinet",
+        "price": 30
+      },
+      {
+        "id": "cosmetic_cushion_mint",
+        "slot": "cushion",
+        "price": 20
+      },
+      {
+        "id": "cosmetic_cushion_butter",
+        "slot": "cushion",
+        "price": 30
+      },
+      {
+        "id": "cosmetic_picture_rainbow",
+        "slot": "wall_picture",
+        "price": 40
+      },
+      {
+        "id": "cosmetic_plant_star",
+        "slot": "plant",
+        "price": 40
+      }
+    ],
+    "source": "My_Squishy_Lab_360_Blueprint.html v1.1, Deterministic economy and discoveries",
+    "source_sha256": "a24ac968a81762c7720b7ec7258302eba90f42be16db46d490db5e0f7082703d"
+  },
+  "preview": "Separate session previewRoomState. No spend/equip until explicit confirmation. Four tiles per page, six exact catalogue definitions.",
+  "purchase": "One serialized atomic profile write. Stable action ID prevents duplicate spending. Purchase ledger stores inverse snapshot and guard. Retry can reconstruct the same one-use undo token.",
+  "undo": "Cancel preview first. Otherwise reverse only the last purchase from the active visit, once. Concurrent balance/ownership/equipment changes refuse the inverse. Normal exit and a new purchase expire older undo eligibility.",
+  "owned_and_free_play": "Owned confirmation equips without spend-ledger debit. FreePlay writes its separate temporary equipment layer and never earned ownership or wallet. Coin counter hidden in FreePlay.",
+  "projection": "Confirmed room cosmetics appear behind workshop controls; selected cushions carry into Scene09 and shared squish previews. FreePlay equipment is ignored when FreePlay is off.",
+  "shared_squish": "In-scene 512-triangle live solver with up to two contacts, press/drag/stretch, reset and keyboard squeeze. Uses current recipe and seed. Never writes photo, recipe, wallet or rewards. Native Scenes05/09 controls retained. Preview controls available on creation, mixture, reveal, photo, shelf, gift, discovery and decorated workshop views. The revealed toy now also opens its live preview directly after landing. Quiet play retains intentional squish input; generated guidance remains available when sound is muted.",
+  "reveal": "146 registered Scene08 cells:48 shape-specific peel frames,48 landing frames,6 canonical heroes,4 Pip poses, and40 guide/sheen cells. Includes new generated press/stretch hand guidance alongside bottom-release and next arrows.",
+  "storyboard_reference": [
+    "reference_storyboards/board_3.jpg",
+    "reference_storyboards/board_4.jpg"
+  ],
+  "verification": {
+    "colour_report": "colour-validation.json",
+    "swatch_table": "colour-mixtures.html",
+    "browser_visual_qa": false,
+    "scene09_report": "docs/scene09-3d-validation.json"
+  },
+  "limitations": [
+    "Connected browser access was unavailable. DOM/canvas fixtures validate state and drawing commands, not actual browser raster appearance. Browser, download/file-picker and physical-tablet QA remain outstanding.",
+    "2D generated frames, live textured-mesh deformation and runtime compositing, not a production3D rig or recorded video pipeline. Native generated PNGs remain unmodified.",
+    "Some source cells use opaque vignettes, confined to portraits or catalogue tiles. Transparent install/reward sprites are used for in-room objects. UI panels have opaque CSS backgrounds for readable runtime controls.",
+    "Whole-profile localStorage with rollback backups and Web Locks when available. Browser quota varies. Without Web Locks, cross-tab editing is not fully exclusive. Failed writes keep prior data and publish no tentative purchase/reward.",
+    "Only UK English text is installed. Optional shape speech depends on an available browser voice. Soft procedural music/effects are placeholders for final mastered audio.",
+    "Compact backups omit photos and invalidate temporary captures, while preserving recipes, parked drafts and progress. Full backups include local photos but must fit10MiB to import.",
+    "The local symbol gate prevents accidental access; it is not authentication, consent verification or a purchase authorisation system."
+  ],
+  "status": "Connected playable 2D build; browser and physical-device visual QA outstanding",
+  "full_game_entry": "play.html",
+  "scene15_assets": {
+    "panel": {
+      "image": "assets/scene15/panel.png",
+      "size": [
+        1400,
+        1123
+      ],
+      "columns": 1,
+      "rows": 1,
+      "frames": [
+        [
+          0,
+          0,
+          1400,
+          1123
+        ]
+      ],
+      "crops": [
+        [
+          0,
+          0,
+          1400,
+          1123
+        ]
+      ],
+      "sha256": "e3a4f3b14ce5ecf9f21c79e4693b0a1bdaa7a6182d7b78bbe6c3faa7be38687f"
+    },
+    "icons": {
+      "image": "assets/scene15/icons.png",
+      "size": [
+        1774,
+        887
+      ],
+      "columns": 4,
+      "rows": 2,
+      "frames": [
+        [
+          0,
+          0,
+          444,
+          444
+        ],
+        [
+          444,
+          0,
+          443,
+          444
+        ],
+        [
+          887,
+          0,
+          443,
+          444
+        ],
+        [
+          1330,
+          0,
+          444,
+          444
+        ],
+        [
+          0,
+          444,
+          444,
+          443
+        ],
+        [
+          444,
+          444,
+          443,
+          443
+        ],
+        [
+          887,
+          444,
+          443,
+          443
+        ],
+        [
+          1330,
+          444,
+          444,
+          443
+        ]
+      ],
+      "crops": [
+        [
+          0,
+          0,
+          444,
+          444
+        ],
+        [
+          444,
+          0,
+          443,
+          444
+        ],
+        [
+          887,
+          0,
+          443,
+          444
+        ],
+        [
+          1330,
+          0,
+          444,
+          444
+        ],
+        [
+          0,
+          444,
+          444,
+          443
+        ],
+        [
+          444,
+          444,
+          443,
+          443
+        ],
+        [
+          887,
+          444,
+          443,
+          443
+        ],
+        [
+          1330,
+          444,
+          444,
+          443
+        ]
+      ],
+      "sha256": "dc7c6f20d890113eda9a48032b7c5a605f3f1ab30d6b24140d267d71ef318eeb"
+    },
+    "guide": {
+      "image": "assets/scene15/guide.png",
+      "size": [
+        1774,
+        887
+      ],
+      "columns": 4,
+      "rows": 2,
+      "frames": [
+        [
+          0,
+          0,
+          444,
+          444
+        ],
+        [
+          444,
+          0,
+          443,
+          444
+        ],
+        [
+          887,
+          0,
+          443,
+          444
+        ],
+        [
+          1330,
+          0,
+          444,
+          444
+        ],
+        [
+          0,
+          444,
+          444,
+          443
+        ],
+        [
+          444,
+          444,
+          443,
+          443
+        ],
+        [
+          887,
+          444,
+          443,
+          443
+        ],
+        [
+          1330,
+          444,
+          444,
+          443
+        ]
+      ],
+      "crops": [
+        [
+          0,
+          0,
+          444,
+          444
+        ],
+        [
+          444,
+          0,
+          443,
+          444
+        ],
+        [
+          887,
+          0,
+          443,
+          444
+        ],
+        [
+          1330,
+          0,
+          444,
+          444
+        ],
+        [
+          0,
+          444,
+          444,
+          443
+        ],
+        [
+          444,
+          444,
+          443,
+          443
+        ],
+        [
+          887,
+          444,
+          443,
+          443
+        ],
+        [
+          1330,
+          444,
+          444,
+          443
+        ]
+      ],
+      "sha256": "f4975efb45003a1385b760e999af3230b3865b741f7f6662a02adbeb695194af"
+    },
+    "pip": {
+      "image": "assets/scene15/pip.png",
+      "size": [
+        2172,
+        724
+      ],
+      "columns": 4,
+      "rows": 1,
+      "frames": [
+        [
+          0,
+          0,
+          543,
+          724
+        ],
+        [
+          543,
+          0,
+          543,
+          724
+        ],
+        [
+          1086,
+          0,
+          543,
+          724
+        ],
+        [
+          1629,
+          0,
+          543,
+          724
+        ]
+      ],
+      "crops": [
+        [
+          0,
+          0,
+          543,
+          724
+        ],
+        [
+          543,
+          0,
+          543,
+          724
+        ],
+        [
+          1086,
+          0,
+          543,
+          724
+        ],
+        [
+          1629,
+          0,
+          543,
+          724
+        ]
+      ],
+      "sha256": "4a7edfa4cbf41ba10fc351662b1c1fb32514a577224db19365e1193281b3465b"
+    },
+    "quietbackground": {
+      "image": "assets/scene15/quietbackground.png",
+      "size": [
+        1448,
+        1086
+      ],
+      "columns": 1,
+      "rows": 1,
+      "frames": [
+        [
+          0,
+          0,
+          1448,
+          1086
+        ]
+      ],
+      "crops": [
+        [
+          0,
+          0,
+          1448,
+          1086
+        ]
+      ],
+      "sha256": "357a27d6a4dea0e515f1f7817f449682197e8ed83b5afb0b43988e47a0f22248"
+    }
+  },
+  "pause": {
+    "routes": "Pause buttons throughout Scenes02\u201314 open15 over the actual scene. Adult returns to the same pause.",
+    "flow": "Partial pouring is checkpointed and never resumes volume-changing flow without the local Resume pour action. Stirring/tool loops stop.",
+    "toy": "Active contacts resolve into paused recovery. Recovery clocks shift over paused/hidden time; no cancelled-trial grants.",
+    "settings": "Durable preferred music/effects/voice and quiet, with legacy aliases. Quiet preserves preferred values. OS reduced motion affects optional visuals independently of audio.",
+    "help": "One current-action hand/arrow diagram with tap alternative. Back closes help before Resume.",
+    "audio": "Soft local procedural ambient pad plus existing interaction cues, gated by user gesture and preferences. All active scene audio closes/stops during pause."
+  },
+  "grown_up": {
+    "gate": "Shuffled stable-per-entry Star\u2192Circle\u2192Square; no deadline. Wrong choice resets gently. Not authentication or proof of consent.",
+    "play": [
+      "FreePlay without earned grants",
+      "Simple/expanded mould tray",
+      "UK English installed bundle only",
+      "Optional active-play break cue: off/10/15/20 minutes, safe boundary and no lockout"
+    ],
+    "audio": [
+      "Music",
+      "Effects",
+      "Voice",
+      "Quiet"
+    ],
+    "data": [
+      "Read-only JSON export with SHA-256 checksum",
+      "Full local photos or explicit compact recipes without photos",
+      "Download requested wording; saved-to-selected-file only after file writer closes",
+      "Detached validation, review and explicit confirmation before import",
+      "10MiB limit, schema/content version, catalogue/array/HTML/URL/prototype guards",
+      "Profile revision guard and atomic whole-profile replacement",
+      "Prior import/reset/purge snapshots retained and reviewable locally",
+      "Recoverable bin and next-free-slot restore; bounded six-item pages",
+      "Second confirmation and backup option before permanent bin purge or reset",
+      "Return to Welcome only after reset commit; stale paused controllers discarded"
+    ]
+  },
+  "scene04_update": {
+    "palette": "vibrant",
+    "colour_finish": [
+      "plain",
+      "glitter"
+    ],
+    "glitter_atlas": "assets/scene04/glitter.png",
+    "frames": 8,
+    "blend_trigger": "stir",
+    "recipe_field": "colourFinish",
+    "production_sources": [
+      "assets/scene04/bowl_v03.png",
+      "assets/scene04/gel_v03.png",
+      "assets/scene04/paddle_v03.png"
+    ]
+  },
+  "colour_mixing": {
+    "engine": "Spectral.js 3.0.0",
+    "license": "MIT",
+    "method": "single-constant Kubelka-Munk spectral pigment approximation",
+    "ratios": "equal slot amounts, normalized together for 2\u20134 colours",
+    "physical_accuracy": "reference-informed simulation, not measured specific dyes or gels",
+    "vendor_sha256": "2904d4cd308a40eda5a739ec0895710f309cba07236abe7263ba82e3ccebaebd"
+  },
+  "scene05_update": {
+    "tint": "full-strength recipe hue through sample alpha",
+    "shading": "desaturated source relief only",
+    "target_display": "hex and unlit mixture chip"
+  },
+  "scene09_update": {
+    "runtime": "closed3D analytic deformation",
+    "renderer": "WebGL smooth shading with Canvas fallback",
+    "shapes": 6,
+    "standard_mesh": {
+      "vertices": 722,
+      "triangles": 1440
+    },
+    "gestures": [
+      "directional poke",
+      "five-digit mitten hold/squeeze",
+      "two-contact bounded pull",
+      "assisted pull"
+    ],
+    "camera": {
+      "yaw": "full360 azimuth",
+      "pitch": [
+        -89,
+        89
+      ]
+    },
+    "generated_reference_cells": 128,
+    "prototype_glbs": 6,
+    "morph_targets": 72,
+    "reference_clips": 72,
+    "production_limits": [
+      "not XPBD",
+      "no authored anatomical hand rig",
+      "no ray-traced transmission",
+      "browser/GPU/device QA open"
+    ]
+  },
+  "touch_response_v05": {
+    "inference": true,
+    "max_contacts": 10,
+    "hands_visible": false,
+    "shapes": "canonical cavity shared between 07, 08 and 09",
+    "translucency": "alpha transmission with thickness/Fresnel shading",
+    "browser_device_QA": false
+  },
+  "interior_v06": {
+    "shared_reveal": true,
+    "contents": "true depth geometry inside deforming cages",
+    "render": "stencil + opaque interiors + translucent front skin",
+    "max_particles": 300,
+    "native_reference_frames": 8,
+    "reference_mesh_poses": 48,
+    "browser_GPU_QA": false
+  },
+  "style_v07": {
+    "source": "docs/style-v07.md",
+    "native_runtime_cells": 20,
+    "body": "dense softly coloured volume and glossy skin",
+    "browser_visual_QA": false
+  },
+  "moulds_v08": {
+    "source": "docs/moulds_reveal_v08.md",
+    "inner_scale": 1.035,
+    "outer_scale": 1.105,
+    "reveal_ms": 6800,
+    "new_native_cells": 12,
+    "browser_GPU_QA": false
+  },
+  "dumplingExtension": {
+    "version": "0.9",
+    "catalog": [
+      {
+        "id": "dumpling_s",
+        "label": "Small Dumpling",
+        "scale": 0.44,
+        "savedUnlock": 0,
+        "coins": 0
+      },
+      {
+        "id": "dumpling_m",
+        "label": "Medium Dumpling",
+        "scale": 0.6,
+        "savedUnlock": 3,
+        "coins": 20
+      },
+      {
+        "id": "dumpling_l",
+        "label": "Large Dumpling",
+        "scale": 0.8,
+        "savedUnlock": 7,
+        "coins": 40
+      },
+      {
+        "id": "dumpling_xl",
+        "label": "Super Large Dumpling",
+        "scale": 1.02,
+        "savedUnlock": 12,
+        "coins": 60
+      }
+    ],
+    "sources": [
+      "identity.png",
+      "relief.png",
+      "moulds.png",
+      "animation.png"
+    ],
+    "generation": "OpenAI built-in imagegen",
+    "research": "docs/dumplings-v09.md",
+    "runtime": "dumpling-catalog.js + scene09-volume.js + mould-geometry.js"
+  },
+  "visualPolish": {
+    "version": "0.10",
+    "mode": "built-in OpenAI imagegen",
+    "assets": [
+      "mould_bear.png",
+      "mould_blob.png",
+      "mould_cloud.png",
+      "mould_cube.png",
+      "mould_heart.png",
+      "mould_star.png",
+      "neutral_bodies.png",
+      "pour_material.png",
+      "sparkles.png"
+    ],
+    "bodyFaceDefault": "none",
+    "faceChooser": "Scene09 Face: optional and Scene10 Finish/photo",
+    "glitterFacets": 900,
+    "sparkleDoseDust": [
+      360,
+      900
+    ],
+    "sampling": "volume-weighted tetrahedra with uniform barycentric positions",
+    "pourSource": "final scene09-volume.js mesh clipped by height",
+    "sceneConsumers": [
+      "03",
+      "05",
+      "07",
+      "08",
+      "09",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14"
+    ],
+    "docs": "docs/visual-polish-v10.md",
+    "browserVerified": false
+  },
+  "mouldPourRepairV11": {
+    "version": "0.11",
+    "mode": "built-in OpenAI imagegen",
+    "images": [
+      "dumpling_open.png",
+      "dumpling_closed.png",
+      "pour_jug.png"
+    ],
+    "imageFit": "contain",
+    "selector": "complete img elements, no atlas",
+    "pour": "one depth-tested geometry path",
+    "jug": "single complete asset + continuous calibrated-spout pivot",
+    "bodyDepthFactor": 0.62,
+    "geometry": "assets/fill-v11/geometry.json",
+    "browserVerified": false,
+    "offlineFramesInspected": [
+      "empty",
+      "flowing",
+      "settling",
+      "filled"
+    ]
+  },
+  "release": "0.13",
+  "shared_ui": "assets/ui-raster-v13/manifest.json"
+}

@@ -1,0 +1,43 @@
+{
+  "source_library_file_id": "libfile_577e748c8cc881919c9a2e5b689d9079",
+  "source": "cube_selection_raw.mp4",
+  "source_duration_seconds": 8,
+  "source_size": [
+    1344,
+    768
+  ],
+  "source_fps": 24,
+  "crop": [
+    396,
+    60,
+    560,
+    560
+  ],
+  "detected_foreground_union": [
+    440,
+    100,
+    912,
+    580
+  ],
+  "sprite_sheet": "cube_preview_sheet.png",
+  "columns": 6,
+  "rows": 6,
+  "frame_size": [
+    256,
+    256
+  ],
+  "frame_count": 36,
+  "playback_ms": 1500,
+  "source_trim_seconds": [
+    0.75,
+    6.75
+  ],
+  "speed_multiplier": 4,
+  "audio": "Removed",
+  "role": "Tap active cube preview; quick selection remains procedural",
+  "limitations": [
+    "Generated motion exceeds 2 percent squash target; optional preview only",
+    "Chroma-key edge treatment requires final tablet review",
+    "No rendered-browser QA in this environment"
+  ]
+}

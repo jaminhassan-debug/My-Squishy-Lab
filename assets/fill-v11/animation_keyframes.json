@@ -1,0 +1,15 @@
+{
+  "alignMs": 300,
+  "cutoffMs": 300,
+  "maxTiltRadians": 0.92,
+  "curve": "t*t*(3-2*t)",
+  "spoutUV": [
+    0.861,
+    0.175
+  ],
+  "jugLiquidFraction": "1-fillProgress",
+  "fillSurface": "clipped final mesh",
+  "streamEndpoint": "projected mould opening",
+  "liveRaster": 256,
+  "restRaster": 384
+}

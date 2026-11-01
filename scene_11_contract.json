@@ -1,0 +1,551 @@
+{
+  "id": "scene_11",
+  "number": 11,
+  "name": "My shelf",
+  "purpose": "Browse, play, rearrange and remix immutable saved creations.",
+  "on_enter": [
+    "Load six visible creation records and their thumbnails per page, not live models for entire collection.",
+    "If empty, show Make action; shelf slots remain empty.",
+    "Select persisted page if valid, else first existing page. Keep current draft separately from saved records."
+  ],
+  "on_exit": [
+    "Commit completed shelf moves; clear selected-card overlays and release thumbnail resources outside cache budget."
+  ],
+  "substates": [
+    "empty",
+    "browse",
+    "selected",
+    "move_mode",
+    "loading_page"
+  ],
+  "persistence": "shelfLayout is ordered creation IDs with optional empty slots. A move is one transaction with creation IDs, source/destination slot and revision guard. No creation recipe is altered.",
+  "back_rule": "Back returns stored prior hub/play context; Home02. Play selected\u219209 saved context; Remix\u219203 new draft.",
+  "acceptance": [
+    "Seven creations show page2 without overwriting or deleting the first six.",
+    "Move within/across pages is possible by tap-only selection.",
+    "Remix keeps the original unchanged and gets a new stable draft ID."
+  ],
+  "implementation_notes": [
+    "Cabinet artwork has empty slots. Render actual thumbnails into registered anchors; examples from the art pack must never be inserted as player records.",
+    "No child-facing delete. Adult bin controls are in 16."
+  ],
+  "placements": [
+    {
+      "id": "background",
+      "asset": "env_shelf_plate",
+      "landscape": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "portrait": [
+        0,
+        0,
+        768,
+        1024
+      ],
+      "z": 0,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "home",
+      "asset": "icon_home",
+      "landscape": [
+        16,
+        8,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        8,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "GLOBAL_HOME",
+      "note": "Checkpoint the draft, then hub; no silent discard.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "pause",
+      "asset": "icon_pause",
+      "landscape": [
+        912,
+        8,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        8,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "GLOBAL_PAUSE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "back",
+      "asset": "icon_back",
+      "landscape": [
+        16,
+        656,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        912,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "BACK",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "cabinet",
+      "asset": "prop_cabinet",
+      "landscape": [
+        160,
+        128,
+        704,
+        400
+      ],
+      "portrait": [
+        40,
+        168,
+        688,
+        432
+      ],
+      "z": 20,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "slot_0",
+      "asset": "ui_shelf_slot",
+      "landscape": [
+        196,
+        164,
+        200,
+        144
+      ],
+      "portrait": [
+        72,
+        208,
+        192,
+        152
+      ],
+      "z": 40,
+      "role": "button",
+      "action": "SELECT_CREATION",
+      "note": "Dynamic thumbnail clipped to slot. Empty slots are only destinations in move mode.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "slot_1",
+      "asset": "ui_shelf_slot",
+      "landscape": [
+        412,
+        164,
+        200,
+        144
+      ],
+      "portrait": [
+        288,
+        208,
+        192,
+        152
+      ],
+      "z": 40,
+      "role": "button",
+      "action": "SELECT_CREATION",
+      "note": "Dynamic thumbnail clipped to slot. Empty slots are only destinations in move mode.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "slot_2",
+      "asset": "ui_shelf_slot",
+      "landscape": [
+        628,
+        164,
+        200,
+        144
+      ],
+      "portrait": [
+        504,
+        208,
+        192,
+        152
+      ],
+      "z": 40,
+      "role": "button",
+      "action": "SELECT_CREATION",
+      "note": "Dynamic thumbnail clipped to slot. Empty slots are only destinations in move mode.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "slot_3",
+      "asset": "ui_shelf_slot",
+      "landscape": [
+        196,
+        328,
+        200,
+        144
+      ],
+      "portrait": [
+        72,
+        376,
+        192,
+        152
+      ],
+      "z": 40,
+      "role": "button",
+      "action": "SELECT_CREATION",
+      "note": "Dynamic thumbnail clipped to slot. Empty slots are only destinations in move mode.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "slot_4",
+      "asset": "ui_shelf_slot",
+      "landscape": [
+        412,
+        328,
+        200,
+        144
+      ],
+      "portrait": [
+        288,
+        376,
+        192,
+        152
+      ],
+      "z": 40,
+      "role": "button",
+      "action": "SELECT_CREATION",
+      "note": "Dynamic thumbnail clipped to slot. Empty slots are only destinations in move mode.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "slot_5",
+      "asset": "ui_shelf_slot",
+      "landscape": [
+        628,
+        328,
+        200,
+        144
+      ],
+      "portrait": [
+        504,
+        376,
+        192,
+        152
+      ],
+      "z": 40,
+      "role": "button",
+      "action": "SELECT_CREATION",
+      "note": "Dynamic thumbnail clipped to slot. Empty slots are only destinations in move mode.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "page_prev",
+      "asset": "icon_page_prev",
+      "landscape": [
+        16,
+        304,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        600,
+        96,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "SHELF_PAGE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "page_next",
+      "asset": "icon_page_next",
+      "landscape": [
+        912,
+        304,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        600,
+        96,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "SHELF_PAGE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "play_selected",
+      "asset": "icon_hand",
+      "landscape": [
+        304,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        40,
+        792,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "PLAY_SELECTED",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "remix",
+      "asset": "icon_duplicate",
+      "landscape": [
+        456,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        280,
+        792,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "REMIX",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "move",
+      "asset": "icon_shelf",
+      "landscape": [
+        608,
+        552,
+        112,
+        96
+      ],
+      "portrait": [
+        520,
+        792,
+        208,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "MOVE_MODE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "new",
+      "asset": "icon_plus",
+      "landscape": [
+        912,
+        656,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        912,
+        96,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "NEW_CREATION",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    }
+  ],
+  "actions": [
+    {
+      "id": "SELECT_CREATION",
+      "trigger": "Tap occupied slot",
+      "guard": "Record exists and thumbnail may be loaded independently",
+      "command": "Select creationId; show Play/Remix/Move actions; do not immediately launch on first tap",
+      "state_write": "Session selection only.",
+      "feedback": "Slot outline and one accessible name.",
+      "destination": "Stay 11 selected",
+      "interrupt": "Selection changes do not lose unfinished draft.",
+      "master_animation_ids": [
+        "anim_shelf_select"
+      ]
+    },
+    {
+      "id": "PLAY_SELECTED",
+      "trigger": "Tap hand or double-activation through explicit Play",
+      "guard": "Valid selected creation",
+      "command": "route.push(09,{kind:saved,id})",
+      "state_write": "session.lastSelectedCreationId.",
+      "feedback": "Load one live toy renderer.",
+      "destination": "09",
+      "interrupt": "Decode error shows restore/retry guidance, preserves record.",
+      "master_animation_ids": [
+        "anim_scene"
+      ]
+    },
+    {
+      "id": "REMIX",
+      "trigger": "Tap remix",
+      "guard": "Valid selected creation",
+      "command": "Create independent draft with copied recipe, new seed preserved initially, parentCreationId=id; keep original immutable",
+      "state_write": "draft fields + activeDraftId. Unchanged remix earns no qualifying completion reward.",
+      "feedback": "Copy card moves to Make.",
+      "destination": "03",
+      "interrupt": "If another draft exists, park it before creating remix.",
+      "master_animation_ids": [
+        "anim_remix"
+      ]
+    },
+    {
+      "id": "MOVE_MODE",
+      "trigger": "Tap Move then tap destination; optional drag same operation",
+      "guard": "Selected record; destination visible or page navigated",
+      "command": "Enter move mode; choosing occupied slot swaps IDs; empty slot moves ID; one transaction",
+      "state_write": "shelfLayoutRevision++; no recipe or wallet writes.",
+      "feedback": "Valid destination outline, 300ms proxy move.",
+      "destination": "Stay 11",
+      "interrupt": "Back/cancel before destination changes no layout; stale revision reloads layout before retry.",
+      "master_animation_ids": [
+        "anim_shelf_move"
+      ]
+    },
+    {
+      "id": "SHELF_PAGE",
+      "trigger": "Tap page arrows",
+      "guard": "Target page exists, or move mode permits next empty page",
+      "command": "Commit none until destination chosen; display target six slots",
+      "state_write": "session.shelfPage only.",
+      "feedback": "200ms fade, no forced swipe.",
+      "destination": "Stay 11",
+      "interrupt": "Selected move source persists across pages.",
+      "master_animation_ids": [
+        "anim_shelf_page"
+      ]
+    },
+    {
+      "id": "NEW_CREATION",
+      "trigger": "Tap plus, including empty-shelf action",
+      "guard": "Ready",
+      "command": "Park current unfinished draft if necessary; draft.createFresh(); route03",
+      "state_write": "Draft checkpoint.",
+      "feedback": "Make station cue.",
+      "destination": "03",
+      "interrupt": "No deletion to free a display slot; add pages as required.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    }
+  ],
+  "master_animation_ids": [
+    "anim_button",
+    "anim_focus",
+    "anim_remix",
+    "anim_scene",
+    "anim_shelf_move",
+    "anim_shelf_page",
+    "anim_shelf_select"
+  ],
+  "audio_asset_ids": [
+    "sfx_shelf_place",
+    "sfx_ui_tap",
+    "vo_shelf"
+  ],
+  "master_asset_ids": [
+    "env_shelf_plate",
+    "fx_selection_outline",
+    "icon_back",
+    "icon_duplicate",
+    "icon_focus",
+    "icon_hand",
+    "icon_home",
+    "icon_page_next",
+    "icon_page_prev",
+    "icon_pause",
+    "icon_plus",
+    "icon_shelf",
+    "mat_gel",
+    "prop_cabinet",
+    "sfx_music_workshop",
+    "sfx_shelf_place",
+    "sfx_ui_tap",
+    "sys_animation_events",
+    "sys_deform_field",
+    "sys_save_contract",
+    "toy_bear",
+    "toy_blob",
+    "toy_cloud",
+    "toy_cube",
+    "toy_heart",
+    "toy_star",
+    "ui_button_round",
+    "ui_shelf_slot",
+    "vo_shelf"
+  ],
+  "master_source_scene_id": "scene_11"
+}

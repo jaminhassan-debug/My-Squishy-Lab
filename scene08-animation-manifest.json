@@ -1,0 +1,65 @@
+{
+  "peel_sheets": {
+    "cube": "assets/scene08/cube.png",
+    "blob": "assets/scene08/blob.png",
+    "heart": "assets/scene08/heart.png",
+    "star": "assets/scene08/star.png",
+    "cloud": "assets/scene08/cloud.png",
+    "bear": "assets/scene08/bear.png"
+  },
+  "anim_peel": {
+    "duration_ms": 5600,
+    "tab_ms": [
+      1100,
+      2200
+    ],
+    "near_wall_ms": [
+      2200,
+      4200
+    ],
+    "walls_ms": [
+      4200,
+      5600
+    ],
+    "frames": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "interruption": "global pause freezes exact elapsed time; unfinished reload restores closed",
+    "anticipation_ms": [
+      0,
+      1100
+    ],
+    "geometry": "two fitted thick3D shell halves, inner scale1.035 and outer scale1.105 from final rest mesh"
+  },
+  "anim_land": {
+    "duration_ms": 1200,
+    "ready_elapsed_ms": 6800,
+    "final_geometry": "same for skip, quiet, full reveal and restored ready"
+  },
+  "anim_pip_delight": {
+    "frame": 2,
+    "duration": "active reveal only",
+    "input": "hidden while overlapping Skip is active"
+  },
+  "anim_pip_help": {
+    "frame": 3,
+    "once_per_draft_per_page": true,
+    "recipe_mutation": false
+  },
+  "quiet": "Tap reveal resolves directly through the same idempotent completion; no repeated movement or sound",
+  "completion": "revealComplete=true; revealedBodyRevision=bodyRevision; no coins or saved creation",
+  "style_v07": {
+    "native_gel_frames": 8,
+    "native_mould_shapes": 6,
+    "native_toy_reliefs": 6,
+    "reveal": "shared3D body, native thick mould peeling transform and mesh landing/recovery"
+  },
+  "closed_shells": "assets/style-v08/closed_shells.png"
+}

@@ -1,0 +1,26 @@
+{
+  "version": "0.9",
+  "reveal": {
+    "anticipationMs": 1100,
+    "peelEndMs": 5600,
+    "completeMs": 6800
+  },
+  "poses": [
+    "rest",
+    "shallow-poke",
+    "deep-poke",
+    "squeeze",
+    "stretch",
+    "landing",
+    "rebound",
+    "rest"
+  ],
+  "continuous": "scene09-volume.js",
+  "recoveryMs": {
+    "foam": 2800,
+    "gel": 1100,
+    "bounce": 550
+  },
+  "hands": false,
+  "shapeInvariant": "same rest mesh and shell for pour/reveal/play"
+}

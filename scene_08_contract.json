@@ -1,0 +1,399 @@
+{
+  "id": "scene_08",
+  "number": 8,
+  "name": "Reveal",
+  "purpose": "Peel the matching silicone mould and present the exact creation.",
+  "on_enter": [
+    "Require filledBodyRevision==bodyRevision and fillProgress=1; otherwise route safely to 07.",
+    "Build hero from canonical recipe and seed, then position inside correct mould.",
+    "If revealComplete for this revision, render final pose without replaying forced motion."
+  ],
+  "on_exit": [
+    "Resolve to durable revealed/unrevealed marker; stop peel sounds."
+  ],
+  "substates": [
+    "closed",
+    "peeling",
+    "landing",
+    "ready"
+  ],
+  "persistence": "revealComplete=true and revealedBodyRevision=bodyRevision after final logical state; no reward at reveal.",
+  "back_rule": "Back 07 retains completed fill. Next 09 with draft context. Home retains draft and safe reveal state.",
+  "acceptance": [
+    "Every mould clears its toy with no clipping.",
+    "Skip and uninterrupted reveal reach identical data and visible final pose.",
+    "Colours, material, faces and inclusions never swap to stock imagery."
+  ],
+  "implementation_notes": [
+    "One shape-specific peel clip/rig per mould. Bind generic event names, not generic cube geometry.",
+    "The hand glyph becomes Next after reveal; Skip appears only while a reveal is active."
+  ],
+  "placements": [
+    {
+      "id": "background",
+      "asset": "env_make_plate",
+      "landscape": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "portrait": [
+        0,
+        0,
+        768,
+        1024
+      ],
+      "z": 0,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "home",
+      "asset": "icon_home",
+      "landscape": [
+        16,
+        8,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        8,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "GLOBAL_HOME",
+      "note": "Checkpoint the draft, then hub; no silent discard.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "pause",
+      "asset": "icon_pause",
+      "landscape": [
+        912,
+        8,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        8,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "GLOBAL_PAUSE",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "back",
+      "asset": "icon_back",
+      "landscape": [
+        16,
+        656,
+        96,
+        96
+      ],
+      "portrait": [
+        16,
+        912,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "BACK",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "next",
+      "asset": "icon_next",
+      "landscape": [
+        912,
+        656,
+        96,
+        96
+      ],
+      "portrait": [
+        656,
+        912,
+        96,
+        96
+      ],
+      "z": 80,
+      "role": "button",
+      "action": "NEXT",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "display",
+      "asset": "prop_turntable",
+      "landscape": [
+        308,
+        398,
+        408,
+        144
+      ],
+      "portrait": [
+        144,
+        496,
+        480,
+        152
+      ],
+      "z": 20,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "closed_mould",
+      "asset": "mould_cube",
+      "landscape": [
+        340,
+        188,
+        344,
+        344
+      ],
+      "portrait": [
+        180,
+        216,
+        408,
+        408
+      ],
+      "z": 35,
+      "role": "button",
+      "action": "REVEAL",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "toy",
+      "asset": "toy_cube",
+      "landscape": [
+        352,
+        176,
+        320,
+        344
+      ],
+      "portrait": [
+        192,
+        200,
+        384,
+        416
+      ],
+      "z": 33,
+      "role": "button",
+      "action": "REVEAL",
+      "note": "Visible during peel; final z40. Hit routes to Reveal only in closed state.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "skip",
+      "asset": "icon_next",
+      "landscape": [
+        792,
+        344,
+        96,
+        96
+      ],
+      "portrait": [
+        624,
+        456,
+        96,
+        96
+      ],
+      "z": 75,
+      "role": "button",
+      "action": "SKIP_REVEAL",
+      "note": "Only visible during peeling/landing.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "substate=peeling or landing."
+    },
+    {
+      "id": "pip",
+      "asset": "char_pip",
+      "landscape": [
+        800,
+        382,
+        120,
+        112
+      ],
+      "portrait": [
+        568,
+        502,
+        144,
+        128
+      ],
+      "z": 50,
+      "role": "button",
+      "action": "PIP_HELP",
+      "note": "Idle/blink outside hero target; demonstration once, then remain quiet.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    }
+  ],
+  "actions": [
+    {
+      "id": "REVEAL",
+      "trigger": "Tap peel tab, mould or toy",
+      "guard": "state=closed and current fill valid",
+      "command": "Start 1.5s peel: tab 0\u20130.2s, near wall .2\u2013.7, walls .7\u20131.1, land 1.1\u20131.5; enter ready",
+      "state_write": "Mark revealedBodyRevision only on ready.",
+      "feedback": "Pip smiles; optional gentle peel/landing sounds.",
+      "destination": "Stay 08 ready",
+      "interrupt": "Pointerup does not stop tap-start reveal; global pause freezes; reload unfinished reveal restores closed with valid fill.",
+      "master_animation_ids": [
+        "anim_peel",
+        "anim_land",
+        "anim_pip_delight"
+      ]
+    },
+    {
+      "id": "SKIP_REVEAL",
+      "trigger": "Tap skip",
+      "guard": "Peeling/landing",
+      "command": "Resolve exactly to ready final pose; call same idempotent reveal completion",
+      "state_write": "Same revealedBodyRevision marker.",
+      "feedback": "Short fade, no duplicate sound.",
+      "destination": "Stay 08 ready",
+      "interrupt": "Ignore repeated skip after ready.",
+      "master_animation_ids": [
+        "anim_peel"
+      ]
+    },
+    {
+      "id": "NEXT",
+      "trigger": "Tap hand/next",
+      "guard": "state=ready and revealedBodyRevision==bodyRevision",
+      "command": "Open 09 with context draft(activeDraftId)",
+      "state_write": "lastStep=09.",
+      "feedback": "Toy carries into cushion scene.",
+      "destination": "09",
+      "interrupt": "No automatic save, gift or coins.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    }
+  ],
+  "master_animation_ids": [
+    "anim_button",
+    "anim_focus",
+    "anim_land",
+    "anim_peel",
+    "anim_pip_blink",
+    "anim_pip_delight",
+    "anim_pip_idle",
+    "anim_scene"
+  ],
+  "audio_asset_ids": [
+    "sfx_peel",
+    "sfx_reveal_land",
+    "sfx_pip",
+    "vo_reveal"
+  ],
+  "master_asset_ids": [
+    "bits_foil_heart",
+    "bits_foil_star",
+    "bits_fruit_kiwi",
+    "bits_fruit_orange",
+    "bits_fruit_strawberry",
+    "bits_gem_diamond",
+    "bits_gem_round",
+    "bits_pearl",
+    "bits_sprinkle",
+    "blend_blue_lilac",
+    "blend_blue_yellow",
+    "blend_mint_lilac",
+    "blend_peach_pink",
+    "blend_pink_blue",
+    "blend_pink_yellow",
+    "char_pip",
+    "env_make_plate",
+    "icon_back",
+    "icon_focus",
+    "icon_hand",
+    "icon_home",
+    "icon_next",
+    "icon_pause",
+    "mat_bounce",
+    "mat_foam",
+    "mat_foil",
+    "mat_gel",
+    "mat_gem",
+    "mat_pearl",
+    "mat_silicone",
+    "mould_bear",
+    "mould_blob",
+    "mould_cloud",
+    "mould_cube",
+    "mould_heart",
+    "mould_star",
+    "palette_blue",
+    "palette_lilac",
+    "palette_mint",
+    "palette_peach",
+    "palette_pink",
+    "palette_yellow",
+    "prop_cushion",
+    "prop_turntable",
+    "sfx_music_workshop",
+    "sfx_peel",
+    "sfx_pip",
+    "sfx_reveal_land",
+    "sys_animation_events",
+    "sys_deform_field",
+    "tex_swirl_mask",
+    "toy_bear",
+    "toy_blob",
+    "toy_cloud",
+    "toy_cube",
+    "toy_heart",
+    "toy_star",
+    "ui_button_round",
+    "vo_reveal"
+  ],
+  "master_source_scene_id": "scene_08",
+  "version": "0.8",
+  "style_v07": {
+    "source": "docs/style-v07.md",
+    "native_runtime_cells": 20,
+    "body": "dense softly coloured volume and glossy skin",
+    "browser_visual_QA": false
+  },
+  "moulds_v08": {
+    "source": "docs/moulds_reveal_v08.md",
+    "inner_scale": 1.035,
+    "outer_scale": 1.105,
+    "reveal_ms": 6800,
+    "new_native_cells": 12,
+    "browser_GPU_QA": false
+  }
+}

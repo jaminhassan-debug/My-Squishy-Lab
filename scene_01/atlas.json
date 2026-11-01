@@ -1,0 +1,113 @@
+{
+  "cube_poses_2x2.png": {
+    "size": [
+      1448,
+      1086
+    ],
+    "frames": {
+      "rest": {
+        "x": 0,
+        "y": 0,
+        "width": 724,
+        "height": 543,
+        "css_background_position": "0% 0%"
+      },
+      "compressed": {
+        "x": 724,
+        "y": 0,
+        "width": 724,
+        "height": 543,
+        "css_background_position": "100% 0%"
+      },
+      "rebound": {
+        "x": 0,
+        "y": 543,
+        "width": 724,
+        "height": 543,
+        "css_background_position": "0% 100%"
+      },
+      "eyes_closed": {
+        "x": 724,
+        "y": 543,
+        "width": 724,
+        "height": 543,
+        "css_background_position": "100% 100%"
+      }
+    },
+    "note": "Four generated pose variants, not pixel-registered in-between frames. Use neutral frame plus transform animation for smooth welcome idle; do not treat atlas as a seamless 4-frame film."
+  },
+  "pip_expressions_2x2.png": {
+    "size": [
+      1448,
+      1086
+    ],
+    "frames": {
+      "idle": {
+        "x": 0,
+        "y": 0,
+        "width": 724,
+        "height": 543,
+        "css_background_position": "0% 0%"
+      },
+      "blink": {
+        "x": 724,
+        "y": 0,
+        "width": 724,
+        "height": 543,
+        "css_background_position": "100% 0%"
+      },
+      "delight": {
+        "x": 0,
+        "y": 543,
+        "width": 724,
+        "height": 543,
+        "css_background_position": "0% 100%"
+      },
+      "curious": {
+        "x": 724,
+        "y": 543,
+        "width": 724,
+        "height": 543,
+        "css_background_position": "100% 100%"
+      }
+    },
+    "note": "Discrete expressions; curious gaze in generated artwork looks upward/right rather than the requested left. Idle/blink are used in this scene."
+  },
+  "welcome_controls_2x2.png": {
+    "size": [
+      1448,
+      1086
+    ],
+    "frames": {
+      "play": {
+        "x": 0,
+        "y": 0,
+        "width": 724,
+        "height": 543,
+        "css_background_position": "0% 0%"
+      },
+      "grown_ups": {
+        "x": 724,
+        "y": 0,
+        "width": 724,
+        "height": 543,
+        "css_background_position": "100% 0%"
+      },
+      "sound": {
+        "x": 0,
+        "y": 543,
+        "width": 724,
+        "height": 543,
+        "css_background_position": "0% 100%"
+      },
+      "help": {
+        "x": 724,
+        "y": 543,
+        "width": 724,
+        "height": 543,
+        "css_background_position": "100% 100%"
+      }
+    },
+    "note": "Use semantic HTML buttons; transparent sprite padding is not a hit target. Sound/help are reusable optional controls, hidden on the default child-facing welcome."
+  }
+}

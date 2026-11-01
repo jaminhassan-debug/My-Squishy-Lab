@@ -1,0 +1,160 @@
+{
+  "method": "ImageGen multi-frame atlases plus input-controlled Canvas/DOM",
+  "no_generated_video_required": true,
+  "clips": [
+    {
+      "id": "anim_stir",
+      "sheets": [
+        "assets/scene04/liquid.png",
+        "assets/scene04/paddle.png"
+      ],
+      "liquid_grid": [
+        4,
+        2
+      ],
+      "paddle_grid": [
+        4,
+        1
+      ],
+      "control": "Saved swirlAngle controls phase; absolute angular travel blends 1\u20134 selected colours. Two revolutions complete a new mix.",
+      "auto_duration_ms": 2400,
+      "auto_revolutions": 2
+    },
+    {
+      "id": "anim_stir_settle",
+      "control": "Stop input ownership, retain phase and safe paddle tip; quiet freezes optional frames"
+    },
+    {
+      "id": "anim_colour_deposit",
+      "sheet": "assets/scene04/deposit.png",
+      "grid": [
+        4,
+        1
+      ],
+      "duration_ms": 460,
+      "control": "One-shot on committed palette change; bounded to current bowl; no progression events"
+    },
+    {
+      "id": "anim_mix",
+      "duration_ms": 1200,
+      "control": "Stirring increments saved mixAmount; optional Finish blend completes it. All selected colours contribute. Undo restores exact previous mix."
+    },
+    {
+      "id": "anim_button",
+      "method": "CSS pressed feedback"
+    },
+    {
+      "id": "anim_scene",
+      "method": "Route visibility, no blocking entrance animation"
+    }
+  ],
+  "note": "Generated poses are image frames, not editable rigs. Liquid patches are ellipse-clipped; frame grids may have fractional pixel cell dimensions. Keep original sheet dimensions.",
+  "vibrant_colour_finish": {
+    "image": "assets/scene04/glitter.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "columns": 4,
+    "rows": 2,
+    "frames": [
+      [
+        0,
+        0,
+        384,
+        512
+      ],
+      [
+        384,
+        0,
+        384,
+        512
+      ],
+      [
+        768,
+        0,
+        384,
+        512
+      ],
+      [
+        1152,
+        0,
+        384,
+        512
+      ],
+      [
+        0,
+        512,
+        384,
+        512
+      ],
+      [
+        384,
+        512,
+        384,
+        512
+      ],
+      [
+        768,
+        512,
+        384,
+        512
+      ],
+      [
+        1152,
+        512,
+        384,
+        512
+      ]
+    ],
+    "trigger": "stir angle only; no idle loop",
+    "quiet_frame": 0,
+    "recipe_field": "colourFinish",
+    "values": [
+      "plain",
+      "glitter"
+    ],
+    "source": "native ImageGen, original unmodified"
+  },
+  "v03_sources": {
+    "bowl": {
+      "image": "assets/scene04/bowl_v03.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "crop": [
+        40,
+        110,
+        1450,
+        835
+      ]
+    },
+    "gel": {
+      "image": "assets/scene04/gel_v03.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "grid": [
+        4,
+        2
+      ],
+      "frames": 8
+    },
+    "paddle": {
+      "image": "assets/scene04/paddle_v03.png",
+      "size": [
+        2172,
+        724
+      ],
+      "grid": [
+        4,
+        1
+      ],
+      "frames": 4
+    },
+    "source_handling": "Original ImageGen PNGs unchanged; runtime crops and neutral shading only",
+    "blend_trigger": "manual stirring or tap-based stirring; no autonomous blend timer"
+  }
+}

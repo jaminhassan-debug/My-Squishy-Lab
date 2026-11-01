@@ -1,0 +1,134 @@
+{
+  "version": "0.4",
+  "models": [
+    {
+      "shape": "cube",
+      "vertices": 1658,
+      "triangles": 3312,
+      "morph_targets": [
+        "poke_posX",
+        "poke_negX",
+        "poke_posY",
+        "poke_negY",
+        "poke_posZ",
+        "poke_negZ",
+        "hold_X",
+        "hold_Y",
+        "hold_Z",
+        "stretch_X",
+        "stretch_Y",
+        "stretch_Z"
+      ],
+      "reference_clips": 12,
+      "file": "cube.glb"
+    },
+    {
+      "shape": "star",
+      "vertices": 1658,
+      "triangles": 3312,
+      "morph_targets": [
+        "poke_posX",
+        "poke_negX",
+        "poke_posY",
+        "poke_negY",
+        "poke_posZ",
+        "poke_negZ",
+        "hold_X",
+        "hold_Y",
+        "hold_Z",
+        "stretch_X",
+        "stretch_Y",
+        "stretch_Z"
+      ],
+      "reference_clips": 12,
+      "file": "star.glb"
+    },
+    {
+      "shape": "heart",
+      "vertices": 1658,
+      "triangles": 3312,
+      "morph_targets": [
+        "poke_posX",
+        "poke_negX",
+        "poke_posY",
+        "poke_negY",
+        "poke_posZ",
+        "poke_negZ",
+        "hold_X",
+        "hold_Y",
+        "hold_Z",
+        "stretch_X",
+        "stretch_Y",
+        "stretch_Z"
+      ],
+      "reference_clips": 12,
+      "file": "heart.glb"
+    },
+    {
+      "shape": "cloud",
+      "vertices": 1658,
+      "triangles": 3312,
+      "morph_targets": [
+        "poke_posX",
+        "poke_negX",
+        "poke_posY",
+        "poke_negY",
+        "poke_posZ",
+        "poke_negZ",
+        "hold_X",
+        "hold_Y",
+        "hold_Z",
+        "stretch_X",
+        "stretch_Y",
+        "stretch_Z"
+      ],
+      "reference_clips": 12,
+      "file": "cloud.glb"
+    },
+    {
+      "shape": "bear",
+      "vertices": 1658,
+      "triangles": 3312,
+      "morph_targets": [
+        "poke_posX",
+        "poke_negX",
+        "poke_posY",
+        "poke_negY",
+        "poke_posZ",
+        "poke_negZ",
+        "hold_X",
+        "hold_Y",
+        "hold_Z",
+        "stretch_X",
+        "stretch_Y",
+        "stretch_Z"
+      ],
+      "reference_clips": 12,
+      "file": "bear.glb"
+    },
+    {
+      "shape": "blob",
+      "vertices": 1658,
+      "triangles": 3312,
+      "morph_targets": [
+        "poke_posX",
+        "poke_negX",
+        "poke_posY",
+        "poke_negY",
+        "poke_posZ",
+        "poke_negZ",
+        "hold_X",
+        "hold_Y",
+        "hold_Z",
+        "stretch_X",
+        "stretch_Y",
+        "stretch_Z"
+      ],
+      "reference_clips": 12,
+      "file": "blob.glb"
+    }
+  ],
+  "total_morph_targets": 72,
+  "total_reference_clips": 72,
+  "role": "Prototype handoff models, not authored production topology or physically validated rigs"
+}

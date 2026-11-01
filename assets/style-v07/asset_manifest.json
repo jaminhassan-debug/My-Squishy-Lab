@@ -1,0 +1,163 @@
+{
+  "version": "0.7",
+  "style_authority": "Scene01 welcome cube, original image retained",
+  "native_cells": 20,
+  "assets": {
+    "moulds": {
+      "file": "moulds.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          512,
+          512
+        ],
+        [
+          512,
+          0,
+          512,
+          512
+        ],
+        [
+          1024,
+          0,
+          512,
+          512
+        ],
+        [
+          0,
+          512,
+          512,
+          512
+        ],
+        [
+          512,
+          512,
+          512,
+          512
+        ],
+        [
+          1024,
+          512,
+          512,
+          512
+        ]
+      ],
+      "sha256": "871ae99375fcd518dd29b53f28c8c0456284ac6abc2f9dc7593eabf0c13a7a6c",
+      "native_original_unchanged": true,
+      "pose_registration_artist_review_required": true
+    },
+    "heroes": {
+      "file": "heroes.png",
+      "size": [
+        1536,
+        1024
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          512,
+          512
+        ],
+        [
+          512,
+          0,
+          512,
+          512
+        ],
+        [
+          1024,
+          0,
+          512,
+          512
+        ],
+        [
+          0,
+          512,
+          512,
+          512
+        ],
+        [
+          512,
+          512,
+          512,
+          512
+        ],
+        [
+          1024,
+          512,
+          512,
+          512
+        ]
+      ],
+      "sha256": "664fa990479c8861f9e963a5a25fcd7122e33696bc6a56889d20e09e2efadc93",
+      "native_original_unchanged": true,
+      "pose_registration_artist_review_required": true
+    },
+    "gel": {
+      "file": "gel.png",
+      "size": [
+        1774,
+        887
+      ],
+      "frames": [
+        [
+          0,
+          0,
+          444,
+          444
+        ],
+        [
+          444,
+          0,
+          443,
+          444
+        ],
+        [
+          887,
+          0,
+          443,
+          444
+        ],
+        [
+          1330,
+          0,
+          444,
+          444
+        ],
+        [
+          0,
+          444,
+          444,
+          443
+        ],
+        [
+          444,
+          444,
+          443,
+          443
+        ],
+        [
+          887,
+          444,
+          443,
+          443
+        ],
+        [
+          1330,
+          444,
+          444,
+          443
+        ]
+      ],
+      "sha256": "1de5e8c7387925e48d5c4bf9f0a225f5d55235ec3df73c7ae7d17b93531442e3",
+      "native_original_unchanged": true,
+      "pose_registration_artist_review_required": true
+    }
+  }
+}

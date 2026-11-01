@@ -1,0 +1,567 @@
+{
+  "id": "scene_16",
+  "number": 16,
+  "name": "Grown-up area",
+  "purpose": "Manage local settings, backups and collection recovery with explicit outcomes.",
+  "on_enter": [
+    "Enter gate before settings. This local accidental-access guard is not authentication or legal proof of consent. No external purchases or links exist.",
+    "Gate instruction: tap star, then circle, then square; choices appear in a shuffled stable-per-entry order, no timeout. Incorrect choice resets sequence gently. Keyboard activation works.",
+    "After gate, restore last settings tab: Play, Audio, Data. Tabs are visible without scroll; long Data contents scroll inside panel, not over scene controls."
+  ],
+  "on_exit": [
+    "Return to captured01/15 context. Cancel queued file/import operations where safe; never unload an active commit mid-write."
+  ],
+  "substates": [
+    "gate",
+    "settings_play",
+    "settings_audio",
+    "settings_data",
+    "import_preview",
+    "import_committing",
+    "reset_confirm",
+    "bin"
+  ],
+  "persistence": "Settings, backup import, bin/restore, reset use dedicated versioned transactions. Export is read-only and includes only local recipe/progression/settings data, not raw executable code or external media URLs.",
+  "back_rule": "Back from subdialog returns its tab; Back from main settings returns captured context. Explicit return button always present.",
+  "acceptance": [
+    "Export status never claims the file reached durable user storage without a browser signal.",
+    "Malformed/oversized/incompatible import cannot mutate current profile.",
+    "Deletion is recoverable in bin; permanent purge/reset requires a second explicit confirmation and backup option."
+  ],
+  "implementation_notes": [
+    "FreePlay access does not grant permanent unlocks or erase previous economy. Turning it off restores earned access; already saved toys remain playable even if created using FreePlay-only tools.",
+    "Backup controls are buttons, replacing the misleading concept-art toggle. Use current file/download APIs only after user gesture."
+  ],
+  "placements": [
+    {
+      "id": "background",
+      "asset": "env_parent_plate",
+      "landscape": [
+        0,
+        0,
+        1024,
+        768
+      ],
+      "portrait": [
+        0,
+        0,
+        768,
+        1024
+      ],
+      "z": 0,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "panel",
+      "asset": "ui_panel",
+      "landscape": [
+        112,
+        32,
+        800,
+        704
+      ],
+      "portrait": [
+        24,
+        40,
+        720,
+        944
+      ],
+      "z": 90,
+      "role": "decoration",
+      "action": null,
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "return",
+      "asset": "icon_back",
+      "landscape": [
+        136,
+        48,
+        96,
+        96
+      ],
+      "portrait": [
+        48,
+        56,
+        96,
+        96
+      ],
+      "z": 120,
+      "role": "button",
+      "action": "PARENT_RETURN",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "tab_play",
+      "asset": "icon_freeplay",
+      "landscape": [
+        304,
+        48,
+        144,
+        96
+      ],
+      "portrait": [
+        176,
+        56,
+        160,
+        96
+      ],
+      "z": 120,
+      "role": "button",
+      "action": "PARENT_TAB",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "tab_audio",
+      "asset": "icon_sound",
+      "landscape": [
+        480,
+        48,
+        144,
+        96
+      ],
+      "portrait": [
+        360,
+        56,
+        160,
+        96
+      ],
+      "z": 120,
+      "role": "button",
+      "action": "PARENT_TAB",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "tab_data",
+      "asset": "icon_export",
+      "landscape": [
+        656,
+        48,
+        144,
+        96
+      ],
+      "portrait": [
+        544,
+        56,
+        160,
+        96
+      ],
+      "z": 120,
+      "role": "button",
+      "action": "PARENT_TAB",
+      "note": "",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "scroll_body",
+      "asset": "ui_panel",
+      "landscape": [
+        152,
+        168,
+        720,
+        520
+      ],
+      "portrait": [
+        56,
+        176,
+        656,
+        768
+      ],
+      "z": 100,
+      "role": "decoration",
+      "action": null,
+      "note": "Scrollable panel; only current tab rows render. Row rects below are content-local coordinates, translated into this viewport; clip offscreen rows and preserve 96px hit height.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "none",
+      "visible_when": "Scene root active; no higher modal covers input."
+    },
+    {
+      "id": "setting_row_0",
+      "asset": "icon_freeplay",
+      "landscape": [
+        176,
+        184,
+        640,
+        96
+      ],
+      "portrait": [
+        80,
+        200,
+        592,
+        128
+      ],
+      "z": 115,
+      "role": "button",
+      "action": "SET_FREEPLAY",
+      "note": "Rows belong to different tabs/pages: play rows0\u20133; data rows4\u20137. Audio uses same row template for music/effects/voice/quiet. No simultaneous overlap between tab contents.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "gate passed; tab=play. Row is content-local inside scroll viewport."
+    },
+    {
+      "id": "setting_row_1",
+      "asset": "icon_help",
+      "landscape": [
+        176,
+        304,
+        640,
+        96
+      ],
+      "portrait": [
+        80,
+        360,
+        592,
+        128
+      ],
+      "z": 115,
+      "role": "button",
+      "action": "SET_SIMPLICITY",
+      "note": "Rows belong to different tabs/pages: play rows0\u20133; data rows4\u20137. Audio uses same row template for music/effects/voice/quiet. No simultaneous overlap between tab contents.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "gate passed; tab=play. Row is content-local inside scroll viewport."
+    },
+    {
+      "id": "setting_row_2",
+      "asset": "icon_language",
+      "landscape": [
+        176,
+        424,
+        640,
+        96
+      ],
+      "portrait": [
+        80,
+        520,
+        592,
+        128
+      ],
+      "z": 115,
+      "role": "button",
+      "action": "SET_LANGUAGE",
+      "note": "Rows belong to different tabs/pages: play rows0\u20133; data rows4\u20137. Audio uses same row template for music/effects/voice/quiet. No simultaneous overlap between tab contents.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "gate passed; tab=play. Row is content-local inside scroll viewport."
+    },
+    {
+      "id": "setting_row_3",
+      "asset": "icon_quiet",
+      "landscape": [
+        176,
+        544,
+        640,
+        96
+      ],
+      "portrait": [
+        80,
+        680,
+        592,
+        128
+      ],
+      "z": 115,
+      "role": "button",
+      "action": "SET_BREAK_CUE",
+      "note": "Rows belong to different tabs/pages: play rows0\u20133; data rows4\u20137. Audio uses same row template for music/effects/voice/quiet. No simultaneous overlap between tab contents.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "gate passed; tab=play. Row is content-local inside scroll viewport."
+    },
+    {
+      "id": "setting_row_4",
+      "asset": "icon_export",
+      "landscape": [
+        176,
+        184,
+        640,
+        96
+      ],
+      "portrait": [
+        80,
+        200,
+        592,
+        128
+      ],
+      "z": 115,
+      "role": "button",
+      "action": "EXPORT",
+      "note": "Rows belong to different tabs/pages: play rows0\u20133; data rows4\u20137. Audio uses same row template for music/effects/voice/quiet. No simultaneous overlap between tab contents.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "gate passed; tab=data. Row is content-local inside scroll viewport."
+    },
+    {
+      "id": "setting_row_5",
+      "asset": "icon_import",
+      "landscape": [
+        176,
+        304,
+        640,
+        96
+      ],
+      "portrait": [
+        80,
+        360,
+        592,
+        128
+      ],
+      "z": 115,
+      "role": "button",
+      "action": "IMPORT",
+      "note": "Rows belong to different tabs/pages: play rows0\u20133; data rows4\u20137. Audio uses same row template for music/effects/voice/quiet. No simultaneous overlap between tab contents.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "gate passed; tab=data. Row is content-local inside scroll viewport."
+    },
+    {
+      "id": "setting_row_6",
+      "asset": "icon_trash",
+      "landscape": [
+        176,
+        424,
+        640,
+        96
+      ],
+      "portrait": [
+        80,
+        520,
+        592,
+        128
+      ],
+      "z": 115,
+      "role": "button",
+      "action": "OPEN_BIN",
+      "note": "Rows belong to different tabs/pages: play rows0\u20133; data rows4\u20137. Audio uses same row template for music/effects/voice/quiet. No simultaneous overlap between tab contents.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "gate passed; tab=data. Row is content-local inside scroll viewport."
+    },
+    {
+      "id": "setting_row_7",
+      "asset": "icon_restore",
+      "landscape": [
+        176,
+        544,
+        640,
+        96
+      ],
+      "portrait": [
+        80,
+        680,
+        592,
+        128
+      ],
+      "z": 115,
+      "role": "button",
+      "action": "RESET_PROFILE",
+      "note": "Rows belong to different tabs/pages: play rows0\u20133; data rows4\u20137. Audio uses same row template for music/effects/voice/quiet. No simultaneous overlap between tab contents.",
+      "anchor": "top-left rectangle; actor support pivot bottom-centre",
+      "hit_policy": "semantic rectangle",
+      "visible_when": "gate passed; tab=data. Row is content-local inside scroll viewport."
+    }
+  ],
+  "actions": [
+    {
+      "id": "GATE",
+      "trigger": "Activate requested symbol sequence",
+      "guard": "Gate active; symbol catalogue fixed; no hidden time requirement",
+      "command": "Advance star\u2192circle\u2192square; wrong symbol resets step; third opens Play tab",
+      "state_write": "No profile changes.",
+      "feedback": "Gentle step check; no failure noise.",
+      "destination": "16 settings",
+      "interrupt": "Back cancels to caller. Adult gate is not a credential.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "PARENT_TAB",
+      "trigger": "Tap Play/Audio/Data",
+      "guard": "Gate passed",
+      "command": "Render selected tab and reset its scroll top",
+      "state_write": "Session tab only.",
+      "feedback": "Focus first tab row or heading.",
+      "destination": "Stay16",
+      "interrupt": "Pending import/reset confirmation must close before switching tabs.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "SET_FREEPLAY",
+      "trigger": "Toggle FreePlay",
+      "guard": "Gate passed; no write in flight",
+      "command": "Persist preference; recalculate access union; keep earned data",
+      "state_write": "settings.freePlay.",
+      "feedback": "Pictorial all-tools available state; wallet hidden in child UI.",
+      "destination": "Stay16",
+      "interrupt": "No new coins/unlocks generated by toggling.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "SET_SIMPLICITY",
+      "trigger": "Choose simple/expanded",
+      "guard": "Gate passed",
+      "command": "Persist tray density; keep all content reachable by pages in simple mode",
+      "state_write": "settings.simplicity.",
+      "feedback": "Preview 3-card versus 6-card tray.",
+      "destination": "Stay16",
+      "interrupt": "Current recipe preserved; no date of birth requested.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "SET_LANGUAGE",
+      "trigger": "Choose installed language",
+      "guard": "Language text/voice bundle available locally or cached",
+      "command": "Persist language; fallback UK English text/visuals if voice absent",
+      "state_write": "settings.locale.",
+      "feedback": "Accessible labels and optional voice update.",
+      "destination": "Stay16",
+      "interrupt": "No forced network wait; missing bundle not falsely selectable offline.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "SET_BREAK_CUE",
+      "trigger": "Choose off/10/15/20 minute cue",
+      "guard": "Gate passed",
+      "command": "Persist local session cue; elapsed active play schedules a gentle cue only at a safe boundary",
+      "state_write": "settings.breakCueMinutes.",
+      "feedback": "No countdown in child scene; dismissible break card.",
+      "destination": "Stay16",
+      "interrupt": "Cue is not an automatic lockout or penalty; never interrupt pour, press or save.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "EXPORT",
+      "trigger": "Tap export",
+      "guard": "Local profile readable; user gesture available",
+      "command": "Serialize allowlisted versioned JSON + checksum; create download; optionally file picker when supported",
+      "state_write": "Read-only; include schema/content versions and active/parked drafts.",
+      "feedback": "Preparing \u2192 download requested. Show saved-to-file only if API explicitly resolves a completed file write.",
+      "destination": "Stay16 Data",
+      "interrupt": "Download cancel/error keeps profile intact; do not interpret click as backed up.",
+      "master_animation_ids": [
+        "anim_export"
+      ]
+    },
+    {
+      "id": "IMPORT",
+      "trigger": "Choose JSON then review and confirm",
+      "guard": "File<=10MiB; JSON parses; supported schema; valid catalogue IDs; bounded arrays; no executable/HTML/external URLs",
+      "command": "Validate detached copy; display counts/settings summary; require confirmation; preserve old profile in rollback record; atomic replace/migrate",
+      "state_write": "Expected profile revision guard; retained prior snapshot.",
+      "feedback": "Import succeeded only after transaction completes.",
+      "destination": "16 Data after commit",
+      "interrupt": "Cancel or validation failure changes nothing. Interrupted commit restores original or complete new version, never mixture.",
+      "master_animation_ids": [
+        "anim_import"
+      ]
+    },
+    {
+      "id": "OPEN_BIN",
+      "trigger": "Tap collection/bin",
+      "guard": "Gate passed",
+      "command": "List creations; Move to bin hides from shelf and retains recipe/thumb. Restore returns to next free slot. Permanent purge requires explicit second confirmation.",
+      "state_write": "Tombstone/bin records; no negative rewards or historical ledger deletion.",
+      "feedback": "Clear affected toy preview and Restore action.",
+      "destination": "16 bin subview",
+      "interrupt": "Cancel leaves data. Deleting a gifted toy does not invalidate request history.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "RESET_PROFILE",
+      "trigger": "Tap reset then explicit second confirm",
+      "guard": "Gate passed; no save/import transaction; backup option offered",
+      "command": "Capture rollback snapshot; clear local player progress/settings as explicitly chosen; preserve installed asset cache",
+      "state_write": "One reset transaction with profile revision guard.",
+      "feedback": "Return to Welcome only after commit; adult can restore exported data.",
+      "destination": "01 after confirmed reset",
+      "interrupt": "Cancel leaves everything; transaction abort retains prior valid profile.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    },
+    {
+      "id": "PARENT_RETURN",
+      "trigger": "Tap return/back",
+      "guard": "No critical commit in flight",
+      "command": "Close subdialog or return to original caller; restore focus",
+      "state_write": "Persist only confirmed settings.",
+      "feedback": "Short fade.",
+      "destination": "01 or15 captured context",
+      "interrupt": "During commit, show busy state and keep view until terminal outcome.",
+      "master_animation_ids": [
+        "anim_button"
+      ]
+    }
+  ],
+  "master_animation_ids": [
+    "anim_button",
+    "anim_export",
+    "anim_focus",
+    "anim_import",
+    "anim_panel",
+    "anim_scene",
+    "anim_storage_error"
+  ],
+  "audio_asset_ids": [
+    "sfx_ui_confirm",
+    "sfx_ui_back"
+  ],
+  "master_asset_ids": [
+    "env_parent_plate",
+    "icon_back",
+    "icon_export",
+    "icon_focus",
+    "icon_freeplay",
+    "icon_help",
+    "icon_import",
+    "icon_language",
+    "icon_quiet",
+    "icon_restore",
+    "icon_sound",
+    "icon_trash",
+    "icon_warning",
+    "sfx_music_workshop",
+    "sfx_ui_back",
+    "sfx_ui_confirm",
+    "sys_animation_events",
+    "sys_save_contract",
+    "ui_button_round",
+    "ui_dialog_confirm",
+    "ui_gate",
+    "ui_modal_scrim",
+    "ui_panel",
+    "ui_storage_notice"
+  ],
+  "master_source_scene_id": "scene_16"
+}
