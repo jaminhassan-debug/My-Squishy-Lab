@@ -14,7 +14,7 @@ button.raster-row{width:100%;justify-content:flex-start!important;border-radius:
 @media(prefers-reduced-motion:reduce){button.raster-control{transition:none!important}button.raster-control:active{scale:1!important}}body.quiet button.raster-control,html.quiet button.raster-control{transition:none!important}
 
 /* v0.14: one label and one icon per control, with readable touch targets. */
-button.raster-control{position:relative;font-size:clamp(12px,1.4vw,18px)!important;line-height:1.15!important}
+button.raster-control{font-size:clamp(12px,1.4vw,18px)!important;line-height:1.15!important}
 button.raster-control>[class$="-symbol"]{display:none!important}
 button.raster-control>[class$="-label"]{position:absolute!important;inset:auto 5% 10%!important;width:90%!important;height:auto!important;font-size:inherit!important;line-height:1.15!important;text-align:center!important}
 button.raster-compact>[class$="-label"]{position:static!important;width:auto!important}
