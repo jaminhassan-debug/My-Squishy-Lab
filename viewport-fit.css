@@ -76,3 +76,9 @@ html.fit-board.board-portrait #stage #world #requests{left:60%!important;top:1%!
 html.fit-board.board-portrait #stage #world #decorate{left:47%!important;top:1%!important;width:12%!important;height:9%!important}
 html.fit-board.board-portrait #stage #world #pip{left:19%!important;top:73%!important;width:14%!important;height:13%!important}
 html.fit-board .scene-badge{top:2%!important;left:3%!important;font-size:30px!important}
+/* Inline choice chips keep their labels beside their icons. */
+html.fit-board main button.raster-compact>span:not(.s16-state){position:static!important;inset:auto!important;width:auto!important;text-align:inherit!important}
+html.fit-board main button.raster-compact[style*="left:"]{position:absolute!important}
+html.fit-board #s3-simple{position:absolute!important;top:auto!important}
+html.fit-board #s3-families button{position:relative!important;display:inline-flex!important;gap:8px!important;line-height:1.15!important;flex:none}
+html.fit-board #s3-families button::before{width:32px!important;height:32px!important;min-width:32px!important}
