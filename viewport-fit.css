@@ -1,0 +1,78 @@
+/* Fit the entire game board, including controls, inside one screen. */
+html.fit-board,html.fit-board body{width:100%;height:100%;margin:0!important;padding:0!important;overflow:hidden!important;overscroll-behavior:none}
+html.fit-board body{height:100dvh}
+html.fit-board main{position:fixed!important;left:var(--board-left)!important;top:var(--board-top)!important;width:var(--board-width)!important;height:var(--board-height)!important;max-width:none!important;min-width:0!important;min-height:0!important;padding:0!important;margin:0!important;transform:translate(-50%,-50%) scale(var(--board-scale));transform-origin:center;overflow:visible}
+html.fit-board main>section:not(.utility),html.fit-board #s13-stage,html.fit-board #s15-stage,html.fit-board #s16-stage{width:100%!important;height:100%!important;max-width:none!important;min-width:0!important;min-height:0!important;aspect-ratio:auto!important;margin:0!important;padding:0!important;overflow:hidden!important}
+html.fit-board #world{position:absolute!important;inset:0!important;display:block!important;min-height:0!important;padding:0!important}
+html.fit-board #world .actor{position:absolute!important;min-width:0!important;min-height:0!important;display:block}
+html.fit-board main button{min-width:0!important;min-height:0!important;touch-action:manipulation}
+html.fit-board main button.raster-control{font-size:22px!important}
+html.fit-board main [class$="-label"],html.fit-board main .caption,html.fit-board main .raster-label{font-size:22px!important;line-height:1.12!important}
+html.fit-board main h1{font-size:38px!important;line-height:1.15!important}
+html.fit-board main [id$="-hint"],html.fit-board main [id$="-recipe"],html.fit-board main [id$="-context"],html.fit-board main [id$="-mode"]{font-size:24px!important;line-height:1.2!important}
+html.fit-board #squish-toolbar{display:none!important}
+html.fit-board #s9-face-choice{position:absolute!important;left:34%!important;top:21%!important;width:32%!important;min-height:44px!important;padding:6px!important;font-size:22px!important}
+html.fit-board #s9-title{top:12%!important}html.fit-board.board-portrait #s9-title{top:11%!important}
+html.fit-board #s11-hint{font-size:22px!important}html.fit-board #s11-page{font-size:24px!important}
+html.fit-board #s11-help,html.fit-board #s12-help,html.fit-board #s14-help{font-size:22px!important;min-height:44px!important}
+html.fit-board #s11-notice:empty{display:none!important}
+html.fit-board .s11-slot{min-height:0!important;padding:0!important}
+html.fit-board main [id$="-dialog"],html.fit-board main .panel{position:absolute!important;left:10%!important;right:auto!important;top:50%!important;bottom:auto!important;transform:translateY(-50%)!important;width:80%!important;max-width:none!important;max-height:94%!important;min-height:0!important;padding:24px!important;margin:0!important;overflow:auto!important;font-size:24px!important;z-index:1100!important}
+html.fit-board main [id$="-dialog"] h2,html.fit-board main .panel h2{font-size:34px!important;line-height:1.15}
+html.fit-board main [id$="-dialog"] p,html.fit-board main .panel p{font-size:24px!important;line-height:1.3}
+html.fit-board main [id$="-scrim"],html.fit-board #scrim{position:absolute!important;inset:0!important}
+html.fit-board #s10-dialog-actions:has(.s10-option),html.fit-board #s9-dialog-actions:has(.face-option){grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important}
+html.fit-board button.s10-option,html.fit-board button.face-option{min-height:124px!important;padding:8px!important;font-size:24px!important}
+html.fit-board button.face-option canvas,html.fit-board button.s10-option canvas{width:84px!important;height:84px!important}
+html.fit-board #s9-dialog-actions:has(.face-option),html.fit-board #s10-dialog-actions:has(.s10-option){grid-template-columns:repeat(3,minmax(0,1fr))!important}
+html.fit-board #s3-title{top:3%!important;left:18%!important;width:58%!important;text-align:center;padding:8px!important}
+html.fit-board #s3-home{left:2%!important;top:2%!important;width:12%!important;height:12%!important}
+html.fit-board #s3-pause{right:2%!important;top:2%!important;width:12%!important;height:12%!important}
+html.fit-board #s3-families{left:3%!important;top:16%!important;width:55%!important;font-size:22px!important;flex-wrap:nowrap!important;z-index:80}
+html.fit-board #s3-families button{padding:8px!important;min-height:44px!important}
+html.fit-board #s3-tray{left:2%!important;top:25%!important;width:58%!important;height:56%!important}
+html.fit-board #s3-hero{left:64%!important;top:28%!important;width:29%!important;height:40%!important}
+html.fit-board #s3-turntable{left:59%!important;top:54%!important;width:38%!important;height:30%!important}
+html.fit-board #s3-selected-name{left:64%!important;top:74%!important;width:30%!important;font-size:28px!important}
+html.fit-board #s3-pip{left:17%!important;top:79%!important;width:13%!important;height:19%!important}
+html.fit-board #s3-simple{left:34%!important;bottom:2%!important;max-width:none!important;font-size:22px!important;min-width:160px!important}
+html.fit-board #s3-pagination{top:78%!important;left:8%!important;width:46%!important;height:12%!important}
+html.fit-board .s3-name{font-size:26px!important}html.fit-board .s3-stepper{display:none!important}
+html.fit-board #s3-back{left:2%!important;bottom:2%!important;width:12%!important;height:12%!important}
+html.fit-board #s3-next{right:2%!important;bottom:2%!important;width:12%!important;height:12%!important}
+html.fit-board.board-portrait #s3-title{top:3%!important;left:18%!important;width:64%!important;font-size:34px!important}
+html.fit-board.board-portrait #s3-home,html.fit-board.board-portrait #s3-pause{width:13%!important;height:10%!important}
+html.fit-board.board-portrait #s3-families{left:3%!important;top:39%!important;width:94%!important;justify-content:center}
+html.fit-board.board-portrait #s3-tray{left:3%!important;top:46%!important;width:94%!important;height:34%!important}
+html.fit-board.board-portrait #s3-hero{left:32%!important;top:11%!important;width:40%!important;height:26%!important}
+html.fit-board.board-portrait #s3-turntable{left:27%!important;top:26%!important;width:50%!important;height:15%!important}
+html.fit-board.board-portrait #s3-selected-name{left:30%!important;top:36%!important;width:44%!important;font-size:26px!important}
+html.fit-board.board-portrait #s3-pip{left:17%!important;top:82%!important;width:14%!important;height:14%!important}
+html.fit-board.board-portrait #s3-back,html.fit-board.board-portrait #s3-next{width:13%!important;height:10%!important}
+html.fit-board.board-portrait #s3-pagination{top:79%!important;left:22%!important;width:56%!important;height:10%!important}
+html.fit-board.board-portrait #s3-simple{left:34%!important;bottom:2%!important;width:32%!important}
+html.fit-board #stage #world #make_station{left:1%!important;top:34%!important;width:32%!important;height:44%!important}
+html.fit-board #stage #world #squish_station{display:block!important;left:31%!important;top:51%!important;width:36%!important;height:28%!important}
+html.fit-board #stage #world #latest_toy{left:40%!important;top:38%!important;width:23%!important;height:29%!important}
+html.fit-board #stage #world #shelf_station{left:65%!important;top:28%!important;width:33%!important;height:48%!important}
+html.fit-board #stage #world #make_button{left:10%!important;top:78%!important;width:13%!important;height:15%!important}
+html.fit-board #stage #world #squish_button{left:44%!important;top:78%!important;width:13%!important;height:15%!important}
+html.fit-board #stage #world #shelf_button{left:81%!important;top:78%!important;width:13%!important;height:15%!important}
+html.fit-board #stage #world #home{left:79%!important;top:2%!important;width:9%!important;height:12%!important}
+html.fit-board #stage #world #pause{left:90%!important;top:2%!important;width:9%!important;height:12%!important}
+html.fit-board #stage #world #requests{left:67%!important;top:2%!important;width:9%!important;height:12%!important}
+html.fit-board #stage #world #decorate{left:56%!important;top:2%!important;width:9%!important;height:12%!important}
+html.fit-board #stage #world #pip{left:28%!important;top:47%!important;width:12%!important;height:18%!important}
+html.fit-board.board-portrait #stage #world #make_station{left:1%!important;top:39%!important;width:46%!important;height:33%!important}
+html.fit-board.board-portrait #stage #world #shelf_station{left:51%!important;top:39%!important;width:48%!important;height:32%!important}
+html.fit-board.board-portrait #stage #world #squish_station{left:24%!important;top:73%!important;width:53%!important;height:17%!important}
+html.fit-board.board-portrait #stage #world #latest_toy{left:36%!important;top:64%!important;width:28%!important;height:22%!important}
+html.fit-board.board-portrait #stage #world #make_button{left:15%!important;top:66%!important;width:15%!important;height:12%!important}
+html.fit-board.board-portrait #stage #world #squish_button{left:43%!important;top:87%!important;width:15%!important;height:12%!important}
+html.fit-board.board-portrait #stage #world #shelf_button{left:69%!important;top:66%!important;width:15%!important;height:12%!important}
+html.fit-board.board-portrait #stage #world #home{left:73%!important;top:1%!important;width:12%!important;height:9%!important}
+html.fit-board.board-portrait #stage #world #pause{left:86%!important;top:1%!important;width:12%!important;height:9%!important}
+html.fit-board.board-portrait #stage #world #requests{left:60%!important;top:1%!important;width:12%!important;height:9%!important}
+html.fit-board.board-portrait #stage #world #decorate{left:47%!important;top:1%!important;width:12%!important;height:9%!important}
+html.fit-board.board-portrait #stage #world #pip{left:19%!important;top:73%!important;width:14%!important;height:13%!important}
+html.fit-board .scene-badge{top:2%!important;left:3%!important;font-size:30px!important}
