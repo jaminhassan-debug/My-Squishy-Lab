@@ -11,7 +11,7 @@ function ensure(s){const n=structuredClone(s),d=draft(n);if(!d||!shapes.includes
  d.lastStep='07';d.lastSafeStep='07';return n;
 }
 function start(s){const n=structuredClone(s),d=draft(n);if(!['ready','paused'].includes(d.pourState)||d.fillProgress>=1)return n;d.fillSourceBodyRevision=d.bodyRevision;d.pourState='aligning';d.pourStageMs=0;return n}
-function pause(s){const n=structuredClone(s),d=draft(n);if(['aligning','flowing'].includes(d.pourState)){d.pourState=d.fillProgress>0?'paused':'ready';d.pourStageMs=0}else if(['cutoff','settling'].includes(d.pourState)){d.pourState='settling';d.pourStageMs=0}return n}
+function pause(s){const n=structuredClone(s),d=draft(n);if(['aligning','flowing'].includes(d.pourState)){d.pourState=d.fillProgress>0?'paused':'ready';d.pourStageMs=0}else if(d.pourState==='cutoff'){d.pourState='settling';d.pourStageMs=0}return n}
 function advance(s,elapsed){const n=structuredClone(s),d=draft(n);let dt=Number.isFinite(elapsed)?Math.min(timing.maxDelta,Math.max(0,elapsed)):0,completed=false;
  while(dt>1e-8&&running.includes(d.pourState)){
   const phase=d.pourState,stage=d.pourStageMs||0;
