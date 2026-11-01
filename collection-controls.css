@@ -1,0 +1,6 @@
+/* Collection actions share the fitted board and existing touch controls. */
+html.fit-board #stage #world #change_squishy{position:absolute!important;left:39%!important;top:67%!important;width:24%!important;height:10%!important;padding:8px!important;z-index:85;border:3px solid #fff8e9;border-radius:24px;background:#fff4de;color:#49345d;font:800 24px/1.2 ui-rounded,system-ui;box-shadow:0 3px 0 #d3bca2}
+html.fit-board.board-portrait #stage #world #change_squishy{left:65%!important;top:80%!important;width:29%!important;height:8%!important;font-size:24px!important}
+html.fit-board #change_squishy:focus-visible{outline:4px solid #8051b7;outline-offset:3px}
+html.fit-board:not(.board-portrait) #s11-help{left:13%!important;width:15%!important;bottom:4%!important;font-size:18px!important;padding:6px!important}
+html.fit-board #s11-display_selected,html.fit-board #s11-delete_selected{font-size:20px!important}
