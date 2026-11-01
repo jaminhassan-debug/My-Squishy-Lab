@@ -1,0 +1,37 @@
+/* v0.17: reserve space for art, preserve sprite geometry, and keep controls clear. */
+html.fit-board main [hidden],html.fit-board main button[hidden]{display:none!important}
+html.fit-board main button.raster-control{background-size:84% 84%!important;font-size:18px!important;filter:drop-shadow(0 2px 2px #664d6520)}
+html.fit-board main button.raster-control::before{inset:16% 27% 39%!important}
+html.fit-board main button.raster-control>[class$="-label"],html.fit-board main button.raster-control>.raster-label,html.fit-board main button.raster-control>.caption{font-size:18px!important;bottom:18%!important;line-height:1.08!important}
+html.fit-board main button.raster-compact::before{width:1.3em!important;height:1.3em!important;min-width:1.3em!important}
+html.fit-board #s9-face-choice{left:2%!important;top:19%!important;width:20%!important;height:52px!important;min-height:0!important;font-size:18px!important}
+html.fit-board.board-portrait #s9-face-choice{left:3%!important;top:19%!important;width:25%!important}
+html.fit-board #s9-title{left:29%!important;top:12%!important;width:42%!important}
+html.fit-board.board-portrait #s9-title{left:22%!important;top:12%!important;width:56%!important}
+html.fit-board #s9-gestures,html.fit-board #s9-camera{top:35%!important;width:112px!important;gap:8px!important}
+html.fit-board #s9-gestures{left:2%!important}html.fit-board #s9-camera{right:2%!important}
+html.fit-board #s9-camera button,html.fit-board #s9-gestures button{min-height:52px!important;padding:6px!important;font-size:18px!important}
+html.fit-board #s9-mode{left:15%!important;top:70%!important;width:70%!important;font-size:18px!important;padding:6px!important;line-height:1.15!important}
+html.fit-board.board-portrait #s9-mode{left:15%!important;top:67%!important;width:70%!important}
+html.fit-board #s9-context{left:20%!important;top:89%!important;width:60%!important;font-size:18px!important;padding:5px!important}
+html.fit-board.board-portrait #s9-context{top:95%!important}
+html.fit-board #s11-cabinet{overflow:visible!important}
+html.fit-board #s11-cabinet img{position:absolute!important;inset:0!important;left:0!important;top:0!important;width:100%!important;height:100%!important;object-fit:fill!important}
+html.fit-board #s11-page{top:66%!important;font-size:20px!important;padding:5px!important}
+html.fit-board.board-portrait #s11-page{top:64%!important}
+html.fit-board #s11-notice{left:24%!important;bottom:1%!important;width:52%!important;font-size:16px!important;padding:0!important;background:transparent!important;pointer-events:none}
+html.fit-board.board-portrait #s11-notice{bottom:12.2%!important;font-size:15px!important}
+html.fit-board #cabinet-toys{left:12%!important;right:12%!important;top:25%!important;height:48%!important;gap:8px!important}
+/* A sprite-sheet cell must remain square, regardless of its parent hit target. */
+html.fit-board #pip>.sprite,html.fit-board #s3-pip>div{position:absolute!important;left:0!important;bottom:0!important;top:auto!important;width:100%!important;height:auto!important;aspect-ratio:1!important;background-size:200% 200%!important}
+html.fit-board #scene03 #s3-pip{left:66%!important;top:82%!important;width:10%!important;height:14%!important}
+html.fit-board.board-portrait #scene03 #s3-pip{left:3%!important;top:78%!important;width:14%!important;height:12%!important}
+html.fit-board #s3-pagination{left:16%!important;top:82%!important;width:44%!important;height:10%!important}
+html.fit-board.board-portrait #s3-pagination{left:23%!important;top:81%!important;width:54%!important;height:8%!important}
+html.fit-board #s3-pagination button{width:64px!important;height:64px!important;font-size:18px!important}
+html.fit-board #s3-pagination #s3-page-label{font-size:22px!important}
+html.fit-board #panel[data-mode="draft_choice"]{height:auto!important}
+html.fit-board #panel[data-mode="draft_choice"] #panel-actions{display:grid!important;grid-template-columns:1fr 1fr;gap:16px!important;margin:20px 0!important}
+html.fit-board #panel[data-mode="draft_choice"] #panel-actions button{position:relative!important;left:auto!important;top:auto!important;width:100%!important;height:80px!important;margin:0!important;padding:10px!important}
+html.fit-board #panel[data-mode="draft_choice"] #close-panel{position:relative!important;top:auto!important;right:auto!important;width:auto!important;height:56px!important;margin:8px 0 0!important;padding:8px 16px!important}
+html.fit-board #panel[data-mode="draft_choice"] h2,html.fit-board #panel[data-mode="draft_choice"] #panel-copy{margin-right:0!important}
