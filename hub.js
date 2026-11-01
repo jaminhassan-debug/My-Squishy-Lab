@@ -53,6 +53,7 @@ reduced.addEventListener('change',motion);
 document.addEventListener('visibilitychange',()=>{release();stage.classList.toggle('page-hidden',document.hidden);if(document.hidden){clearTimeout(blinkTimer);pip.classList.remove('blink');checkpoint()}else{refresh();scheduleBlink()}});window.addEventListener('blur',release);window.addEventListener('pagehide',()=>{release();checkpoint()});
 // A host consumes cancelable navigate events with preventDefault and mounts the destination.
 // Only the host save system may supply immutable saved creations and progression.
+window.addEventListener('squishylab:collection-art-ready',refresh);
 window.SquishyLabHub={pauseForOverlay:async()=>{release();clearTimeout(blinkTimer);clearTimeout(delightTimer);return {durable:await checkpoint()}},resumeFromOverlay:()=>{refresh();scheduleBlink()},adoptCommittedSnapshot:snapshot=>{state=M.normalize(snapshot);memoryOnly=false;try{refresh()}catch{}},getState:()=>structuredClone(state),replaceSnapshot:async snapshot=>{const next=M.normalize(snapshot);await checkpoint(next);refresh();return {durable:!memoryOnly}},resume:()=>{lock=false;close();refresh();window.dispatchEvent(new CustomEvent('squishylab:safe-boundary'))},checkpoint,storageKey:KEY};
 refresh();scheduleBlink();if(memoryOnly)announce('Storage unavailable. Changes stay in this session; existing stored data is kept.');
 })();
