@@ -35,3 +35,6 @@ html.fit-board #s9-stage::after{display:none!important}
 html.fit-board #s9-world #s9-play{left:calc(50% - 136px)!important}
 html.fit-board #s9-world #s9-view{left:calc(50% + 8px)!important}
 html.fit-board #s9-world #s9-tool_4{left:auto!important;right:2%!important}
+/* Utility overlays keep their native proportions and stay above their own scrims. */
+html.fit-board #s13-stage,html.fit-board #s15-stage,html.fit-board #s16-stage{position:absolute!important;left:50%!important;top:50%!important;width:1024px!important;height:768px!important;max-width:none!important;min-width:0!important;transform:translate(-50%,-50%) scale(var(--board-scale))!important;transform-origin:center!important;z-index:1!important}
+html.fit-board #s13-overlay>#s13-scrim,html.fit-board #s15-overlay>#s15-scrim,html.fit-board #s16-overlay>#s16-scrim{z-index:0!important}
