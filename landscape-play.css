@@ -44,3 +44,5 @@ html.fit-board #s9-play-style{position:absolute;left:50%;bottom:2%;transform:tra
 html.fit-board #s9-play-style[hidden]{display:none!important}
 html.fit-board #s9-play-style button{position:relative;min-height:44px!important;padding:8px 16px!important;border:2px solid transparent;border-radius:20px;background:transparent;color:#49345d;font:700 16px/1.2 system-ui}
 html.fit-board #s9-play-style button[aria-pressed=true]{background:#b9f2d9;border-color:#72bda7}
+
+html.fit-board #s9-play-style button{min-height:max(44px,calc(44px / var(--board-scale)))!important;font-size:max(16px,calc(12px / var(--board-scale)))!important}
