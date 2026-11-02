@@ -38,3 +38,9 @@ html.fit-board #s9-world #s9-tool_4{left:auto!important;right:2%!important}
 /* Utility overlays keep their native proportions and stay above their own scrims. */
 html.fit-board #s13-stage,html.fit-board #s15-stage,html.fit-board #s16-stage{position:absolute!important;left:50%!important;top:50%!important;width:1024px!important;height:768px!important;max-width:none!important;min-width:0!important;transform:translate(-50%,-50%) scale(var(--board-scale))!important;transform-origin:center!important;z-index:1!important}
 html.fit-board #s13-overlay>#s13-scrim,html.fit-board #s15-overlay>#s15-scrim,html.fit-board #s16-overlay>#s16-scrim{z-index:0!important}
+
+/* Deliberate touch style selection leaves the toy and upper navigation clear. */
+html.fit-board #s9-play-style{position:absolute;left:50%;bottom:2%;transform:translateX(-50%);display:flex;gap:6px;z-index:90;padding:4px;background:#fff7e8e8;border-radius:24px}
+html.fit-board #s9-play-style[hidden]{display:none!important}
+html.fit-board #s9-play-style button{position:relative;min-height:44px!important;padding:8px 16px!important;border:2px solid transparent;border-radius:20px;background:transparent;color:#49345d;font:700 16px/1.2 system-ui}
+html.fit-board #s9-play-style button[aria-pressed=true]{background:#b9f2d9;border-color:#72bda7}
