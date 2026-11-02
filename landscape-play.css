@@ -11,7 +11,7 @@ html.fit-board main button.raster-control>[class$="-symbol"]{display:none!import
 html.fit-board main button.raster-control:not(.raster-compact){flex-direction:column!important}
 html.fit-board main button.raster-control:not(.raster-compact)::before{flex:0 0 30px!important;width:30px!important;height:30px!important}
 html.fit-board #s9-title,html.fit-board #s9-face-choice,html.fit-board #s9-gestures,html.fit-board #s9-camera,html.fit-board #s9-pause,html.fit-board #s9-help,html.fit-board #s9-back,html.fit-board #s9-mode,html.fit-board #s9-context,html.fit-board #s9-tool_0,html.fit-board #s9-tool_1,html.fit-board #s9-tool_2,html.fit-board #s9-tool_3{display:none!important}
-html.fit-board #s9-world #s9-home{left:2%!important;top:2%!important;width:112px!important;height:60px!important}
+html.fit-board #s9-world #s9-home{left:2%!important;top:2%!important;width:144px!important;height:60px!important}
 html.fit-board #s9-world #s9-play{left:36%!important;top:2%!important;width:128px!important;height:60px!important}
 html.fit-board #s9-world #s9-view{left:50%!important;top:2%!important;width:128px!important;height:60px!important}
 html.fit-board #s9-world #s9-tool_4{left:82%!important;top:88%!important;width:148px!important;height:64px!important}
@@ -19,3 +19,5 @@ html.fit-board #s9-world #s9-tool_5{left:2%!important;top:88%!important;width:11
 html.fit-board #s9-world #s9-fullscreen{position:absolute;right:2%;top:2%;width:148px;height:60px;border:2px solid #dfcbea;border-radius:24px;background:#fff5e5;color:#49345d;font:700 17px/1.2 system-ui;z-index:90}
 html.fit-board #s9-world button.raster-control{flex-direction:row!important}
 html.fit-board #s9-storage{left:25%!important;top:92%!important;width:50%!important;font-size:15px!important}
+
+html.fit-board main button.raster-control[hidden],html.fit-board main [hidden]{display:none!important}
