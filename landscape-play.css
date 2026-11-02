@@ -21,3 +21,17 @@ html.fit-board #s9-world button.raster-control{flex-direction:row!important}
 html.fit-board #s9-storage{left:25%!important;top:92%!important;width:50%!important;font-size:15px!important}
 
 html.fit-board main button.raster-control[hidden],html.fit-board main [hidden]{display:none!important}
+
+/* Fill scenery to the viewport; preserve a uniformly scaled stage for every prop. */
+html.fit-board main>section:not(.utility){border-radius:0!important;box-shadow:none!important}
+html.fit-board main [id$="-world"],html.fit-board #world{position:absolute!important;inset:auto!important;left:50%!important;top:50%!important;width:1024px!important;height:768px!important;transform:translate(-50%,-50%)!important}
+html.fit-board #stage{background:url('assets/workshop_landscape.png') center/cover no-repeat!important}
+html.fit-board #world>picture{display:none!important}
+html.fit-board #scene03{background:url('assets/scene03/make_plate.png') center/cover no-repeat!important}
+html.fit-board #s3-world>.s3-plate{display:none!important}
+html.fit-board main>section>img[class$="-background"]{object-fit:cover!important}
+html.fit-board #s9-stage #s9-world{inset:0!important;left:0!important;top:0!important;width:100%!important;height:100%!important;transform:none!important}
+html.fit-board #s9-stage::after{display:none!important}
+html.fit-board #s9-world #s9-play{left:calc(50% - 136px)!important}
+html.fit-board #s9-world #s9-view{left:calc(50% + 8px)!important}
+html.fit-board #s9-world #s9-tool_4{left:auto!important;right:2%!important}
