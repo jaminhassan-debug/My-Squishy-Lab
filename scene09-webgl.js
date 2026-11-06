@@ -15,18 +15,47 @@ function create(){if(!globalThis.document?.createElement)return null;const canva
  const program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vertex));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))return null;gl.useProgram(program);const buffer=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buffer);const names=[['a_clip',4],['a_normal',3],['a_rest',3],['a_kind',1],['a_colour',3],['a_atten',1]];let offset=0;for(const[name,size]of names){const at=gl.getAttribLocation(program,name);gl.enableVertexAttribArray(at);gl.vertexAttribPointer(at,size,gl.FLOAT,false,60,offset*4);offset+=size}gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);
  const reliefTexture=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,reliefTexture);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,1,1,0,gl.RGBA,gl.UNSIGNED_BYTE,new Uint8Array([255,255,255,0]));gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);
  function setRelief(image){if(lost)return;gl.bindTexture(gl.TEXTURE_2D,reliefTexture);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,false);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,image)}
- const rgb=hex=>[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255),uniform=name=>gl.getUniformLocation(program,name);
+ const colours=new Map(), uniforms=new Map();
+ function rgb(hex){
+  if(!colours.has(hex))colours.set(hex,[1,3,5].map(i=>parseInt(hex.slice(i,i+2),16)/255));
+  return colours.get(hex);
+ }
+ function uniform(name){
+  if(!uniforms.has(name))uniforms.set(name,gl.getUniformLocation(program,name));
+  return uniforms.get(name);
+ }
+ let vertexData=new Float32Array(0);
  function draw(items,appearance,recipe,ref,width,height,transform,inclusions=[]){if(lost||gl.isContextLost())return false;if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height}gl.viewport(0,0,width,height);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT|gl.STENCIL_BUFFER_BIT);gl.useProgram(program);
-  function upload(batch){const data=new Float32Array(batch.length*3*15);let k=0;for(const item of batch)for(let j=0;j<3;j++){const p=item.p[j],normal=transform(item.normals?.[j]||item.normal||[0,0,1]),r=item.rest?.[j]||item.world?.[j]||[0,0,0],w=4.5-p.z;data.set([p.x/ref[0]*2-1,1-p.y/ref[1]*2,-p.z/4.5,w,...normal,...r,item.solid?(item.metal?2:1):0,...rgb(item.tint||'#FFFFFF'),item.attenuation??1],k);k+=15}gl.bindBuffer(gl.ARRAY_BUFFER,buffer);gl.bufferData(gl.ARRAY_BUFFER,data,gl.DYNAMIC_DRAW);gl.drawArrays(gl.TRIANGLES,0,batch.length*3)}
+  const length=(items.length+inclusions.length)*45;
+  if(vertexData.length<length)vertexData=new Float32Array(length);
+  let k=0;
+  for(const batch of [items,inclusions])for(const item of batch)for(let j=0;j<3;j++){
+   const p=item.p[j],normal=transform(item.normals?.[j]||item.normal||[0,0,1]);
+   const rest=item.rest?.[j]||item.world?.[j]||[0,0,0],colour=rgb(item.tint||'#FFFFFF');
+   vertexData[k++]=p.x/ref[0]*2-1;
+   vertexData[k++]=1-p.y/ref[1]*2;
+   vertexData[k++]=-p.z/4.5;
+   vertexData[k++]=4.5-p.z;
+   for(const value of normal)vertexData[k++]=value;
+   for(const value of rest)vertexData[k++]=value;
+   vertexData[k++]=item.solid?(item.metal?2:1):0;
+   for(const value of colour)vertexData[k++]=value;
+   vertexData[k++]=item.attenuation??1;
+  }
+  gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
+  gl.bufferData(gl.ARRAY_BUFFER,vertexData.subarray(0,length),gl.DYNAMIC_DRAW);
+  const bodyCount=items.length*3;
+  const drawBody=()=>gl.drawArrays(gl.TRIANGLES,0,bodyCount);
   for(let i=0;i<4;i++)gl.uniform3fv(uniform('u_tone'+i),rgb(appearance.tones[i]||appearance.tones[0]));gl.uniform1f(uniform('u_count'),appearance.tones.length);gl.uniform1f(uniform('u_swirl'),appearance.swirl?1:0);gl.uniform1f(uniform('u_angle'),recipe.swirlAngle||0);gl.uniform1f(uniform('u_foam'),recipe.materialId==='foam'?1:0);
-  gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,reliefTexture);gl.uniform1i(uniform('u_relief'),0);gl.uniform2fv(uniform('u_grid'),recipe._artGrid||[3,2]);gl.uniform1f(uniform('u_shape'),recipe._artFrame??Math.max(0,['cube','star','heart','cloud','bear','blob'].indexOf(recipe.mouldId)));const vertices=items.flatMap(t=>t.rest||t.world||[[-1,-1,0],[1,1,0]]),xx=vertices.map(p=>p[0]),yy=vertices.map(p=>p[1]);const minX=Math.min(...xx),minY=Math.min(...yy);gl.uniform4fv(uniform('u_bounds'),recipe._bodyBounds||[minX,minY,Math.max(.1,Math.max(...xx)-minX),Math.max(.1,Math.max(...yy)-minY)]);
+  gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,reliefTexture);gl.uniform1i(uniform('u_relief'),0);gl.uniform2fv(uniform('u_grid'),recipe._artGrid||[3,2]);gl.uniform1f(uniform('u_shape'),recipe._artFrame??Math.max(0,['cube','star','heart','cloud','bear','blob'].indexOf(recipe.mouldId)));gl.uniform4fv(uniform('u_bounds'),recipe._bodyBounds||[-1,-1,2,2]);
   // 1: opaque scattering body + silhouette. 2: true3D interiors. 3: glossy front skin.
   gl.uniform1f(uniform('u_layer'),0);
-  gl.enable(gl.STENCIL_TEST);gl.stencilMask(255);gl.stencilFunc(gl.ALWAYS,1,255);gl.stencilOp(gl.KEEP,gl.KEEP,gl.REPLACE);gl.colorMask(true,true,true,true);gl.depthMask(true);gl.enable(gl.DEPTH_TEST);upload(items);
-  gl.colorMask(true,true,true,true);gl.stencilFunc(gl.EQUAL,1,255);gl.stencilOp(gl.KEEP,gl.KEEP,gl.KEEP);gl.enable(gl.DEPTH_TEST);gl.depthMask(true);gl.clear(gl.DEPTH_BUFFER_BIT);upload(inclusions);
+  gl.enable(gl.STENCIL_TEST);gl.stencilMask(255);gl.stencilFunc(gl.ALWAYS,1,255);gl.stencilOp(gl.KEEP,gl.KEEP,gl.REPLACE);gl.colorMask(true,true,true,true);gl.depthMask(true);gl.enable(gl.DEPTH_TEST);drawBody();
+  if(!inclusions.length){gl.disable(gl.STENCIL_TEST);return true}
+  gl.colorMask(true,true,true,true);gl.stencilFunc(gl.EQUAL,1,255);gl.stencilOp(gl.KEEP,gl.KEEP,gl.KEEP);gl.enable(gl.DEPTH_TEST);gl.depthMask(true);gl.clear(gl.DEPTH_BUFFER_BIT);gl.drawArrays(gl.TRIANGLES,bodyCount,inclusions.length*3);
   // Resolve the nearest skin surface before blending, including concave grip dents.
-  gl.clear(gl.DEPTH_BUFFER_BIT);gl.colorMask(false,false,false,false);gl.depthMask(true);upload(items);gl.colorMask(true,true,true,true);
-  gl.uniform1f(uniform('u_layer'),1);gl.enable(gl.BLEND);gl.blendFuncSeparate(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA,gl.ONE,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);upload(items);gl.depthMask(true);gl.disable(gl.BLEND);gl.disable(gl.STENCIL_TEST);return true}
+  gl.clear(gl.DEPTH_BUFFER_BIT);gl.colorMask(false,false,false,false);gl.depthMask(true);drawBody();gl.colorMask(true,true,true,true);
+  gl.uniform1f(uniform('u_layer'),1);gl.enable(gl.BLEND);gl.blendFuncSeparate(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA,gl.ONE,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(false);drawBody();gl.depthMask(true);gl.disable(gl.BLEND);gl.disable(gl.STENCIL_TEST);return true}
  return {canvas,draw,setRelief};
  }catch{return null}}
 globalThis.SquishyScene09WebGL={create};

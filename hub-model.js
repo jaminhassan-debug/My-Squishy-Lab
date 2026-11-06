@@ -22,6 +22,14 @@
     s.cosmetics=raw.cosmetics&&typeof raw.cosmetics==='object'?raw.cosmetics:{};
     return s;
   }
+  function serialize(state){
+    return JSON.stringify(state,(key,value)=>{
+      if(key!=='recipe'||!Array.isArray(value?.batches)||!Array.isArray(value.inclusions))return value;
+      if(JSON.stringify(value.batches)!==JSON.stringify(value.inclusions))return value;
+      const {inclusions,...recipe}=value;
+      return recipe;
+    });
+  }
   function validToy(c){return !!c&&shapes.includes(c.recipe?.mouldId)&&['gel','foam','bounce'].includes(c.recipe?.materialId)}
   function latest(s){return [...s.creations].sort((a,b)=>(Number(b.savedAt)||0)-(Number(a.savedAt)||0))[0]||null}
   function displayed(s){return s.creations.find(c=>c.id===s.workshopCreationId)||latest(s)}
@@ -32,5 +40,5 @@
     next.activeDraftId=id;return next;
   }
   function squishContext(s,id){const c=id?s.creations.find(t=>t.id===id):displayed(s);if(c){if(!validToy(c))throw Error('This saved recipe needs recovery. Your toy has been kept.');return {kind:'saved',creationId:c.id}}return null}
-  globalThis.SquishyHubModel={empty,normalize,fresh,latest,displayed,unlocked,validToy,squishContext};
+  globalThis.SquishyHubModel={empty,normalize,serialize,fresh,latest,displayed,unlocked,validToy,squishContext};
 })();
