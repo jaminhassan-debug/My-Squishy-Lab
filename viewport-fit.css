@@ -84,3 +84,16 @@ html.fit-board #s3-families button{position:relative!important;display:inline-fl
 html.fit-board #s3-families button::before{width:32px!important;height:32px!important;min-width:32px!important}
 
 html.fit-board main button.raster-compact{min-height:52px!important;padding:8px 14px!important}
+
+/* iPad Safari must leave long presses on the game to its gesture handlers. */
+html.fit-board :where(main, #squish-overlay, #s13-overlay, #s15-overlay, #s16-overlay),
+html.fit-board :where(main, #squish-overlay, #s13-overlay, #s15-overlay, #s16-overlay) * {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+html.fit-board :where(main, #squish-overlay, #s13-overlay, #s15-overlay, #s16-overlay) :is(input, textarea, [contenteditable]:not([contenteditable="false"])) {
+  -webkit-touch-callout: default;
+  -webkit-user-select: text;
+  user-select: text;
+}

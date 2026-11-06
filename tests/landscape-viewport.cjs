@@ -3,3 +3,19 @@ const events={},classes=new Set(),props={},main={inert:false},gate={hidden:true,
 vm.runInNewContext(fs.readFileSync(path.join(__dirname,'../viewport-fit.js'),'utf8'),env);events.DOMContentLoaded();
 for(const [w,h]of [[844,390],[1180,820],[390,844],[820,1180],[844,390]]){env.innerWidth=w;env.innerHeight=h;events.resize();assert.equal(env.SquishyViewport.portrait,false);assert.equal(env.SquishyViewport.width,1024);assert(Math.abs(parseFloat(props['--board-width'])*env.SquishyViewport.scale-w)<.001);assert(Math.abs(parseFloat(props['--board-height'])*env.SquishyViewport.scale-h)<.001);assert.equal(gate.hidden,w>=h);assert.equal(main.inert,w<h);assert.equal(classes.has('rotate-required'),w<h);assert(1024*env.SquishyViewport.scale<=w+.001);assert(768*env.SquishyViewport.scale<=h+.001)}
 console.log('PASS landscape phone/tablet fit, portrait input gate and rotation recovery');
+
+for (const event of ['contextmenu', 'selectstart']) {
+  for (const [insideGame, editable, blocked] of [
+    [true, false, true],
+    [true, true, false],
+    [false, false, false],
+  ]) {
+    let prevented = false;
+    events[event]({
+      target: {closest: selector => selector.startsWith('main') ? insideGame : editable},
+      preventDefault() { prevented = true; },
+    });
+    assert.equal(prevented, blocked);
+  }
+}
+console.log('PASS native long-press menus blocked on game surfaces while text fields remain usable');
