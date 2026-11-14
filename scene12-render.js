@@ -23,7 +23,8 @@ function drawFriend(id,frame,thanking,elapsed,quiet) {
  c.translate(x+dw/2,y+dh-lift);
  c.rotate(angle);
  c.beginPath();
- c.roundRect(-width/2,-height,width,height,24);
+ if(c.roundRect)c.roundRect(-width/2,-height,width,height,24);
+ else c.rect(-width/2,-height,width,height);
  c.clip();
  c.drawImage(image,col*w+1,(thanking?h:0)+1,w-2,h-2,-width/2,-height,width,height);
  c.restore();
