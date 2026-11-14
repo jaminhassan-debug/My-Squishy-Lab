@@ -22,23 +22,41 @@ function paintBit(c,images,bit,x,y,size,alpha=1,angle=0){
  if(!im)return;
  const frame=SquishyScene06Model.frame(bit.familyId,bit.subtype);
  if(!Number.isInteger(frame))return;
- const tileWidth=im.width/3,tileHeight=im.height/3;
- const crop=images.useBitsAtlas?SquishyScene06Atlas.bits.crops[frame]:[frame%3*tileWidth,Math.floor(frame/3)*tileHeight,tileWidth,tileHeight];
+ const crop=SquishyScene06Atlas.bits.crops[frame];
  const height=size*crop[3]/crop[2];
  c.save();c.translate(x,y);c.rotate(angle+bit.rotation);c.globalAlpha*=alpha;
  c.drawImage(im,...crop,-size/2,-height/2,size,height);c.restore();
 }
+const visibleFills=new WeakMap();
+function visibleFill(frame){
+ if(visibleFills.has(frame))return visibleFills.get(frame);
+ const {width,height,kind}=frame,positions=[];
+ for(let y=4;y<height-4;y+=4)for(let x=4;x<width-4;x+=4){
+  const i=y*width+x;
+  if([i,i-4,i+4,i-4*width,i+4*width].every(j=>kind[j]===2))positions.push([x,y]);
+ }
+ visibleFills.set(frame,positions);
+ return positions;
+}
 function paintMouldBits(c,images,bits,project,frame,rect,progress){
- if(!frame||progress<=0)return;
- const {width,height,kind}=frame;
+ if(!frame||progress<=0||!bits.length)return;
+ const {width,height}=frame,positions=visibleFill(frame);
+ if(!positions.length)return;
+ const occupied=new Set();
  for(const bit of bits){
   if(bit.z>progress)continue;
   const [x,y]=project(bit);
-  const u=Math.floor((x-rect[0])*width/rect[2]),v=Math.floor((y-rect[1])*height/rect[3]);
-  if(u<4||v<4||u>=width-4||v>=height-4)continue;
-  const pixel=v*width+u;
-  if([pixel,pixel-4,pixel+4,pixel-4*width,pixel+4*width].some(index=>kind[index]!==2))continue;
-  paintBit(c,images,bit,x,y,19*bit.size,Math.max(.48,.93-(progress-bit.z)*.48));
+  const u=(x-rect[0])*width/rect[2],v=(y-rect[1])*height/rect[3];
+  let best=null,distance=Infinity;
+  for(const position of positions){
+   if(occupied.has(position))continue;
+   const [px,py]=position,d=(px-u)**2+(py-v)**2;
+   if(d<distance){best=position;distance=d}
+  }
+  if(!best)break;
+  const [px,py]=best;
+  for(const position of positions)if(Math.hypot(position[0]-px,position[1]-py)<10)occupied.add(position);
+  paintBit(c,images,bit,rect[0]+px*rect[2]/width,rect[1]+py*rect[3]/height,25*bit.size,Math.max(.65,.96-(progress-bit.z)*.28));
  }
 }
 function paintStream(c,images,bits,start,end,app,material,flow,time,glitter){
@@ -56,7 +74,7 @@ function paintStream(c,images,bits,start,end,app,material,flow,time,glitter){
  c.strokeStyle='rgba(255,255,255,'+material.shine+')';c.lineWidth=Math.max(1,width*.22);c.stroke();
  for(let i=0;i<Math.min(bits.length,7);i++){
   const position=(time/720+i/7)%1,[px,py]=curve(position);
-  paintBit(c,images,bits[Math.floor(time/720+i)%bits.length],px+(i%3-1)*width*.2,py,width*.94,flow,position*2);
+  paintBit(c,images,bits[Math.floor(time/720+i)%bits.length],px+(i%3-1)*width*.2,py,Math.max(15,width*1.27),flow,position*2);
  }
  if(glitter){
   c.fillStyle='#FFF6CE';
@@ -67,7 +85,7 @@ function paintStream(c,images,bits,start,end,app,material,flow,time,glitter){
  }
  c.restore();
 }
-function drawJug(c,images,pose,bits,progress,app,material,glitter){const im=images.pourJug;if(!im)return;const [x,y,w,h]=pose.rect,[sx,sy]=pose.spout;c.save();c.translate(sx,sy);c.rotate(pose.angle);c.translate(-sx,-sy);c.save();c.translate(x,y);c.scale(w,h);c.beginPath();c.moveTo(.335,.215);c.bezierCurveTo(.49,.26,.66,.25,.78,.205);c.lineTo(.795,.775);c.quadraticCurveTo(.77,.88,.57,.88);c.quadraticCurveTo(.35,.87,.335,.78);c.closePath();c.clip();const empty=clamp(progress,0,1),level=.27+empty*.60,grad=c.createLinearGradient(.35,level,.76,.88);const tones=app.swirl?app.tones:[app.target];tones.forEach((tone,i)=>grad.addColorStop(i/tones.length,tone));grad.addColorStop(1,tones.at(-1));c.fillStyle=grad;c.globalAlpha=.88;c.fillRect(.30,level,.52,.9-level);for(const bit of bits){const by=.28+bit.z*.58;if(by<level)continue;paintBit(c,images,bit,.56+bit.x*.25,by,.088*material.size*bit.size,.92)}if(glitter){c.fillStyle='#FFF6CE';for(let i=0;i<22;i++){const by=.29+(i*37%23)/23*.56;if(by<level)continue;c.beginPath();c.arc(.36+(i*13%23)/23*.4,by,i%3===0?.008:.004,0,Math.PI*2);c.fill()}}c.strokeStyle='#FFFFFFAC';c.lineWidth=.01;c.beginPath();c.moveTo(.34,level);c.quadraticCurveTo(.56,level+.035,.79,level);c.stroke();c.restore();c.globalAlpha=.68;c.drawImage(im,x,y,w,h);c.restore();}
+function drawJug(c,images,pose,bits,progress,app,material,glitter){const im=images.pourJug;if(!im)return;const [x,y,w,h]=pose.rect,[sx,sy]=pose.spout;c.save();c.translate(sx,sy);c.rotate(pose.angle);c.translate(-sx,-sy);c.drawImage(im,x,y,w,h);c.save();c.translate(x,y);c.scale(w,h);c.beginPath();c.moveTo(.335,.215);c.bezierCurveTo(.49,.26,.66,.25,.78,.205);c.lineTo(.795,.775);c.quadraticCurveTo(.77,.88,.57,.88);c.quadraticCurveTo(.35,.87,.335,.78);c.closePath();c.clip();const empty=clamp(progress,0,1),level=.27+empty*.60,grad=c.createLinearGradient(.35,level,.76,.88);const tones=app.swirl?app.tones:[app.target];tones.forEach((tone,i)=>grad.addColorStop(i/tones.length,tone));grad.addColorStop(1,tones.at(-1));c.fillStyle=grad;c.globalAlpha=.88;c.fillRect(.30,level,.52,.9-level);for(const bit of bits){const by=.28+bit.z*.58;if(by<level)continue;paintBit(c,images,bit,.56+bit.x*.25,by,.12*material.size*bit.size,.92)}if(glitter){c.fillStyle='#FFF6CE';for(let i=0;i<22;i++){const by=.29+(i*37%23)/23*.56;if(by<level)continue;c.beginPath();c.arc(.36+(i*13%23)/23*.4,by,i%3===0?.008:.004,0,Math.PI*2);c.fill()}}c.strokeStyle='#FFFFFFAC';c.lineWidth=.01;c.beginPath();c.moveTo(.34,level);c.quadraticCurveTo(.56,level+.035,.79,level);c.stroke();c.restore();c.globalAlpha=.20;c.drawImage(im,x,y,w,h);c.restore();}
 function draw(c,state,options,ref,layout,images,atlas){const d=state.drafts[state.activeDraftId],r=d.recipe,p=SquishyScene07Model.presentation(state),g=geometry(r.mouldId,p.progress),rect=layout.mould,jr=layout.jug,app=SquishyScene04Model.appearance(r),yaw=-.22,pitch=1.15;
  // Lay the final body on its back: final z becomes pour height. Same final mesh volume.
  const turn=q=>{const x=q[0]*Math.cos(yaw)-q[1]*Math.sin(yaw),z=-q[0]*Math.sin(yaw)-q[1]*Math.cos(yaw),y=q[2];return [x,y*Math.cos(pitch)-z*Math.sin(pitch),y*Math.sin(pitch)+z*Math.cos(pitch)]};
@@ -81,6 +99,6 @@ function draw(c,state,options,ref,layout,images,atlas){const d=state.drafts[stat
 
  const contents=recipeBits(r,d.seed||1),material=fills[r.materialId]||fills.gel,glitter=r.colourFinish==='glitter';
  paintMouldBits(c,images,contents,bit=>project([bit.x*.83,bit.y*.83,g.level]),frame,rect,p.progress);
- if(p.flow>0&&!options.quiet)paintStream(c,images,contents,spout,surface,app,material,p.flow,options.time||0,glitter);
+ if(p.flow>0)paintStream(c,images,contents,spout,liquidSurface,app,material,p.flow,options.quiet?0:(options.time||0),glitter);
  drawJug(c,images,pose,contents,p.progress,app,material,glitter);return {spout,surface,liquidSurface,mouldRect:[...rect],jugRect:dr,phase:p.phase,fillLevel:g.level,fillTriangles:g.fill.length,shape:r.mouldId,geometryFill:true,jugAngle:pose.angle,cavityBounds:[g.min,g.max]};}
  globalThis.SquishyPourVolume={geometry,model,draw,jugPose};})();

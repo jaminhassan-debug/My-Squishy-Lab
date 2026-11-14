@@ -2,7 +2,7 @@
 'use strict';
 const V=SquishyScene09Volume,{add,sub,mul,dot,cross,norm,clamp}=V.math,legacy=SquishyScene09Renderer;
 function fitPlayCamera(nodes,transform,safe,maxScale=190){const points=nodes.map(n=>{const q=transform(n.p),f=4.5/(4.5-q[2]);return [q[0]*f,q[1]*f]}),min=[0,1].map(k=>Math.min(...points.map(p=>p[k]))),max=[0,1].map(k=>Math.max(...points.map(p=>p[k]))),scale=Math.min(maxScale,(safe[2]-24)/Math.max(.001,max[0]-min[0]),(safe[3]-24)/Math.max(.001,max[1]-min[1]));return {scale,center:[safe[0]+safe[2]/2-(min[0]+max[0])*scale/2,safe[1]+safe[3]-12+min[1]*scale]}}
-function create(canvas,{skipLegacy=false}={}){const c=canvas.getContext('2d'),flat=skipLegacy?{ready:Promise.resolve([true]),size(){},draw(){},point(){},hit(){}}:legacy.create(canvas),gpu=globalThis.SquishyScene09WebGL?.create(),images={},artReady=Promise.all(Object.entries({dumplingRelief:'assets/dumpling-v09/relief.png',dumplingClosed:'assets/fill-v11/dumpling_closed.png',sparkles:'assets/polish-v10/sparkles.png',closed:'assets/style-v08/closed_shells.png',relief:'assets/polish-v10/neutral_bodies.png',cushion:'assets/scene09/cushion.png',bits:'assets/scene06/bits.png',pourBits:'assets/scene07/pour-bits.png',poke:'assets/scene09/v04/poke.png',grip:'assets/scene09/v04/grip.png',stretch:'assets/scene09/v04/stretch.png'}).map(([key,src])=>new Promise(resolve=>{const im=new Image();im.onload=()=>{images[key]=im;if(key==='relief')gpu?.setRelief?.(im);resolve(true)};im.onerror=()=>resolve(key==='pourBits');im.src=globalThis.SquishyEmbeddedImages?.[src]||src})));const ready=Promise.all([artReady,flat.ready]).then(([a,b])=>[...a,...b]);let ref=[1024,768],camera={yaw:0,pitch:12},center=[512,320],scale=250,currentRelief=null,picks=[],lastSolver=null,lastContext=null,heldFit=null,bodyBounds=null,rect=[250,100,524,420];
+function create(canvas,{skipLegacy=false}={}){const c=canvas.getContext('2d'),flat=skipLegacy?{ready:Promise.resolve([true]),size(){},draw(){},point(){},hit(){}}:legacy.create(canvas),gpu=globalThis.SquishyScene09WebGL?.create(),images={},artReady=Promise.all(Object.entries({dumplingRelief:'assets/dumpling-v09/relief.png',dumplingClosed:'assets/fill-v11/dumpling_closed.png',sparkles:'assets/polish-v10/sparkles.png',closed:'assets/style-v08/closed_shells.png',relief:'assets/polish-v10/neutral_bodies.png',cushion:'assets/scene09/cushion.png',pourBits:globalThis.SquishyScene06Atlas?.bits.image,poke:'assets/scene09/v04/poke.png',grip:'assets/scene09/v04/grip.png',stretch:'assets/scene09/v04/stretch.png'}).filter(([,src])=>src).map(([key,src])=>new Promise(resolve=>{const im=new Image();im.onload=()=>{images[key]=im;if(key==='relief')gpu?.setRelief?.(im);resolve(true)};im.onerror=()=>resolve(key==='pourBits');im.src=globalThis.SquishyEmbeddedImages?.[src]||src})));const ready=Promise.all([artReady,flat.ready]).then(([a,b])=>[...a,...b]);let ref=[1024,768],camera={yaw:0,pitch:12},center=[512,320],scale=250,currentRelief=null,picks=[],lastSolver=null,lastContext=null,heldFit=null,bodyBounds=null,rect=[250,100,524,420];
  function size(w,h,portrait=false,immersive=false,density=1.5){heldFit=null;flat.size(w,h,portrait);ref=immersive?[w,h]:portrait?[768,1024]:[1024,768];const ratio=immersive?Math.min(density,Math.sqrt(900000/(w*h))):1.5;canvas.width=Math.max(1,Math.round(w*ratio));canvas.height=Math.max(1,Math.round(h*ratio));center=portrait?[384,374]:[512,320];scale=portrait?240:250;rect=[center[0]-scale*1.2,center[1]-scale*1.1,scale*2.4,scale*2.2]}
  function transform(p){const y=camera.yaw*Math.PI/180,a=camera.pitch*Math.PI/180,x=Math.cos(y)*p[0]+Math.sin(y)*p[2],z=-Math.sin(y)*p[0]+Math.cos(y)*p[2];return [x,Math.cos(a)*p[1]-Math.sin(a)*z,Math.sin(a)*p[1]+Math.cos(a)*z]}
  function inverse(p){const y=camera.yaw*Math.PI/180,a=camera.pitch*Math.PI/180,yy=Math.cos(a)*p[1]+Math.sin(a)*p[2],z=-Math.sin(a)*p[1]+Math.cos(a)*p[2];return [Math.cos(y)*p[0]-Math.sin(y)*z,yy,Math.sin(y)*p[0]+Math.cos(y)*z]}
@@ -31,7 +31,7 @@ function create(canvas,{skipLegacy=false}={}){const c=canvas.getContext('2d'),fl
  function paintIngredients(items, ingredients){
   const im=images.pourBits;
   if(!im||!ingredients.length)return;
-  const w=im.width/3,h=im.height/3;
+  const {crops}=SquishyScene06Atlas.bits;
   c.save();
   c.beginPath();
   for(const {p} of items){
@@ -46,7 +46,7 @@ function create(canvas,{skipLegacy=false}={}){const c=canvas.getContext('2d'),fl
    c.translate(q.x,q.y);
    c.rotate(Math.atan2(-axis[1],axis[0]));
    c.globalAlpha=opacity;
-   c.drawImage(im,frame%3*w,Math.floor(frame/3)*h,w,h,-diameter/2,-diameter/2,diameter,diameter);
+   c.drawImage(im,...crops[frame],-diameter/2,-diameter/2,diameter,diameter);
    c.restore();
   }
   c.restore();

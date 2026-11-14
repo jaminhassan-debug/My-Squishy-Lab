@@ -28,7 +28,10 @@ function create(canvas,jars){
   c.strokeStyle='#fff8e8aa';c.lineWidth=w*.006;c.beginPath();c.ellipse(cx,cy,rx,ry,0,0,Math.PI);c.stroke();
   if(anim&&!undo&&!options.quiet&&t<.8){const jf=Math.min(7,Math.floor(t/.8*8));sprite(c,'jar',jf,w*.68,h*.01,w*.18,h*.30)}
  }
- return {ready,size,draw,drawJar};
+ return {ready,size,draw,drawJar,drawIngredient(canvas,entry){
+  const c=canvas.getContext('2d'),w=canvas.width,h=canvas.height;
+  piece(c,entry.familyId,entry.subtype,w/2,h/2,Math.min(w,h),0,1);
+ }};
 }
 globalThis.SquishyScene06Renderer={create};
 })();
