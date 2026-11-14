@@ -24,3 +24,19 @@ html.fit-board.board-portrait #stage #world #daily-workshop{left:33%;width:12%;h
 .daily-sparks span{position:absolute;color:#ffec97;text-shadow:0 0 7px #bd5684;font-size:22px;animation:daily-spark .68s ease-out both}
 @keyframes daily-spark{from{opacity:1;transform:scale(.3)}to{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1.25)}}
 @media(prefers-reduced-motion:reduce){.daily-sparks{display:none}}
+
+.friends-card .friend-portrait {
+ width: 100%;
+ max-width: 126px;
+ aspect-ratio: 1;
+ background-image: url('assets/scene12/friends-poses.jpg');
+ background-repeat: no-repeat;
+ background-size: 300% 200%;
+ border-radius: 1em;
+}
+.friends-card .friend-portrait[data-friend="bear"] { background-position: 0 0; }
+.friends-card .friend-portrait[data-friend="bunny"] { background-position: 50% 0; }
+.friends-card .friend-portrait[data-friend="kitten"] { background-position: 100% 0; }
+@media (prefers-reduced-motion: no-preference) {
+ .friends-card:active .friend-portrait { transform: scale(.95); }
+}

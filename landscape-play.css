@@ -10,7 +10,7 @@ html.fit-board main button.raster-control>span:not(.sprite):not([class$="-symbol
 html.fit-board main button.raster-control>[class$="-symbol"]{display:none!important}
 html.fit-board main button.raster-control:not(.raster-compact){flex-direction:column!important}
 html.fit-board main button.raster-control:not(.raster-compact)::before{flex:0 0 30px!important;width:30px!important;height:30px!important}
-html.fit-board #s9-title,html.fit-board #s9-face-choice,html.fit-board #s9-gestures,html.fit-board #s9-camera,html.fit-board #s9-pause,html.fit-board #s9-help,html.fit-board #s9-back,html.fit-board #s9-mode,html.fit-board #s9-context,html.fit-board #s9-tool_0,html.fit-board #s9-tool_1,html.fit-board #s9-tool_2,html.fit-board #s9-tool_3{display:none!important}
+html.fit-board #s9-title,html.fit-board #s9-gestures,html.fit-board #s9-help,html.fit-board #s9-back,html.fit-board #s9-mode,html.fit-board #s9-context,html.fit-board #s9-tool_0,html.fit-board #s9-tool_1,html.fit-board #s9-tool_2,html.fit-board #s9-tool_3{display:none!important}
 html.fit-board #s9-world #s9-home{left:2%!important;top:2%!important;width:144px!important;height:60px!important}
 html.fit-board #s9-world #s9-play{left:36%!important;top:2%!important;width:128px!important;height:60px!important}
 html.fit-board #s9-world #s9-view{left:50%!important;top:2%!important;width:128px!important;height:60px!important}
@@ -46,3 +46,47 @@ html.fit-board #s9-play-style button{position:relative;min-height:44px!important
 html.fit-board #s9-play-style button[aria-pressed=true]{background:#b9f2d9;border-color:#72bda7}
 
 html.fit-board #s9-play-style button{min-height:max(44px,calc(44px / var(--board-scale)))!important;font-size:max(16px,calc(12px / var(--board-scale)))!important}
+
+
+/* Keep the direct controls beside the toy in Play and the camera presets in View. */
+html.fit-board #s9-play-style { width: max-content; max-width: 58%; justify-content: center; flex-wrap: wrap; }
+html.fit-board #s9-play-style #s9-face-choice {
+  position: relative !important;
+  inset: auto !important;
+  width: auto !important;
+  font-size: inherit !important;
+}
+html.fit-board #s9-world #s9-camera {
+  position: absolute !important;
+  left: 50% !important;
+  top: auto !important;
+  right: auto !important;
+  bottom: 2% !important;
+  transform: translateX(-50%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  width: max-content !important;
+  max-width: 58%;
+  padding: 4px;
+  border-radius: 24px;
+  background: #fff7e8e8;
+}
+html.fit-board #s9-world #s9-camera button {
+  border: 0;
+  border-radius: 20px;
+  background: #f0dff9;
+  color: #49345d;
+  font: 700 max(16px, calc(12px / var(--board-scale)))/1.2 system-ui;
+  min-height: max(44px, calc(44px / var(--board-scale))) !important;
+  padding: 7px 12px;
+}
+html.fit-board #s9-world #s9-pause {
+  position: absolute !important;
+  left: 2% !important;
+  top: max(70px, 12%) !important;
+  width: 120px !important;
+  height: 58px !important;
+}
+html.fit-board #s9-world #s9-camera[hidden] { display: none !important; }

@@ -50,13 +50,16 @@ function requests(){
   for(const card of board.slice(page*pageSize,(page+1)*pageSize)){
    const button=document.createElement('button');
    button.className='plain friends-card';
-   const swatch=document.createElement('i'),title=document.createElement('strong'),idea=document.createElement('span'),status=document.createElement('small');
+   const portrait=document.createElement('span'),swatch=document.createElement('i'),title=document.createElement('strong'),idea=document.createElement('span'),status=document.createElement('small');
+   portrait.className='friend-portrait';
+   portrait.dataset.friend=card.friendId;
+   portrait.setAttribute('aria-hidden','true');
    swatch.style.background=SquishyScene04Model.palette[card.colourId];
    swatch.setAttribute('aria-hidden','true');
    title.textContent=card.name;
    idea.textContent=card.colourId[0].toUpperCase()+card.colourId.slice(1)+' '+card.shapeId;
    status.textContent=card.status;
-   button.append(swatch,title,idea,status);
+   button.append(portrait,swatch,title,idea,status);
    button.addEventListener('click',()=>{close();route('12',{catalogueId:card.id})});
    cards.append(button);
   }
