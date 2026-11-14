@@ -5,8 +5,21 @@ const catalogue=[['bear','blue','star'],['bunny','pink','heart'],['kitten','lila
 function eligible(s){return catalogue.filter(c=>SquishyScene03Model.access(s,c.shapeId))}
 function request(s,id=s.activeRequestId){return s.requestProgress?.[id]||null}
 function definition(r){return catalogue.find(c=>c.id===r?.catalogueId)||null}
+const friends={bear:'Bramble Bear',bunny:'Clover Bunny',kitten:'Miso Kitten'};
+function board(s){
+ const history=Object.values(s.requestProgress??{});
+ return eligible(s).map(def=>{
+  const saved=history.find(item=>item.catalogueId===def.id);
+  return {...def,name:friends[def.friendId],requestInstanceId:saved?.id,
+   status:saved?.deliveredCreationId?'Gift delivered':saved?.offeredCreationId?'Gift ready':saved?.associatedDraftId?'In progress':'New request'};
+ });
+}
 function ensure(s,context={}){const n=clone(s);n.requestProgress??={};let r=context.requestInstanceId?n.requestProgress[context.requestInstanceId]:request(n);if(context.requestInstanceId&&!r)throw Error('That friend request could not be found. Your toys are kept.');if(r?.deliveredCreationId&&r.thanksAcknowledged&&!context.requestInstanceId)r=null;
- if(!r){const c=eligible(n).find(c=>!Object.values(n.requestProgress).some(r=>r.catalogueId===c.id));if(!c)return {state:n,request:null};const id=c.id+':1';r=n.requestProgress[id]={id,requestInstanceId:id,catalogueId:c.id,accepted:false,associatedDraftId:null,offeredCreationId:null,deliveredCreationId:null,completionLedgerKey:'request:'+id,thanksAcknowledged:false};}
+ if(context.catalogueId){
+  if(!eligible(n).some(c=>c.id===context.catalogueId))throw Error('That friend request is unavailable');
+  r=Object.values(n.requestProgress).find(item=>item.catalogueId===context.catalogueId)??null;
+ }
+ if(!r){const c=eligible(n).find(c=>context.catalogueId?c.id===context.catalogueId:!Object.values(n.requestProgress).some(r=>r.catalogueId===c.id));if(!c)return {state:n,request:null};const id=c.id+':1';r=n.requestProgress[id]={id,requestInstanceId:id,catalogueId:c.id,accepted:false,associatedDraftId:null,offeredCreationId:null,deliveredCreationId:null,completionLedgerKey:'request:'+id,thanksAcknowledged:false};}
  n.activeRequestId=r.id;n.activeRequest={id:r.id,catalogueId:r.catalogueId};n.eligibleRequestCount=eligible(n).filter(c=>!Object.values(n.requestProgress).some(r=>r.catalogueId===c.id&&r.deliveredCreationId)).length;
  if(!r.deliveredCreationId){let c=context.creationId?n.creations.find(c=>c.id===context.creationId):null;if(c&&context.requestInstanceId===r.id)r.offeredCreationId=c.id;if(!r.offeredCreationId){c=n.creations.find(c=>c.requestInstanceId===r.id);if(c)r.offeredCreationId=c.id;}if(r.offeredCreationId&&!n.creations.some(c=>c.id===r.offeredCreationId))r.offeredCreationId=null;}
  return {state:n,request:clone(r)}}
@@ -19,5 +32,5 @@ function give(s,id,expectedCreationId,at){const n=clone(s),r=request(n,id);if(!r
  return {state:n,request:clone(r),alreadyDelivered:false}}
 function acknowledge(s,id){const n=clone(s),r=request(n,id);if(r?.deliveredCreationId)r.thanksAcknowledged=true;return {state:n}}
 function phase(s,id){const r=request(s,id);return !r?'empty':r.deliveredCreationId?(r.thanksAcknowledged?'completed':'thanking'):r.offeredCreationId?'ready_to_give':r.associatedDraftId?'creation_in_progress':r.accepted?'accepted':'offer'}
-globalThis.SquishyScene12Model={catalogue,eligible,request,definition,ensure,accept,offer,give,acknowledge,phase};
+globalThis.SquishyScene12Model={catalogue,eligible,board,friends,request,definition,ensure,accept,offer,give,acknowledge,phase};
 })();

@@ -9,7 +9,7 @@ const announce=text=>$('status').textContent=text;
 function motion(){stage.classList.toggle('quiet',state.settings.quiet||reduced.matches);$('quiet').setAttribute('aria-pressed',String(state.settings.quiet));$('quiet').textContent=state.settings.quiet?'Quiet mode: on':'Quiet mode: off'}
 async function checkpoint(next=state){try{const raw=JSON.parse(localStorage.getItem(KEY)||'null');next.profileRevision=Math.max(state.profileRevision||0,raw?.profileRevision||0,next.profileRevision||0)+1}catch{next.profileRevision=(state.profileRevision||0)+1}state=next;if(readFailure){announce('Stored data could not be read. Changes stay in this session; the original stored data is kept.');return false}try{localStorage.setItem(KEY,M.serialize(state));memoryOnly=false;return true}catch{memoryOnly=true;announce('Changes are kept for this session. Storage is unavailable, so resume after closing is not guaranteed.');return false}}
 function artwork(el,toy){if(toy?.recipe&&globalThis.SquishyCollectionArt){el.replaceChildren();el.classList.remove('placeholder');SquishyCollectionArt.attach(el,toy);return}el.replaceChildren();el.style.backgroundImage='';el.classList.remove('placeholder');if(toy?.thumbnail&&/^data:image\/png;base64,[A-Za-z0-9+/=]+$/.test(toy.thumbnail)&&toy.thumbnail.length<2000000){const img=document.createElement('img');img.src=toy.thumbnail;img.alt='';el.append(img)}else if(!toy){return}else{el.classList.add('placeholder');el.textContent=toy.name+' · preview unavailable'}}
-function refresh(){const c=M.displayed(state);$('latest_toy').hidden=!c;$('change_squishy').hidden=!c;stage.classList.toggle('has-saved-toy',!!c);if(c)artwork($('latest-art'),c);$('latest_toy').setAttribute('aria-label',c?'Squish '+c.name:'Squish your saved toy');for(const id of ['requests','decorate'])$(id).hidden=!M.unlocked(state);const slots=$('cabinet-toys');slots.replaceChildren();[...state.creations].sort((a,b)=>(Number(b.savedAt)||0)-(Number(a.savedAt)||0)).slice(0,6).forEach(c=>{const t=document.createElement('div');t.className='cabinet-toy';artwork(t,c);slots.append(t)});motion()}
+function refresh(){const c=M.displayed(state);$('latest_toy').hidden=!c;$('change_squishy').hidden=!c;stage.classList.toggle('has-saved-toy',!!c);if(c)artwork($('latest-art'),c);$('latest_toy').setAttribute('aria-label',c?'Squish '+c.name:'Squish your saved toy');$('requests').hidden=false;$('decorate').hidden=!M.unlocked(state);const slots=$('cabinet-toys');slots.replaceChildren();[...state.creations].sort((a,b)=>(Number(b.savedAt)||0)-(Number(a.savedAt)||0)).slice(0,6).forEach(c=>{const t=document.createElement('div');t.className='cabinet-toy';artwork(t,c);slots.append(t)});motion()}
 function release(){clearTimeout(releaseTimer);cube.classList.remove('pressed')}
 function close(){release();panel.hidden=true;$('scrim').hidden=true;world.inert=false;world.removeAttribute('aria-hidden');lock=false;stage.classList.remove('paused');previousFocus?.focus();scheduleBlink()}
 function open(title,copy,mode='notice'){
@@ -36,7 +36,36 @@ function make(){const draft=state.drafts[state.activeDraftId];if(draft&&!draft.s
 function squish(id){try{playContext=M.squishContext(state,id);if(!playContext){open('Let’s make your first squishy','Choose a mould and create a squishy. After you save it, you can play with it here.');action('Make a squishy',()=>{close();make()});return}route('09',playContext)}catch(e){open('Let’s try that again',e.message);action('Retry',()=>squish(id));action('Return to workshop',close)}}
 function showSquish(context){const toy=state.creations.find(c=>c.id===context.creationId);if(!toy){open('Let’s make a squishy','Your saved squishy will appear here after you create one.');return}open(toy.name,'Press and hold, then release. This is a 2D response preview of your saved squishy.');artwork($('demo-art'),toy);cube.hidden=false;$('auto-squeeze').hidden=false;announce('Playing saved creation '+toy.name)}
 function showShelf(){if(window.SquishyLabScene11){close();window.SquishyLabScene11.enter({from:'02'});return}open('My shelf',state.creations.length?'Choose one of your saved squishies.':'Your shelf is empty. Make your first squishy and save its photo to put it here.');if(!state.creations.length){action('Make a squishy',()=>{close();make()});return}let page=0;const draw=()=>{const list=$('collection');list.replaceChildren();[...state.creations].sort((a,b)=>(Number(b.savedAt)||0)-(Number(a.savedAt)||0)).slice(page*6,page*6+6).forEach(c=>{const b=document.createElement('button');b.className='saved-toy';const art=document.createElement('div');art.className='art';artwork(art,c);const name=document.createElement('span');name.textContent=c.name;b.append(art,name);b.addEventListener('click',()=>{close();squish(c.id)});list.append(b)});$('page-label').textContent='Page '+(page+1)+' of '+Math.ceil(state.creations.length/6)};draw();if(state.creations.length>6){action('Previous page',()=>{page=Math.max(0,page-1);draw()});action('Next page',()=>{page=Math.min(Math.ceil(state.creations.length/6)-1,page+1);draw()})}}
-function requests(){if(!M.unlocked(state))return;route('12',{requestInstanceId:state.activeRequestId||null})}
+function requests(){
+ const model=globalThis.SquishyScene12Model;
+ if(!model)return;
+ const board=model.board(state),count=board.filter(card=>card.status==='Gift delivered').length;
+ open('Friends',count+' of '+board.length+' gifts delivered. Pick a friend’s idea or give them a squishy from your shelf.','friends');
+ const list=$('panel-actions'),pageSize=3;
+ let page=Math.max(0,Math.floor(board.findIndex(card=>card.status==='Gift ready'||card.status==='In progress')/pageSize));
+ function draw(){
+  list.replaceChildren();
+  const cards=document.createElement('div');
+  cards.className='friends-cards';
+  for(const card of board.slice(page*pageSize,(page+1)*pageSize)){
+   const button=document.createElement('button');
+   button.className='plain friends-card';
+   const swatch=document.createElement('i'),title=document.createElement('strong'),idea=document.createElement('span'),status=document.createElement('small');
+   swatch.style.background=SquishyScene04Model.palette[card.colourId];
+   swatch.setAttribute('aria-hidden','true');
+   title.textContent=card.name;
+   idea.textContent=card.colourId[0].toUpperCase()+card.colourId.slice(1)+' '+card.shapeId;
+   status.textContent=card.status;
+   button.append(swatch,title,idea,status);
+   button.addEventListener('click',()=>{close();route('12',{catalogueId:card.id})});
+   cards.append(button);
+  }
+  list.append(cards);
+  if(page>0)action('Previous',()=>{page--;draw();$('panel-actions').querySelector('button')?.focus();});
+  if((page+1)*pageSize<board.length)action('More friends',()=>{page++;draw();$('panel-actions').querySelector('button')?.focus();});
+ }
+ draw();
+}
 function decorate(){if(M.unlocked(state))route('14',{equippedCosmetics:state.cosmetics})}
 function pause(){open('Take a little pause','Your workshop is here when you are ready.','pause');action('Keep playing',close);action('Quiet mode',async()=>{state.settings.quiet=!state.settings.quiet;await checkpoint();motion()});action('Home',()=>route('01'));}
 function delight(){if(state.settings.quiet||reduced.matches)return;clearTimeout(delightTimer);pip.classList.remove('blink');pip.classList.add('delight');delightTimer=setTimeout(()=>pip.classList.remove('delight'),800)}

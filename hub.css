@@ -8,3 +8,8 @@
 body{background:#fff6e7}main{padding-top:12px}.stage{border-radius:22px}.scene-badge{position:absolute;z-index:70;left:3%;top:3%;background:#fff6e7f2;border:2px solid #fff9ee;border-radius:26px;padding:7px 22px;color:#49345d;font-size:clamp(18px,2.4vw,32px);font-weight:800;box-shadow:0 3px 8px #49345d15;pointer-events:none}.sr-only{position:absolute!important;clip-path:inset(50%);width:1px!important;height:1px!important;overflow:hidden;white-space:nowrap}.caption{font-size:clamp(14px,1.5vw,22px);font-weight:750;color:#49345d;text-shadow:0 1px 3px #fff6e7,0 0 8px #fff6e7;top:88%}.has-saved-toy #pip{left:34%}.station{transition:filter .2s}.station:hover{filter:brightness(1.025)}#latest_toy{z-index:40}#pip{z-index:50}#make_station,#shelf_station{z-index:30}#squish_station{z-index:25}#make_button,#squish_button,#shelf_button,#home,#pause,#requests,#decorate{z-index:80}
 @media(max-aspect-ratio:4/5){.has-saved-toy #pip{left:22%}.scene-badge{font-size:20px;left:3%;top:2%;padding:7px 15px}}
 @media(max-width:823px) and (min-aspect-ratio:4/5),(max-width:663px) and (max-aspect-ratio:4/5){.scene-badge{top:22px;left:18px;font-size:22px}.actor#latest_toy[hidden]{display:none!important}}
+
+.friends-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(5px,1vw,14px);width:100%}
+.friends-cards .friends-card{display:grid;justify-items:center;gap:.2em;text-align:center;white-space:normal;padding:.45em .25em;line-height:1.16;min-width:0;background:#e6f3eb}
+.friends-card i{width:1.35em;height:1.35em;border-radius:50%;box-shadow:inset 0 0 0 1px #49345d35}
+.friends-card small{color:#5e4b6d}
