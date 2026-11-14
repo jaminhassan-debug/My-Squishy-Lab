@@ -13,7 +13,7 @@
   const voiceStatus = dialog.querySelector('.founders-voice-status');
   const stories = {
     poke: ['Jaida','Tap one spot with one finger, then lift it and watch the dent spring back.'],
-    squeeze: ['EEva','Press and hold your squishy. Let go when you’re ready and watch it puff back up.'],
+    squeeze: ['Eeva','Press and hold your squishy. Let go when you’re ready and watch it puff back up.'],
     stretch: ['Jaida','Place two fingers on your squishy and slide them gently apart. Lift both fingers to let it return.']
   };
   let trigger, gesture, guideOpen = false;
@@ -52,8 +52,8 @@
       voiceStatus.textContent = 'Turn on Voice and turn off Quiet in the game’s pause menu to hear tips.';
       return;
     }
-    const words = guideOpen ? stories[gesture][1] : 'Hello! We’re Jaida and EEva. Come and make a squishy with us.';
-    const pitch = guideOpen && stories[gesture][0] === 'EEva' ? 1.14 : 1.02;
+    const words = guideOpen ? stories[gesture][1] : 'Hello! We’re Jaida and Eeva. Come and make a squishy with us.';
+    const pitch = guideOpen && stories[gesture][0] === 'Eeva' ? 1.14 : 1.02;
     voiceStatus.textContent = audio.speak(words, pitch) ? '' : 'Spoken tips are unavailable on this device.';
   });
   tryIt.addEventListener('click', () => {
