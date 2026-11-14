@@ -1,10 +1,35 @@
 (() => {
 'use strict';
-const clone=s=>structuredClone(s),catalogue=[['cabinet_lilac','cabinet',20,'Lilac cabinet',0],['cabinet_peach','cabinet',30,'Peach cabinet',1],['cushion_mint','cushion',20,'Mint cushion',2],['cushion_butter','cushion',30,'Butter cushion',3],['picture_rainbow','wall_picture',40,'Rainbow picture',4],['plant_star','plant',40,'Star planter',5]].map(([id,slot,price,title,frame])=>({id:'cosmetic_'+id,slot,price,title,frame})),slots=['cabinet','cushion','wall_picture','plant'],defaults={cabinet:'default_cabinet',cushion:'default_cushion',wall_picture:null,plant:null};
+const clone=s=>structuredClone(s),catalogue=[['cabinet_lilac','cabinet',20,'Lilac cabinet',0],['cabinet_peach','cabinet',30,'Peach cabinet',1],['cushion_mint','cushion',20,'Mint cushion',2],['cushion_butter','cushion',30,'Butter cushion',3],['picture_rainbow','wall_picture',40,'Rainbow picture',4],['plant_star','plant',40,'Star planter',5]].map(([id,slot,price,title,frame])=>({id:'cosmetic_'+id,slot,price,title,frame})),slots=['cabinet','cushion','rug','wall_picture','plant','room_theme'],defaults={cabinet:'default_cabinet',cushion:'default_cushion',rug:null,wall_picture:null,plant:null,room_theme:null};
+const furniture=[
+ ['cabinet','Bow cabinet','Cottage cabinet','Star cabinet','Glass-front cabinet','Bakery display case','Heart display rack','Tiered toy stand','Pastel cubbies','Flower display rack','Arched toy shelf'],
+ ['cushion','Cloud cushion','Shell cushion','Star cushion','Leaf cushion','Flower cushion'],
+ ['rug','Cloud rug','Heart rug','Star rug','Flower rug','Mint swirl rug'],
+ ['wall_picture','Moon print','Star print','Fruit print','Cloud print','Flower print','Flower clock','Bear clock','Cottage clock','Bunny portrait','Hydrangea portrait'],
+ ['plant','Trailing heart planter','Daisy basket','Hydrangea bowl','Lavender teapot','Flower window box','Monstera pot','Snake plant','Pilea pot','Lemon tree','Flamingo flower']
+];
+let sprite=0;
+for(const [slot,...titles] of furniture)for(const title of titles){
+ const frame=sprite++;
+ catalogue.push({id:'cosmetic_decor_'+frame,slot,title,price:15+(frame%5)*5,sprite:frame});
+}
+for(const [index,title] of ['Bao Bakery','Mint Greenhouse','Stargazing Loft','Seaside Studio'].entries()){
+ catalogue.push({id:'cosmetic_room_'+index,slot:'room_theme',title,price:50,roomIndex:index});
+}
 function definition(id){const d=catalogue.find(d=>d.id===id);if(!d)throw Error('Unknown decoration');return d}
 function owned(s,id){return (s.profile.ownedCosmetics||[]).includes(id)}
 function baseRoom(s){const raw={...s.cosmetics,...s.profile.equippedCosmetics};return Object.fromEntries(slots.map(slot=>{const id=raw[slot];return [slot,catalogue.some(d=>d.id===id&&d.slot===slot)&&owned(s,id)?id:defaults[slot]]}))}
 function room(s){const base=baseRoom(s);if(s.settings.freePlay)for(const [slot,id] of Object.entries(s.profile.freePlayEquippedCosmetics||{}))if(catalogue.some(d=>d.id===id&&d.slot===slot))base[slot]=id;return base}
+function displayed(s,theme=room(s).room_theme){
+ const id=s.profile.roomDisplays?.[theme??'workshop'];
+ return s.creations.find(toy=>toy.id===id)??null;
+}
+function display(s,id){
+ if(id!==null&&!s.creations.some(toy=>toy.id===id))throw Error('Choose a saved squishy');
+ const n=clone(s),theme=room(n).room_theme??'workshop';
+ n.profile.roomDisplays={...n.profile.roomDisplays,[theme]:id};
+ return {state:n};
+}
 function preview(s,id){const d=definition(id);return {...room(s),[d.slot]:id}}
 function startVisit(s,visitId){const n=clone(s);n.profile.activeDecorationVisit=visitId;n.profile.cosmeticRevision??=0;return {state:n}}
 function endVisit(s,visitId){const n=clone(s);if(n.profile.activeDecorationVisit===visitId)n.profile.activeDecorationVisit=null;return {state:n}}
@@ -14,5 +39,5 @@ function commit(s,{id,actionId,visitId,revision}){const d=definition(id),n=clone
  if(mode==='free'){p.freePlayEquippedCosmetics={...p.freePlayEquippedCosmetics,[d.slot]:id}}else{p.equippedCosmetics={...p.equippedCosmetics,[d.slot]:id};n.cosmetics={...n.cosmetics,[d.slot]:id}}p.cosmeticRevision=(p.cosmeticRevision||0)+1;const record={actionId,visitId,cosmeticId:id,slot:d.slot,mode,coins:mode==='purchase'?d.price:0};if(mode==='purchase')p.spendLedger[actionId]={...record,before:clone(before),after:fingerprint(n)};else{p.cosmeticActionLedger??={};p.cosmeticActionLedger[actionId]=record}const undoToken=mode==='purchase'?{visitId,actionId,before,after:fingerprint(n)}:null;return {state:n,mode,undoToken}}
 function rebaseUndo(token,s){if(!token)return null;const after=JSON.parse(token.after);if(after.wallet!==(s.profile.wallet||0)||JSON.stringify(after.owned)!==JSON.stringify(s.profile.ownedCosmetics||[]))return null;return {...clone(token),after:fingerprint(s)}}
 function undo(s,token){const n=clone(s),p=n.profile;if(!token)throw Error('No purchase to undo');const reverse='reverse:'+token.actionId;if(p.spendLedger?.[reverse])return {state:n,alreadyUndone:true};if(p.activeDecorationVisit!==token.visitId||p.lastCosmeticPurchaseId!==token.actionId)throw Error('Only the latest purchase in this visit can be undone');if(fingerprint(n)!==token.after)throw Error('Your balance or room changed elsewhere. No refund was applied.');const transaction=p.spendLedger?.[token.actionId];if(!transaction||transaction.mode!=='purchase')throw Error('Purchase could not be found');p.wallet=token.before.wallet;p.ownedCosmetics=clone(token.before.owned);p.equippedCosmetics=clone(token.before.equipped);n.cosmetics=clone(token.before.legacy);p.freePlayEquippedCosmetics=clone(token.before.free);p.cosmeticRevision=(p.cosmeticRevision||0)+1;p.spendLedger[reverse]={actionId:reverse,purchaseActionId:token.actionId,visitId:token.visitId,coins:-transaction.coins};p.lastCosmeticPurchaseId=null;return {state:n}}
-globalThis.SquishyScene14Model={catalogue,slots,defaults,definition,owned,baseRoom,room,preview,startVisit,endVisit,fingerprint,commit,rebaseUndo,undo};
+globalThis.SquishyScene14Model={catalogue,slots,defaults,definition,owned,displayed,display,baseRoom,room,preview,startVisit,endVisit,fingerprint,commit,rebaseUndo,undo};
 })();
