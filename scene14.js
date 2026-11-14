@@ -1,6 +1,6 @@
 (() => {
 'use strict';
-const M=SquishyScene14Model,$=id=>document.getElementById('s14-'+id),root=$('stage'),world=$('world'),api=window.SquishyLabHub,storage=SquishyScene10Storage.browser(api),renderer=SquishyScene14Renderer.create($('art'));
+const M=SquishyScene14Model,$=id=>document.getElementById('s14-'+id),root=$('stage'),world=$('world'),api=window.SquishyLabHub,storage=SquishyScene10Storage.browser(api),renderer=SquishyScene14Renderer.create($('art'),$('room-backdrop'));
 let state,active=false,busy=false,loaded=false,visitId=null,page=0,selected=null,previewRoom=null,oldRoom=null,undoToken=null,actionId=null,frame=null,last=0,elapsed=1000,guideUntil=0,previousFocus;
 const nonce=()=>crypto.randomUUID?.()||Date.now().toString(36),quiet=()=>!!state?.settings.quiet||matchMedia('(prefers-reduced-motion: reduce)').matches,now=()=>performance.now();
 function stop(){if(frame!==null)cancelAnimationFrame(frame);frame=null;last=0}
