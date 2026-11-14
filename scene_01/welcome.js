@@ -2,10 +2,10 @@ const stage=document.getElementById('stage'),cube=document.getElementById('cube'
 let quiet=matchMedia('(prefers-reduced-motion: reduce)').matches,blinkTimer,releaseTimer,pipTimer,previousFocus;
 function applyQuiet(){stage.classList.toggle('quiet',quiet);document.getElementById('quiet').setAttribute('aria-pressed',String(quiet));document.getElementById('motion-toggle').setAttribute('aria-pressed',String(quiet));document.getElementById('motion-toggle').textContent=quiet?'Resume ambient motion':'Pause ambient motion';if(quiet)pip.classList.remove('blink');}
 function release(){cube.classList.remove('pressed');cube.classList.add('released');clearTimeout(releaseTimer);releaseTimer=setTimeout(()=>cube.classList.remove('released'),950);}
-cube.addEventListener('pointerdown',e=>{cube.setPointerCapture(e.pointerId);cube.classList.remove('released');cube.classList.add('pressed')});
-for(const event of ['pointerup','pointercancel','lostpointercapture'])cube.addEventListener(event,release);
-cube.addEventListener('click',e=>{if(e.detail===0){cube.classList.add('pressed');setTimeout(release,250)}});
-pip.addEventListener('click',()=>{clearTimeout(pipTimer);pip.classList.remove('blink');pip.classList.add('delight');pipTimer=setTimeout(()=>pip.classList.remove('delight'),1100)});
+cube.addEventListener('pointerdown',e=>{cube.setPointerCapture(e.pointerId);cube.classList.remove('released');cube.classList.add('pressed');window.SquishyAudio?.play('gel')});
+for(const event of ['pointerup','pointercancel','lostpointercapture'])cube.addEventListener(event,()=>{const pressed=cube.classList.contains('pressed');release();if(pressed&&event==='pointerup')window.SquishyAudio?.play('release')});
+cube.addEventListener('click',e=>{if(e.detail===0){cube.classList.add('pressed');window.SquishyAudio?.play('gel');window.SquishyAudio?.play('release',.25);setTimeout(release,250)}});
+pip.addEventListener('click',()=>{window.SquishyAudio?.play('tap');clearTimeout(pipTimer);pip.classList.remove('blink');pip.classList.add('delight');pipTimer=setTimeout(()=>pip.classList.remove('delight'),1100)});
 function openPanel(title,copy){previousFocus=document.activeElement;panel.hidden=false;document.getElementById('panel-title').textContent=title;document.getElementById('panel-copy').textContent=copy;cube.disabled=pip.disabled=document.getElementById('play').disabled=document.getElementById('grown').disabled=true;document.getElementById('close-panel').focus()}
 function closePanel(){panel.hidden=true;cube.disabled=pip.disabled=document.getElementById('play').disabled=document.getElementById('grown').disabled=false;previousFocus?.focus()}
 document.getElementById('play').addEventListener('click',()=>{if(document.getElementById('play').disabled)return;document.getElementById('play').disabled=true;window.dispatchEvent(new CustomEvent('squishylab:play',{detail:{scene:'01',nextScene:'02'}}));window.location.href='../preview.html#workshop';});

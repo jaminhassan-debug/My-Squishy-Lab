@@ -1,0 +1,138 @@
+:is(#stage,#s9-stage) .founders-button {
+  position: absolute;
+  z-index: 82;
+  display: flex;
+  align-items: center;
+  gap: .45em;
+  padding: .32em .72em .32em .42em;
+  border: 2px solid #fffaf1;
+  border-radius: 1.25em;
+  background: linear-gradient(#fff8f0, #f3def7);
+  box-shadow: 0 .3em .65em #50326740;
+  color: #49345d;
+  font: 800 clamp(9px, 2.65vmin, 21px)/1.05 system-ui, sans-serif;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+:is(#stage,#s9-stage) .founders-button img {
+  width: 2.7em;
+  height: 2.4em;
+  object-fit: contain;
+}
+:is(#stage,#s9-stage) .founders-button:active { transform: scale(.97); }
+:is(#stage,#s9-stage) .founders-button:focus-visible, #founders-dialog button:focus-visible {
+  outline: 3px solid #67418a;
+  outline-offset: 3px;
+}
+#stage .founders-welcome { left: 3%; bottom: 4%; }
+#stage .founders-workshop { left: 3%; top: 15%; }
+
+#founders-dialog {
+  box-sizing: border-box;
+  width: min(88vw, 820px);
+  max-height: 86dvh;
+  border: 3px solid white;
+  border-radius: 25px;
+  padding: clamp(12px, 4vmin, 34px);
+  background: radial-gradient(ellipse at left, #efd9f8, #fff7e9 67%);
+  box-shadow: 0 14px 50px #38245070;
+  color: #49345d;
+  overflow: auto;
+}
+#founders-dialog::backdrop { background: #38245080; }
+#founders-dialog .founders-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(10px, 4vmin, 30px);
+}
+#founders-dialog img {
+  width: 100%;
+  height: min(65dvh, 400px);
+  object-fit: contain;
+  filter: drop-shadow(0 7px 5px #60426d25);
+}
+#founders-dialog h2 { margin: 0; font-size: clamp(19px, 5vmin, 46px); line-height: 1.05; }
+#founders-dialog p { margin: .7em 0 1em; font-size: clamp(12px, 2.6vmin, 20px); line-height: 1.4; }
+#founders-dialog button {
+  border: 2px solid #a8d5c3;
+  border-radius: 2em;
+  background: #d7f4e9;
+  color: inherit;
+  padding: .55em 1em;
+  font: 750 clamp(12px, 2.5vmin, 18px)/1.15 system-ui, sans-serif;
+  cursor: pointer;
+}
+#s9-stage .founders-play { right: 3%; top: 18%; }
+#founders-dialog .founders-gestures, #founders-dialog .founders-actions {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin: .5em 0;
+}
+#founders-dialog .founders-actions button, #founders-dialog .founders-gestures button {
+  padding: .38em .6em;
+}
+#founders-dialog .founders-gestures [aria-pressed="true"] {
+  background: #e9d4fa;
+  border-color: #9973b8;
+}
+#founders-dialog .founders-voice-status:empty { display: none; }
+#founders-dialog .founders-voice-status { font-size: clamp(11px, 2.2vmin, 15px); }
+#founders-dialog .founders-demo {
+  width: min(100%, 190px);
+  height: clamp(36px, 16dvh, 102px);
+  position: relative;
+  margin: .5em 0;
+  border-radius: 14px;
+  background: #f5e5f4;
+  overflow: hidden;
+}
+.founders-demo-toy, .founders-demo-hand {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+.founders-demo-toy {
+  width: 36%;
+  height: 56%;
+  margin: -14% 0 0 -18%;
+  top: 60%;
+  border-radius: 48% 48% 41% 41%;
+  background: radial-gradient(ellipse at 30% 20%, #ffedf8, #ef91c6 61%, #c05ea8);
+  box-shadow: inset 0 -4px 7px #9d4a9155, 0 4px 4px #8c458644;
+}
+.founders-demo-hand {
+  width: 34%;
+  height: 70%;
+  background: center / contain no-repeat url('assets/ui-raster-v13/poke.png');
+  z-index: 1;
+}
+.founders-demo-hand.second { display: none; }
+.founders-demo[data-gesture="poke"] .founders-demo-hand { transform: translate(-10%,-64%); }
+.founders-demo[data-gesture="squeeze"] .founders-demo-hand {
+  background-image: url('assets/ui-raster-v13/squeeze.png');
+  transform: translate(-50%,-70%);
+}
+.founders-demo[data-gesture="stretch"] .founders-demo-hand {
+  background-image: url('assets/ui-raster-v13/pull.png');
+  transform: translate(-128%,-50%);
+}
+.founders-demo[data-gesture="stretch"] .second { display: block; transform: translate(28%,-50%) scaleX(-1); }
+#founders-dialog[open]:not(.squishy-quiet) .founders-demo[data-gesture="poke"] .founders-demo-toy { animation: founders-poke 2.2s infinite; }
+#founders-dialog[open]:not(.squishy-quiet) .founders-demo[data-gesture="poke"] .founders-demo-hand { animation: founders-finger 2.2s infinite; }
+#founders-dialog[open]:not(.squishy-quiet) .founders-demo[data-gesture="squeeze"] .founders-demo-toy { animation: founders-squeeze 2.65s infinite; }
+#founders-dialog[open]:not(.squishy-quiet) .founders-demo[data-gesture="squeeze"] .founders-demo-hand { animation: founders-grip 2.65s infinite; }
+#founders-dialog[open]:not(.squishy-quiet) .founders-demo[data-gesture="stretch"] .founders-demo-toy { animation: founders-stretch 2.8s infinite; }
+#founders-dialog[open]:not(.squishy-quiet) .founders-demo[data-gesture="stretch"] .founders-demo-hand { animation: founders-pull-left 2.8s infinite; }
+#founders-dialog[open]:not(.squishy-quiet) .founders-demo[data-gesture="stretch"] .second { animation-name: founders-pull-right; }
+@keyframes founders-poke { 0%,100%{transform:scale(1)} 37%{transform:skewX(-12deg) scale(1.07,.8)} 53%{transform:scale(.97,1.05)} }
+@keyframes founders-finger { 0%,100%{transform:translate(5%,-80%)} 37%{transform:translate(-20%,-56%)} }
+@keyframes founders-squeeze { 0%,100%{transform:scale(1)} 34%,59%{transform:scale(.74,.7)} 74%{transform:scale(1.06,1.08)} }
+@keyframes founders-grip { 0%,100%{transform:translate(-50%,-90%)} 34%,59%{transform:translate(-50%,-50%) scale(.85)} }
+@keyframes founders-stretch { 0%,100%{transform:scale(1)} 42%,60%{transform:scale(1.75,.7)} 75%{transform:scale(.92,1.08)} }
+@keyframes founders-pull-left { 0%,100%{transform:translate(-110%,-50%)} 42%,60%{transform:translate(-156%,-50%)} }
+@keyframes founders-pull-right { 0%,100%{transform:translate(10%,-50%) scaleX(-1)} 42%,60%{transform:translate(56%,-50%) scaleX(-1)} }
+@media (prefers-reduced-motion: reduce) {
+  #founders-dialog[open] .founders-demo :is(.founders-demo-toy,.founders-demo-hand) { animation: none !important; }
+}
