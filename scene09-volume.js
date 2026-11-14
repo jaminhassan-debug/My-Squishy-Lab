@@ -13,8 +13,20 @@ function mesh(shape='cube',segments=72,rings=24){if(shape.startsWith('dumpling_'
  return {nodes,triangles,depth,shape,segments,rings};
 }
 function dumplingMesh(shape,segments=72,rings=24){const scale=globalThis.SquishyDumplings?.scale(shape)||({dumpling_s:.44,dumpling_m:.60,dumpling_l:.80,dumpling_xl:1.02}[shape]||1),nodes=[{rest:[0,-.48*scale,0],p:[0,-.48*scale,0]}],triangles=[];
- for(let j=1;j<rings;j++){const u=j/rings,t=Math.max(0,(u-.22)/.78),radius=u<.22?.88*Math.sin(u/.22*Math.PI/2)**.55:.88*Math.cos(t*Math.PI/2)**.62,y=u<.22?-.48+u*.30:-.414+t*1.16,pleat=Math.max(0,(u-.42)/.58);for(let i=0;i<segments;i++){const a=i/segments*Math.PI*2,r=radius*(1+.07*Math.cos(10*a)*pleat),p=[Math.cos(a)*r*scale,y*scale,Math.sin(a)*r*.62*scale];nodes.push({rest:p,p:[...p]})}}
- const top=nodes.length;nodes.push({rest:[0,.746*scale,0],p:[0,.746*scale,0]});for(let i=0;i<segments;i++)triangles.push([0,1+(i+1)%segments,1+i]);for(let j=0;j<rings-2;j++)for(let i=0;i<segments;i++){const a=1+j*segments+i,b=1+j*segments+(i+1)%segments,c=a+segments,d=b+segments;triangles.push([a,b,c],[b,d,c])}for(let i=0;i<segments;i++)triangles.push([top,1+(rings-2)*segments+i,1+(rings-2)*segments+(i+1)%segments]);for(const t of triangles){const [a,b,c]=t.map(i=>nodes[i].rest),n=cross(sub(b,a),sub(c,a));if(dot(n,mul(add(add(a,b),c),1/3))<0)[t[1],t[2]]=[t[2],t[1]]}return {nodes,triangles,shape,segments,rings,depth:.55*scale,modelScale:scale,dumpling:true};}
+ for(let j=1;j<rings;j++){
+  const u=j/rings,t=Math.max(0,(u-.22)/.78);
+  const radius=u<.22?.88*Math.sin(u/.22*Math.PI/2)**.55:.88*Math.cos(t*Math.PI/2)**.82;
+  const y=u<.22?-.48+u*.30:-.414+t*1.16;
+  const pleat=Math.sin(Math.PI*t)**1.15;
+  for(let i=0;i<segments;i++){
+   const a=i/segments*Math.PI*2;
+   const fold=Math.cos(10*(a+t*.24));
+   const r=radius*(1+pleat*(.19*fold-.052*Math.cos(20*(a+t*.24))));
+   const p=[Math.cos(a)*r*scale,(y+fold*pleat*.065)*scale,Math.sin(a)*r*.79*scale];
+   nodes.push({rest:p,p:[...p]});
+  }
+ }
+ const top=nodes.length;nodes.push({rest:[0,.746*scale,0],p:[0,.746*scale,0]});for(let i=0;i<segments;i++)triangles.push([0,1+(i+1)%segments,1+i]);for(let j=0;j<rings-2;j++)for(let i=0;i<segments;i++){const a=1+j*segments+i,b=1+j*segments+(i+1)%segments,c=a+segments,d=b+segments;triangles.push([a,b,c],[b,d,c])}for(let i=0;i<segments;i++)triangles.push([top,1+(rings-2)*segments+i,1+(rings-2)*segments+(i+1)%segments]);for(const t of triangles){const [a,b,c]=t.map(i=>nodes[i].rest),n=cross(sub(b,a),sub(c,a));if(dot(n,mul(add(add(a,b),c),1/3))<0)[t[1],t[2]]=[t[2],t[1]]}return {nodes,triangles,shape,segments,rings,depth:.72*scale,modelScale:scale,dumpling:true};}
 function volume(nodes,triangles,rest=false){return Math.abs(triangles.reduce((sum,t)=>{const [a,b,c]=t.map(i=>rest?nodes[i].rest:nodes[i].p);return sum+dot(a,cross(b,c))/6},0))}
 // Rounded finger capsules and a thumb pad. All dimensions are in the toy's native scale.
 function gripDent(rest,grip,amount,size=1){const normal=grip._normal||norm(grip.normal||[0,0,1]),up=grip.up||[0,1,0],right=grip._right||norm(cross(up,normal)),d=sub(rest,grip.point),u=dot(d,right)/size,v=dot(d,up)/size,z=dot(d,normal)/size;

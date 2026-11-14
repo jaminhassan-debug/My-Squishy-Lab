@@ -5,7 +5,16 @@ function halves(shape){const base=V.mesh(shape),count=base.nodes.length;
  for(const t of selected)for(let j=0;j<3;j++){const a=t[j],b=t[(j+1)%3],key=[a,b].sort((a,b)=>a-b).join(',');const old=edges.get(key);edges.set(key,old?{...old,count:old.count+1}:{a,b,count:1})}
  for(const e of edges.values())if(e.count===1)triangles.push([e.a,e.b,e.a+count],[e.b,e.b+count,e.a+count]);
  const shell={volume:true,shape,nodes,triangles,side,outerScale:1.105,innerScale:1.035,getInterior:()=>({particles:[]}),getStatus:()=>({contacts:0,auto:false,recovering:false}),getGesture:()=> 'ready',getDepth:()=>0};
- shell.pose=open=>{const angle=side*open*.62,c=Math.cos(angle),s=Math.sin(angle);for(const n of nodes){const [x,y,z]=n.rest;n.p=[x*c+z*s,y-open*.03,-x*s+z*c]}};shell.pose(0);return shell});
+ shell.pose=open=>{
+  const angle=side*open*.56,c=Math.cos(angle),s=Math.sin(angle);
+  for(const n of nodes){
+   const [x,y,z]=n.rest;
+   // The seam flexes first. The outside of each silicone half lags behind the lip.
+   const edge=Math.exp(-Math.abs(x)*4),bend=open*edge*(.13+.10*Math.max(0,y));
+   const xx=x+side*bend,zz=z+bend*(.65+z*.25);
+   n.p=[xx*c+zz*s,y-open*.06-bend*.35,-xx*s+zz*c];
+  }
+ };shell.pose(0);return shell});
 }
 function bounds(shape){const body=V.mesh(shape),min=[0,1,2].map(k=>Math.min(...body.nodes.map(n=>n.rest[k]))),max=[0,1,2].map(k=>Math.max(...body.nodes.map(n=>n.rest[k])));return {shape,body:min.map((v,i)=>max[i]-v),inner:min.map((v,i)=>(max[i]-v)*1.035),outer:min.map((v,i)=>(max[i]-v)*1.105),wallScale:.07}}
 const fits=new Map;
