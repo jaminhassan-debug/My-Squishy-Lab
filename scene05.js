@@ -7,7 +7,7 @@ let state,active=false,busy=false,frame=null,cycle=null,contact=null,previousFoc
 const draft=()=>state.drafts[state.activeDraftId],recipe=()=>draft().recipe,quiet=()=>!!state?.settings.quiet||reduced.matches;
 function announce(text){$('status').textContent=text}
 async function save(){if(!state)return false;const r=await api.replaceSnapshot(state);$('storage').hidden=r.durable;$('storage').textContent=r.durable?'':'Kept for this session. Browser storage is unavailable.';return r.durable}
-function tone(id,released=false){window.SquishyAudio?.play(released?'release':id)}
+function tone(id,released=false){window.SquishyAudio?.touch(id,released?'release':'squeeze')}
 function render(){if(!active||!state)return;for(const id of M.materials){const c=cycle?.id===id?cycle:null;renderer.draw(id,recipe(),{quiet:quiet(),phase:c?.phase||'rest',depth:c?.depth||0,from:c?.releaseFrom||1})}}
 function refresh(){if(!state)return;const selected=recipe().materialId,all=state.profile.discoveryMetrics.triedMaterials;
  for(const id of M.materials){const el=$(id);el.disabled=!loaded[id];el.setAttribute('aria-pressed',String(selected===id));el.setAttribute('aria-label',names[id]+', '+descriptions[id]+(selected===id?', selected':'')+(all.includes(id)?', tried':''));el.querySelector('.s5-tried').textContent=all.includes(id)?'✓ Tried':''}

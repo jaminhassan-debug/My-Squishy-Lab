@@ -6,6 +6,7 @@ const defaultSettings = {music:false, effects:true};
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 const clips = new Map();
 const effects = new Set();
+const transitionEffects = new Set();
 const loops = new Map();
 const lastPlayed = new Map();
 const tracks = [
@@ -46,93 +47,34 @@ function unlock() {
   return true;
 }
 
-const rate = 22050;
-const tau = 2 * Math.PI;
-const tones = {
-  tap: [.11, 440, 310, .06, .08],
-  mould: [.16, 390, 245, .09, .14],
-  pigment: [.21, 360, 155, .13, .16],
-  pick: [.11, 610, 460, .05, .08],
-  drop: [.19, 540, 220, .12, .12],
-  undo: [.15, 385, 240, .08, .07],
-  foam: [.23, 175, 87, .13, .19],
-  gel: [.28, 300, 83, .19, .13],
-  bounce: [.24, 450, 132, .14, .06],
-  release: [.15, 150, 380, .09, .06],
-  peel: [.39, 263, 87, .07, .25],
-  land: [.25, 175, 63, .16, .09],
-  shutter: [.13, 740, 270, .04, .23]
-};
-const phrases = {
-  confirm: [64, 69],
-  gift: [67, 71, 74],
-  reward: [60, 64, 67, 72],
-  decorate: [62, 69, 74]
-};
-
-function makeClip(name) {
-  const spec = tones[name];
-  const phrase = phrases[name];
-  const bed = name === 'music';
-  const liquid = name === 'pour' || name === 'stir';
-  const duration = spec?.[0] ?? (phrase ? .18 * phrase.length + .23 : bed ? 24 : 2);
-  const buffer = context.createBuffer(1, Math.round(rate * duration), rate);
-  const samples = buffer.getChannelData(0);
-  let seed = 34537, filtered = 0, phase = 0;
-
-  if (spec || liquid) {
-    for (let i = 0; i < samples.length; i++) {
-      const time = i / rate;
-      seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
-      const noise = seed / 2147483648 - 1;
-      filtered += (noise - filtered) * (name === 'peel' ? .25 : .08);
-      if (liquid) {
-        const motion = name === 'pour' ? .76 + .14 * Math.sin(tau * 7 * time) : .55 + .35 * Math.sin(tau * 2 * time);
-        const bubbles = Math.sin(tau * (name === 'pour' ? 94 : 112) * time + 1.8 * Math.sin(tau * 5 * time));
-        const edge = Math.min(1, time * 28, (duration - time) * 28);
-        samples[i] = edge * motion * (filtered * .35 + bubbles * .024);
-      } else {
-        const [, from, to, body, texture] = spec;
-        const progress = time / duration;
-        phase += tau * (to + (from - to) * Math.exp(-4 * progress)) / rate;
-        const impact = Math.min(1, time * 185) * (1 - progress) ** 2;
-        samples[i] = impact * (body * (Math.sin(phase) + .24 * Math.sin(2 * phase)) + texture * filtered);
-      }
-    }
-  } else {
-    function note(midi, start, length, volume) {
-      const hz = 440 * 2 ** ((midi - 69) / 12);
-      const startSample = Math.round(start * rate);
-      for (let i = 0; i < length * rate && startSample + i < samples.length; i++) {
-        const time = i / rate;
-        const phase = tau * hz * time;
-        const envelope = Math.min(time / .018, 1) * (1 - time / length) ** 2;
-        samples[startSample + i] += volume * envelope * (Math.sin(phase) + .22 * Math.sin(phase * 2) * Math.exp(-7 * time));
-      }
-    }
-    if (bed) {
-      const chords = [[48,55,64,67],[45,52,60,64],[53,60,64,69],[43,50,59,62]];
-      chords.forEach(([bass, fifth, third, high], bar) => {
-        const at = bar * 6;
-        note(bass, at, 3.9, .065);
-        [fifth, third, high, third, fifth].forEach((midi, beat) =>
-          note(midi, at + .65 + beat * .82, 1.65, .046));
-      });
-    } else {
-      phrase?.forEach((midi, beat) => note(midi, beat * .085, .29, .095));
+const foley = window.SquishyFoley;
+function musicFallback() {
+  const rate=22050,buffer=context.createBuffer(1,24*rate,rate),samples=buffer.getChannelData(0);
+  function note(midi,start,length,volume) {
+    const hz=440*2**((midi-69)/12),offset=Math.round(start*rate);
+    for(let i=0;i<length*rate&&offset+i<samples.length;i++) {
+      const t=i/rate,phase=2*Math.PI*hz*t;
+      const envelope=Math.min(t/.018,1)*(1-t/length)**2;
+      samples[offset+i]+=volume*envelope*(Math.sin(phase)+.22*Math.sin(phase*2)*Math.exp(-7*t));
     }
   }
+  const chords=[[48,55,64,67],[45,52,60,64],[53,60,64,69],[43,50,59,62]];
+  chords.forEach(([bass,fifth,third,high],bar)=>{
+    const at=bar*6;
+    note(bass,at,3.9,.065);
+    [fifth,third,high,third,fifth].forEach((midi,beat)=>note(midi,at+.65+beat*.82,1.65,.046));
+  });
   return buffer;
 }
 
 function source(name, bus, loop = false, delay = 0, variation = 1) {
-  if (!clips.has(name)) clips.set(name, makeClip(name));
+  if (!clips.has(name)) clips.set(name, name==='music'?musicFallback():foley.create(context,name));
   const node = context.createBufferSource();
   node.buffer = clips.get(name);
   node.loop = loop;
   node.playbackRate.value = variation;
   node.connect(bus);
-  node.onended = () => { effects.delete(node); node.disconnect(); };
+  node.onended = () => { effects.delete(node); transitionEffects.delete(node); node.disconnect(); };
   node.start(context.currentTime + delay);
   return node;
 }
@@ -147,17 +89,21 @@ function stopLoop(name) {
   loop.node.stop(now + .12);
 }
 function startLoop(name) {
-  if (loops.has(name) || !unlocked || !preferences().effects || !context) return;
+  if (!foley?.isLoop(name) || loops.has(name) || !unlocked || !preferences().effects || !context) return;
   const gain = context.createGain();
   gain.gain.setValueAtTime(0, context.currentTime);
   gain.gain.setTargetAtTime(.63, context.currentTime, .05);
   gain.connect(effectsBus);
   loops.set(name, {gain, node: source(name, gain, true)});
 }
-function stopEffects() {
+function stopEffects(keepTransitions=false) {
   for (const name of loops.keys()) stopLoop(name);
-  for (const node of effects) stopNode(node);
-  effects.clear();
+  for (const node of effects) {
+    if (keepTransitions && transitionEffects.has(node)) continue;
+    stopNode(node);
+    effects.delete(node);
+    transitionEffects.delete(node);
+  }
 }
 function pauseMusic() {
   player?.pause();
@@ -226,13 +172,42 @@ function userGesture() {
   apply();
   if (context.state !== 'running') context.resume().then(apply, () => {});
 }
-function play(name, delay = 0) {
-  if (!unlocked || !preferences().effects || !context || effects.size >= 8 || !(name in tones || name in phrases)) return;
+function play(name, delay = 0, acrossScenes = false) {
+  if (!unlocked || !preferences().effects || !context || effects.size >= 8 || !foley?.has(name)) return;
   const now = performance.now();
   if (now - (lastPlayed.get(name) ?? -Infinity) < 65) return;
   lastPlayed.set(name, now);
-  effects.add(source(name, effectsBus, false, delay, .94 + Math.random() * .12));
+  const node=source(name,effectsBus,false,delay,.96+Math.random()*.08);
+  effects.add(node);
+  if(acrossScenes)transitionEffects.add(node);
 }
+function touch(material, action='poke', delay=0) {
+  if (action==='release') return play(material==='gel'?'release':material+'-release',delay);
+  if (action==='stretch') return play('stretch',delay);
+  play(action==='squeeze'?material+'-squeeze':material,delay);
+}
+const bespokeControls = [
+  '#cube','#pip','.founders-button','.founders-gestures button',
+  '#s4-auto','#s4-blend','[id^="s4-colour-"]','#s5-foam,#s5-gel,#s5-bounce,#s5-squeeze',
+  '[id^="s6-jar"]','#s6-bowl','#s6-undo','#s7-pour_button','#s7-pause_flow',
+  '#s8-closed_mould','#s9-pull-demo','#s9-tool_0', '#s10-capture','#s10-save','#s12-give','[id^="s11-slot_"]',
+  '#s14-confirm','#s14-undo','#squish-auto','#squish-open'
+].join(',');
+document.addEventListener('click',event=>{
+  if(!event.isTrusted)return;
+  const control=event.target?.closest?.('button, [role="button"]');
+  if(!control||control.disabled||control.getAttribute('aria-disabled')==='true'||control.closest('[inert]')||control.matches(bespokeControls))return;
+  const label=[control.id,control.getAttribute('aria-label'),control.textContent].join(' ');
+  const sound=/(next|back|previous|page|workshop|close|home|return)/i.test(label)?'turn':
+    /look|rotate|front view/i.test(label)?'rotate':
+    /shelf|cabinet/i.test(label)?'cabinet':'tap';
+  if(!unlocked)userGesture();
+  play(sound,0,true);
+},true);
+document.addEventListener('change',event=>{
+  if(event.isTrusted&&event.target?.matches?.('select'))play('turn');
+},true);
+
 function speak(text, pitch = 1) {
   if (!preferences().voice || !window.speechSynthesis || !window.SpeechSynthesisUtterance) return false;
   window.speechSynthesis.cancel();
@@ -252,8 +227,8 @@ window.addEventListener('blur', () => { foreground = false; stop(); });
 window.addEventListener('focus', () => { foreground = true; apply(); });
 window.addEventListener('pagehide', stop);
 window.addEventListener('pageshow', apply);
-window.addEventListener('squishylab:navigate', () => { stopEffects(); window.speechSynthesis?.cancel(); });
-window.SquishyAudio = {apply, stop, userGesture, play, startLoop, stopLoop, speak,
+window.addEventListener('squishylab:navigate', () => { stopEffects(true); window.speechSynthesis?.cancel(); });
+window.SquishyAudio = {apply, stop, userGesture, play, touch, startLoop, stopLoop, speak,
   canEffects: () => preferences().effects, canVoice: () => preferences().voice,
   getStatus: () => ({musicPlaying: !!musicSource || !!player && !player.paused, track: player && !player.paused ? tracks[track][0] : null, unlocked, ...preferences()})};
 })();
