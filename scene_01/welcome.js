@@ -15,7 +15,7 @@ panel.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();clo
 for(const id of ['quiet','motion-toggle'])document.getElementById(id).addEventListener('click',()=>{quiet=!quiet;applyQuiet()});
 function blink(){clearTimeout(blinkTimer);if(!document.hidden&&!quiet&&panel.hidden&&!pip.classList.contains('delight')){pip.classList.add('blink');setTimeout(()=>pip.classList.remove('blink'),140)}blinkTimer=setTimeout(blink,4300)}
 document.addEventListener('visibilitychange',()=>{if(document.hidden){clearTimeout(blinkTimer);release();pip.classList.remove('blink')}else blink()});
-window.addEventListener('blur',release);applyQuiet();blinkTimer=setTimeout(blink,3400);
+window.addEventListener('blur',release);window.SquishyAudio?.apply();applyQuiet();blinkTimer=setTimeout(blink,3400);
 
 // Grown-up controls route through the local symbol gate.
 document.getElementById('grown').addEventListener('click',e=>{e.preventDefault();e.stopImmediatePropagation();try{sessionStorage.setItem('squishylab.parent.return','01')}catch{}window.location.href='../preview.html#scene16'},true);
