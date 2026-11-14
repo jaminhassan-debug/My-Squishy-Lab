@@ -70,3 +70,19 @@ html.fit-board #stage.welcome-stage { background: url('assets/welcome_landscape.
 @media (prefers-reduced-motion: reduce) {
   #stage #welcome-founders img { animation: none; }
 }
+
+#install-app {
+  position: absolute;
+  top: 4%;
+  left: 3%;
+  z-index: 6;
+  padding: .6em .9em;
+  border: 2px solid #fff9eb;
+  border-radius: 1em;
+  background: #fff5e5;
+  color: #49345d;
+  box-shadow: 0 .2em .45em #49345d35;
+  font: 750 clamp(14px, 2.4vmin, 22px)/1.15 system-ui, sans-serif;
+  cursor: pointer;
+}
+#install-app:focus-visible { outline: 3px solid #49345d; outline-offset: 3px; }

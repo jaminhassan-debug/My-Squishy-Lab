@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "My Squishy Lab",
+  "short_name": "Squishy Lab",
+  "description": "Make, decorate and play with your own squishies.",
+  "start_url": "./scene_01/preview.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#fff5e5",
+  "theme_color": "#fff5e5",
+  "icons": [
+    { "src": "assets/app/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/app/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
