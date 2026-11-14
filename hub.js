@@ -66,10 +66,66 @@ function requests(){
  }
  draw();
 }
+async function startWeeklyRecipe(idea){
+ if(lock)return;
+ lock=true;
+ const id=crypto.randomUUID?.()||Date.now().toString(36)+Math.random().toString(36).slice(2);
+ const next=SquishyScene03Model.select(M.fresh(state,'draft-'+id,'creation-'+id,Math.floor(Math.random()*2147483647)),idea.shape).state;
+ const recipe=next.drafts[next.activeDraftId].recipe;
+ recipe.colourIds=[idea.colour];
+ await checkpoint(next);
+ refresh();
+ close();
+ await route('03',{draftId:next.activeDraftId});
+}
+function dailyWorkshop(message=''){
+ const daily=SquishyDailyWorkshop,progress=daily.summary(state);
+ open('Daily Workshop',message||'Collect coins when you visit and try a new recipe each week.','daily');
+ const actions=$('panel-actions'),art=document.createElement('img');
+ art.className='daily-art';
+ art.src='assets/daily/workshop.jpg';
+ art.alt='';
+ actions.append(art);
+ if(message.includes('coins added')&&!state.settings.quiet&&!reduced.matches){
+  const sparks=document.createElement('div');
+  sparks.className='daily-sparks';
+  sparks.setAttribute('aria-hidden','true');
+  for(let i=0;i<8;i++){
+   const spark=document.createElement('span');
+   const angle=i*Math.PI/4;
+   spark.style.setProperty('--dx',Math.round(Math.cos(angle)*85)+'px');
+   spark.style.setProperty('--dy',Math.round(Math.sin(angle)*45)+'px');
+   spark.textContent='✦';
+   sparks.append(spark);
+  }
+  actions.append(sparks);
+  sparks.addEventListener('animationend',()=>sparks.remove(),{once:true});
+ }
+ const heading=document.createElement('strong'),detail=document.createElement('p');
+ heading.textContent='This week · '+progress.idea.name;
+ detail.textContent='Save a '+progress.idea.colour+' '+(SquishyDumplings.get(progress.idea.shape)?'dumpling':progress.idea.shape)+' to earn '+daily.weeklyCoins+' coins.';
+ actions.append(heading,detail);
+ function claim(kind){
+  return async()=>{
+   if(lock)return;
+   const messageToken=panel.dataset.mode;
+   lock=true;
+   const result=await SquishyScene10Storage.browser(window.SquishyLabHub).transact(snapshot=>daily.claim(snapshot,kind));
+   lock=false;
+   if(panel.hidden||panel.dataset.mode!==messageToken)return;
+   dailyWorkshop(result.durable?(result.coins?result.coins+' coins added. Balance: '+(state.profile.wallet||0)+'.':'This reward has already been collected.'):'The reward could not be saved. Try again.');
+  };
+ }
+ if(progress.dailyAvailable)action('Claim '+daily.dailyCoins+' daily coins',claim('daily'));
+ else{const status=document.createElement('small');status.textContent='Daily coins collected';actions.append(status);}
+ if(progress.weeklyAvailable)action('Claim '+daily.weeklyCoins+' recipe coins',claim('weekly'));
+ else if(state.profile.workshopRewards?.weeklyDay===progress.week){const status=document.createElement('small');status.textContent='Weekly recipe reward collected';actions.append(status);}
+ else action('Make '+progress.idea.name,()=>startWeeklyRecipe(progress.idea));
+}
 function decorate(){if(M.unlocked(state))route('14',{equippedCosmetics:state.cosmetics})}
 function pause(){open('Take a little pause','Your workshop is here when you are ready.','pause');action('Keep playing',close);action('Quiet mode',async()=>{state.settings.quiet=!state.settings.quiet;await checkpoint();motion()});action('Home',()=>route('01'));}
 function delight(){if(state.settings.quiet||reduced.matches)return;clearTimeout(delightTimer);pip.classList.remove('blink');pip.classList.add('delight');delightTimer=setTimeout(()=>pip.classList.remove('delight'),800)}
-const commands={CHANGE_CENTRE:()=>route('11',{selectionPurpose:'workshop',creationId:M.displayed(state)?.id}),MAKE:make,SQUISH:()=>squish(),SHELF:()=>route('11'),WELCOME:()=>route('01'),GLOBAL_PAUSE:pause,REQUEST:requests,DECORATE:decorate,PIP_HELP:()=>{delight();open('What shall we make?','Choose the mould tray to make, the squishy to play, or the cabinet to see your saved toys.')}};
+const commands={CHANGE_CENTRE:()=>route('11',{selectionPurpose:'workshop',creationId:M.displayed(state)?.id}),MAKE:make,SQUISH:()=>squish(),SHELF:()=>route('11'),WELCOME:()=>route('01'),GLOBAL_PAUSE:pause,REQUEST:requests,DECORATE:decorate,DAILY:()=>dailyWorkshop(),PIP_HELP:()=>{delight();open('What shall we make?','Choose the mould tray to make, the squishy to play, or the cabinet to see your saved toys.')}};
 world.querySelectorAll('[data-action]').forEach(b=>b.addEventListener('click',()=>{if(!lock)commands[b.dataset.action]?.()}));
 $('close-panel').addEventListener('click',close);
 cube.addEventListener('pointerdown',e=>{if(e.button!==0||cube.hidden)return;cube.setPointerCapture(e.pointerId);cube.classList.add('pressed')});for(const type of ['pointerup','pointercancel','lostpointercapture'])cube.addEventListener(type,release);
