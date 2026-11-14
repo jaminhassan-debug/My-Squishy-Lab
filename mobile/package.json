@@ -1,0 +1,17 @@
+{
+  "name": "my-squishy-lab-mobile",
+  "version": "1.0.0",
+  "private": true,
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "prepare:mobile": "node scripts/prepare-game.mjs",
+    "sync:android": "npm run prepare:mobile && node scripts/sync-native.mjs android",
+    "sync:ios": "npm run prepare:mobile && node scripts/sync-native.mjs ios"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.0.0",
+    "@capacitor/core": "8.0.0",
+    "@capacitor/ios": "8.0.0"
+  },
+  "devDependencies": { "@capacitor/cli": "8.0.0" }
+}

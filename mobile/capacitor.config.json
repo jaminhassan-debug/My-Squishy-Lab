@@ -1,0 +1,8 @@
+{
+  "appId": "com.mysquishylab.game",
+  "appName": "My Squishy Lab",
+  "webDir": "www",
+  "backgroundColor": "#fff5e5",
+  "ios": { "contentInset": "automatic", "scrollEnabled": false },
+  "android": { "backgroundColor": "#fff5e5", "allowMixedContent": false }
+}
