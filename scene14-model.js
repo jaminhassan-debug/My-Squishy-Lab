@@ -16,10 +16,22 @@ for(const [slot,...titles] of furniture)for(const title of titles){
 for(const [index,title] of ['Bao Bakery','Mint Greenhouse','Stargazing Loft','Seaside Studio'].entries()){
  catalogue.push({id:'cosmetic_room_'+index,slot:'room_theme',title,price:50,roomIndex:index});
 }
+const completeEdition=globalThis.SquishyNativeEdition==='complete';
+const cosyCollection=[
+ ['cabinet','Cupcake display cabinet'],
+ ['cushion','Daisy cushion'],
+ ['rug','Sorbet swirl rug'],
+ ['plant','Kitten succulent pot'],
+ ['wall_picture','Moon and stars picture'],
+ ['cabinet','Blue cupcake shelves']
+].map(([slot,title],index)=>({id:'cosy_collection_'+index,slot,title,packIndex:index,price:0}));
+catalogue.push(...cosyCollection);
+const available=d=>d.packIndex==null||completeEdition;
+const visibleCatalogue=catalogue.filter(available);
 function definition(id){const d=catalogue.find(d=>d.id===id);if(!d)throw Error('Unknown decoration');return d}
-function owned(s,id){return (s.profile.ownedCosmetics||[]).includes(id)}
+function owned(s,id){const item=catalogue.find(d=>d.id===id);return !!item&&available(item)&&(item.packIndex!=null||(s.profile.ownedCosmetics||[]).includes(id))}
 function baseRoom(s){const raw={...s.cosmetics,...s.profile.equippedCosmetics};return Object.fromEntries(slots.map(slot=>{const id=raw[slot];return [slot,catalogue.some(d=>d.id===id&&d.slot===slot)&&owned(s,id)?id:defaults[slot]]}))}
-function room(s){const base=baseRoom(s);if(s.settings.freePlay)for(const [slot,id] of Object.entries(s.profile.freePlayEquippedCosmetics||{}))if(catalogue.some(d=>d.id===id&&d.slot===slot))base[slot]=id;return base}
+function room(s){const base=baseRoom(s);if(s.settings.freePlay)for(const [slot,id] of Object.entries(s.profile.freePlayEquippedCosmetics||{}))if(visibleCatalogue.some(d=>d.id===id&&d.slot===slot))base[slot]=id;return base}
 function displayed(s,theme=room(s).room_theme){
  const id=s.profile.roomDisplays?.[theme??'workshop'];
  return s.creations.find(toy=>toy.id===id)??null;
@@ -30,14 +42,14 @@ function display(s,id){
  n.profile.roomDisplays={...n.profile.roomDisplays,[theme]:id};
  return {state:n};
 }
-function preview(s,id){const d=definition(id);return {...room(s),[d.slot]:id}}
+function preview(s,id){const d=definition(id);if(!available(d))throw Error('This decoration is included in the Complete Edition');return {...room(s),[d.slot]:id}}
 function startVisit(s,visitId){const n=clone(s);n.profile.activeDecorationVisit=visitId;n.profile.cosmeticRevision??=0;return {state:n}}
 function endVisit(s,visitId){const n=clone(s);if(n.profile.activeDecorationVisit===visitId)n.profile.activeDecorationVisit=null;return {state:n}}
 function fingerprint(s){return JSON.stringify({wallet:s.profile.wallet||0,owned:s.profile.ownedCosmetics||[],equipped:s.profile.equippedCosmetics||{},legacy:s.cosmetics||{},free:s.profile.freePlayEquippedCosmetics||{},revision:s.profile.cosmeticRevision||0})}
 function snapshot(s){return {wallet:s.profile.wallet||0,owned:clone(s.profile.ownedCosmetics||[]),equipped:clone(s.profile.equippedCosmetics||{}),legacy:clone(s.cosmetics||{}),free:clone(s.profile.freePlayEquippedCosmetics||{})}}
-function commit(s,{id,actionId,visitId,revision}){const d=definition(id),n=clone(s),p=n.profile;p.spendLedger??={};const existing=p.spendLedger[actionId]||p.cosmeticActionLedger?.[actionId];if(existing){if(existing.cosmeticId!==id||existing.visitId!==visitId)throw Error('This decoration action has already been used');return {state:n,alreadyApplied:true,alreadyUndone:!!p.spendLedger['reverse:'+actionId],mode:existing.mode,undoToken:existing.mode==='purchase'&&!p.spendLedger['reverse:'+actionId]&&p.activeDecorationVisit===visitId?{visitId,actionId,before:clone(existing.before),after:existing.after}:null}}if(p.activeDecorationVisit!==visitId)throw Error('This decoration visit has ended');if((p.cosmeticRevision||0)!==revision)throw Error('The room changed elsewhere. Preview your choice again.');const before=snapshot(n);let mode=s.settings.freePlay?'free':owned(s,id)?'owned':'purchase';if(mode==='purchase'){if(!Number.isSafeInteger(p.wallet||0)||(p.wallet||0)<d.price)throw Error('You need '+d.price+' coins. Your '+(p.wallet||0)+' coins are kept.');p.wallet=(p.wallet||0)-d.price;p.ownedCosmetics=[...new Set([...(p.ownedCosmetics||[]),id])];p.lastCosmeticPurchaseId=actionId}
+function commit(s,{id,actionId,visitId,revision}){const d=definition(id);if(!available(d))throw Error('This decoration is included in the Complete Edition');const n=clone(s),p=n.profile;p.spendLedger??={};const existing=p.spendLedger[actionId]||p.cosmeticActionLedger?.[actionId];if(existing){if(existing.cosmeticId!==id||existing.visitId!==visitId)throw Error('This decoration action has already been used');return {state:n,alreadyApplied:true,alreadyUndone:!!p.spendLedger['reverse:'+actionId],mode:existing.mode,undoToken:existing.mode==='purchase'&&!p.spendLedger['reverse:'+actionId]&&p.activeDecorationVisit===visitId?{visitId,actionId,before:clone(existing.before),after:existing.after}:null}}if(p.activeDecorationVisit!==visitId)throw Error('This decoration visit has ended');if((p.cosmeticRevision||0)!==revision)throw Error('The room changed elsewhere. Preview your choice again.');const before=snapshot(n);let mode=s.settings.freePlay?'free':owned(s,id)?'owned':'purchase';if(mode==='purchase'){if(!Number.isSafeInteger(p.wallet||0)||(p.wallet||0)<d.price)throw Error('You need '+d.price+' coins. Your '+(p.wallet||0)+' coins are kept.');p.wallet=(p.wallet||0)-d.price;p.ownedCosmetics=[...new Set([...(p.ownedCosmetics||[]),id])];p.lastCosmeticPurchaseId=actionId}
  if(mode==='free'){p.freePlayEquippedCosmetics={...p.freePlayEquippedCosmetics,[d.slot]:id}}else{p.equippedCosmetics={...p.equippedCosmetics,[d.slot]:id};n.cosmetics={...n.cosmetics,[d.slot]:id}}p.cosmeticRevision=(p.cosmeticRevision||0)+1;const record={actionId,visitId,cosmeticId:id,slot:d.slot,mode,coins:mode==='purchase'?d.price:0};if(mode==='purchase')p.spendLedger[actionId]={...record,before:clone(before),after:fingerprint(n)};else{p.cosmeticActionLedger??={};p.cosmeticActionLedger[actionId]=record}const undoToken=mode==='purchase'?{visitId,actionId,before,after:fingerprint(n)}:null;return {state:n,mode,undoToken}}
 function rebaseUndo(token,s){if(!token)return null;const after=JSON.parse(token.after);if(after.wallet!==(s.profile.wallet||0)||JSON.stringify(after.owned)!==JSON.stringify(s.profile.ownedCosmetics||[]))return null;return {...clone(token),after:fingerprint(s)}}
 function undo(s,token){const n=clone(s),p=n.profile;if(!token)throw Error('No purchase to undo');const reverse='reverse:'+token.actionId;if(p.spendLedger?.[reverse])return {state:n,alreadyUndone:true};if(p.activeDecorationVisit!==token.visitId||p.lastCosmeticPurchaseId!==token.actionId)throw Error('Only the latest purchase in this visit can be undone');if(fingerprint(n)!==token.after)throw Error('Your balance or room changed elsewhere. No refund was applied.');const transaction=p.spendLedger?.[token.actionId];if(!transaction||transaction.mode!=='purchase')throw Error('Purchase could not be found');p.wallet=token.before.wallet;p.ownedCosmetics=clone(token.before.owned);p.equippedCosmetics=clone(token.before.equipped);n.cosmetics=clone(token.before.legacy);p.freePlayEquippedCosmetics=clone(token.before.free);p.cosmeticRevision=(p.cosmeticRevision||0)+1;p.spendLedger[reverse]={actionId:reverse,purchaseActionId:token.actionId,visitId:token.visitId,coins:-transaction.coins};p.lastCosmeticPurchaseId=null;return {state:n}}
-globalThis.SquishyScene14Model={catalogue,slots,defaults,definition,owned,displayed,display,baseRoom,room,preview,startVisit,endVisit,fingerprint,commit,rebaseUndo,undo};
+globalThis.SquishyScene14Model={catalogue,visibleCatalogue,cosyCollection,completeEdition,slots,defaults,definition,owned,displayed,display,baseRoom,room,preview,startVisit,endVisit,fingerprint,commit,rebaseUndo,undo};
 })();

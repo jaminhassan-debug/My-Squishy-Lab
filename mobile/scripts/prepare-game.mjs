@@ -16,6 +16,7 @@ await Promise.all((await readdir(source)).filter(name => !excluded.has(name)).ma
   cp(path.join(source, name), path.join(output, name), { recursive: true })
 ));
 await writeFile(path.join(output, 'native-compat.js'), `
+globalThis.SquishyNativeEdition = 'complete';
 if (typeof globalThis.structuredClone !== 'function') {
   // Game saves and recipes are plain JSON data.
   globalThis.structuredClone = value => value === undefined ? undefined : JSON.parse(JSON.stringify(value));

@@ -2,6 +2,7 @@
 'use strict';
 function create(canvas,background){const c=canvas.getContext('2d'),A=SquishyScene14Atlas,images={},cache=new Map,source=SquishyScene08Renderer.create(document.createElement('canvas'),{textureOnly:true});let ref=[1024,768],layout=Object.fromEntries(Object.entries(SquishyScene14Layout).map(([k,r])=>[k,r.landscape]));
 const sources={...Object.fromEntries(Object.entries(A).filter(([id])=>id!=='background').map(([id,a])=>[id,a.image])),expanded:'assets/scene14/decor-props.png',rooms:'assets/scene14/decor-rooms.jpg',rewards:'assets/scene13/rewards.png',defaultCushion:'assets/scene09/cushion.png'};
+if(SquishyScene14Model.completeEdition)sources.cosy='assets/scene14/cosy-collection.png';
 const ready=Promise.all([source.ready,...Object.entries(sources).map(([key,src])=>new Promise(resolve=>{const im=new Image();im.onload=()=>{images[key]=im;resolve(true)};im.onerror=()=>resolve(false);im.src=src}))]).then(r=>[...r[0],...r.slice(1)]);
 function size(w,h,portrait=false){ref=portrait?[768,1024]:[1024,768];canvas.width=Math.max(1,Math.round(w*1.5));canvas.height=Math.max(1,Math.round(h*1.5));layout=Object.fromEntries(Object.entries(SquishyScene14Layout).map(([k,r])=>[k,r[portrait?'portrait':'landscape']]))}
 function fit(ctx,image,crop,rect){if(!image)return;crop??=[0,0,image.width,image.height];const z=Math.min(rect[2]/crop[2],rect[3]/crop[3]),w=crop[2]*z,h=crop[3]*z;ctx.drawImage(image,...crop,rect[0]+(rect[2]-w)/2,rect[1]+rect[3]-h,w,h)}
@@ -9,6 +10,12 @@ function tint(id,frame,color){const key=id+frame+color;if(cache.has(key))return 
 function newArt(id){
  const item=SquishyScene14Model.catalogue.find(d=>d.id===id);
  if(!item)return null;
+ if(item.packIndex!=null){
+  const image=images.cosy;
+  if(!image)return null;
+  const w=image.width/3,h=image.height/2,index=item.packIndex;
+  return {image,crop:[index%3*w,Math.floor(index/3)*h,w,h]};
+ }
  const isRoom=item.roomIndex!=null, image=isRoom?images.rooms:images.expanded;
  if(!image||(!isRoom&&item.sprite==null))return null;
  const columns=isRoom?2:5,rows=isRoom?2:8,index=isRoom?item.roomIndex:item.sprite;
