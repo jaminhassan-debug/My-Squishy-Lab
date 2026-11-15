@@ -32,6 +32,7 @@ function backdrop(ctx,id,rect){
  if(!art)return;
  const [x,y,w,h]=art.crop,ratio=rect[2]/rect[3],cw=Math.min(w,h*ratio),ch=Math.min(h,w/ratio);
  ctx.drawImage(art.image,x+(w-cw)/2,y+(h-ch)/2,cw,ch,...rect);
+ return true;
 }
 function drawBackdrop(canvas,id,oldId=null,transition=1){
  const stage=canvas.parentElement;
@@ -47,8 +48,9 @@ function drawBackdrop(canvas,id,oldId=null,transition=1){
   backdrop(ctx,oldId,rect);
   ctx.globalAlpha=transition;
  }
- backdrop(ctx,id,rect);
+ const drawn=backdrop(ctx,id,rect);
  ctx.globalAlpha=1;
+ return drawn;
 }
 function cosmetic(ctx,id,rect,{elapsed=1000,animate=false}={}){let image,crop;const art=newArt(id);if(art){fit(ctx,art.image,art.crop,rect);return}if(id==='default_cabinet'){image=tint('install',3,'#9dd5c6')}else if(id==='cosmetic_cabinet_lilac'||id==='cosmetic_cabinet_peach'){const f=(id.endsWith('peach')?4:0)+(animate?Math.min(3,Math.floor(elapsed/65)):3);image=images.install;crop=A.install.crops[f]}else if(id==='default_cushion'){image=images.defaultCushion}else if(id==='cosmetic_cushion_butter'){image=tint('rewards',5,'#ffe18b')}else{const f={cosmetic_cushion_mint:5,cosmetic_picture_rainbow:4,cosmetic_plant_star:7}[id];if(f!=null){image=images.rewards;crop=SquishyScene13Atlas.rewards.crops[f]}}fit(ctx,image,crop,rect)}
 function room(ctx,room,r,options={}){if(room.rug)cosmetic(ctx,room.rug,[r[0],r[1]+r[3]*.62,r[2],r[3]*.42]);cosmetic(ctx,room.cabinet,[r[0],r[1]+r[3]*.35,r[2],r[3]*.65],options);cosmetic(ctx,room.cushion,[r[0]+r[2]*.24,r[1]+r[3]*.18,r[2]*.52,r[3]*.24],options);if(room.wall_picture)cosmetic(ctx,room.wall_picture,[r[0]+r[2]*.015,r[1]-15,r[2]*.23,r[3]*.36],options);if(room.plant)cosmetic(ctx,room.plant,[r[0]+r[2]*.77,r[1]-15,r[2]*.22,r[3]*.40],options)}

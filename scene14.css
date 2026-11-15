@@ -6,3 +6,10 @@
 #s14-room-backdrop{z-index:-1}
 /* Focusing a catalogue control must not shift the full-screen scenery. */
 html.fit-board main > :is(#stage,#s14-stage){overflow:clip!important}
+
+/* The equipped room sits behind the props and controls of the active stage. */
+.has-selected-room > #hub-room-backdrop { z-index:-1; }
+#stage.has-selected-room > #hub-room-backdrop { z-index:0; }
+.has-selected-room > img[class$="-background"],
+.has-selected-room #s3-world > .s3-plate,
+#stage.has-selected-room #world > picture { visibility:hidden; }
