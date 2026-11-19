@@ -18,8 +18,9 @@ for post in posts:
 def page(title, description, path, content, current='', schema=None):
     nav = ''.join(f'<a href="{url}"'+(' aria-current="page"' if name == current else '')+f'>{name}</a>' for name,url in [('The game','/'),('Download','/download/'),('Blog','/blog/')])
     data = json.dumps(schema or {'@context':'https://schema.org','@type':'WebSite','name':'My Squishy Lab','url':BASE+'/'},ensure_ascii=False).replace('<','\\u003c')
+    verification = '<meta name="google-site-verification" content="cZAWxAgj7v8rwJNA6uNwdQkVTqjwilqi-w-_NwN0qbA">' if path == '/' else ''
     return f"""<!doctype html>
-<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en-GB"><head>{verification}<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{escape(title)}</title><meta name="description" content="{escape(description,quote=True)}">
 <link rel="canonical" href="{BASE}{path}"><meta name="robots" content="index,follow">
 <meta property="og:type" content="{'article' if schema and schema.get('@type')=='BlogPosting' else 'website'}"><meta property="og:title" content="{escape(title,quote=True)}">
