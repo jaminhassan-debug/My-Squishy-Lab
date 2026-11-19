@@ -8,3 +8,8 @@
 .article h2[id]{scroll-margin-top:24px}
 
 .article-contents{display:block}
+
+.about-story{max-width:800px}
+.about-story p{max-width:none}
+.about-story h2:not(:first-of-type){margin-top:48px}
+@media(max-width:760px){.header nav{flex-wrap:wrap;gap:10px 16px}.about-hero h1{font-size:clamp(2.6rem,10.5vw,4.5rem)}}
