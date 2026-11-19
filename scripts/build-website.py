@@ -1,0 +1,60 @@
+"""Build the public website and sitemap. Edit website-content/posts.json to publish articles."""
+from pathlib import Path
+from html import escape
+import json
+import re
+from datetime import date
+
+ROOT = Path(__file__).resolve().parents[1]
+BASE = 'https://mysquishylab.app'
+posts = json.loads((ROOT / 'website-content/posts.json').read_text())
+slugs = set()
+for post in posts:
+    assert re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', post['slug']), 'Invalid article slug'
+    assert post['slug'] not in slugs, 'Duplicate article slug'
+    slugs.add(post['slug'])
+    date.fromisoformat(post['date'])
+
+def page(title, description, path, content, current='', schema=None):
+    nav = ''.join(f'<a href="{url}"'+(' aria-current="page"' if name == current else '')+f'>{name}</a>' for name,url in [('The game','/'),('Download','/download/'),('Blog','/blog/')])
+    data = json.dumps(schema or {'@context':'https://schema.org','@type':'WebSite','name':'My Squishy Lab','url':BASE+'/'},ensure_ascii=False).replace('<','\\u003c')
+    return f"""<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{escape(title)}</title><meta name="description" content="{escape(description,quote=True)}">
+<link rel="canonical" href="{BASE}{path}"><meta name="robots" content="index,follow">
+<meta property="og:type" content="{'article' if schema and schema.get('@type')=='BlogPosting' else 'website'}"><meta property="og:title" content="{escape(title,quote=True)}">
+<meta property="og:description" content="{escape(description,quote=True)}"><meta property="og:url" content="{BASE}{path}"><meta property="og:image" content="{BASE}/scene_01/assets/welcome_landscape.png">
+<meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#fff7e9">
+<link rel="icon" href="/assets/app/icon-192.png"><link rel="manifest" href="/app.webmanifest"><link rel="stylesheet" href="/website.css?v=1">
+<script type="application/ld+json">{data}</script><script src="/website.js" defer></script></head>
+<body><a class="skip" href="#main">Skip to content</a><header class="header wrap"><a class="brand" href="/"><img src="/assets/app/icon-192.png" alt="" width="46" height="46">My Squishy Lab</a><nav aria-label="Main navigation">{nav}<a class="button" href="/scene_01/preview.html">Play free</a></nav></header>
+<main id="main">{content}</main><footer class="footer wrap"><span>© 2026 My Squishy Lab</span><div><a href="/blog/">Blog</a><a href="/download/">Download</a><a href="/privacy.html">Privacy</a></div></footer></body></html>"""
+
+def cards():
+    return '<div class="cards">'+''.join(f"""<article class="card"><a href="/blog/{p['slug']}/"><img loading="lazy" src="{p['image']}" alt="" width="600" height="375"><div class="card-body"><span class="eyebrow">{escape(p['category'])}</span><h3>{escape(p['title'])}</h3><p>{escape(p['description'])}</p><span class="text-link">Read the guide</span></div></a></article>""" for p in posts)+'</div>'
+
+def write(path, content):
+    target=ROOT/path
+    target.parent.mkdir(parents=True,exist_ok=True)
+    target.write_text(content)
+
+home = """<section class="hero wrap"><div><span class="eyebrow">A little world of squishy making</span><h1>Mix it.<br>Mould it.<br>Make it yours.</h1><p>Welcome to your cosy toy workshop. Make colourful squishies, fill them with little treasures and give them a squeeze.</p><div class="actions"><a class="button" href="/scene_01/preview.html">Play free in your browser</a><a class="button light" href="/download/">Get the app</a></div><p class="note">Play on your phone, tablet or computer.</p></div><div class="hero-art"><img class="sisters" src="/assets/founders/jaida-and-eeva.png" alt="Jaida and Eeva holding a pink dumpling and mint star squishy" width="414" height="565"><span class="caption">Meet Jaida &amp; Eeva</span></div></section>
+<section class="section mint"><div class="wrap intro"><img class="scene-image" src="/assets/workshop_landscape.png" alt="A warm pastel workshop with jars of colourful craft materials" width="800" height="600" loading="lazy"><div><span class="eyebrow">Your workshop, your imagination</span><h2>From a little idea to a squishy friend.</h2><p>Pick a mould, blend your colours and choose a feel. Add fruit slices, glitter or gems, then pour and peel to reveal your creation.</p><p>Try a poke, a squeeze or a stretch. Save your favourites to your shelf and decorate a room to make them feel at home.</p><div class="chips"><span>Mix &amp; make</span><span>Squish &amp; stretch</span><span>Collect &amp; decorate</span></div><a class="text-link" href="/blog/make-your-first-squishy/">Make your first squishy</a></div></div></section>
+<section class="section wrap intro"><div><span class="eyebrow">The inspiration behind the lab</span><h2>A world inspired by Jaida and Eeva.</h2><p>My Squishy Lab began with Jaida and Eeva and their love of making and playing. Meet their characters in the game as you explore your workshop.</p><p>Visit the Daily Workshop for a reward and a recipe challenge, or make a gift for one of the fictional workshop friends.</p><a class="button light" href="/scene_01/preview.html">Meet the workshop</a></div><img class="scene-image" src="/scene_01/assets/welcome_landscape.png" alt="The colourful My Squishy Lab welcome room" width="800" height="600" loading="lazy"></section>
+<section class="section lavender"><div class="wrap"><div class="section-head"><div><span class="eyebrow">From the lab</span><h2>Ideas for your next creation.</h2></div><a class="text-link" href="/blog/">Visit the blog</a></div>"""+cards()+"""</div></section><section class="bottom-play wrap"><h2>Your next squishy is waiting.</h2><p>Start making in your browser, or find out how to add the game to your home screen.</p><div class="actions" style="justify-content:center"><a class="button" href="/scene_01/preview.html">Let’s play</a><a class="button light" href="/download/">Ways to play</a></div></section>"""
+write('index.html',page('My Squishy Lab | Play the Free Squishy Making Game','Mix colours, add fillings, pour and squish your own virtual toys. Play My Squishy Lab online, explore the app and find creative ideas on our blog.','/',home,'The game'))
+download = """<div class="wrap"><section class="page-top"><span class="eyebrow">Take your workshop with you</span><h1>Play your way.</h1><p>Open the free browser game today, or add a shortcut to your home screen. Dedicated mobile editions are being prepared.</p><div class="actions"><a class="button" href="/scene_01/preview.html">Play free now</a><button class="button light" data-install hidden>Install browser app</button></div></section><div class="download-grid"><section class="download-box"><span class="status">Available now</span><h2>Web &amp; home screen</h2><p>Play in your browser on a phone, tablet or computer. Turn your mobile device sideways for the game.</p><p><strong>iPhone &amp; iPad</strong><br>Open the game in Safari. Choose Share, then Add to Home Screen.</p><p><strong>Android</strong><br>Open the game in Chrome. In the browser menu, choose Install app or Add to Home screen when available.</p><a class="text-link" href="/scene_01/preview.html">Open the game</a></section><section class="download-box"><span class="status">Coming soon</span><h2>Complete Edition</h2><p>A dedicated mobile edition with offline play and six included Cosy Collection decorations.</p><p>Google Play, Apple App Store and Amazon Appstore download links will appear here when the editions are approved and available.</p><a class="text-link" href="/blog/">Read the latest from the lab</a></section></div><section class="install-box"><h2>A few things to know</h2><details><summary>Where are my squishies saved?</summary><p>Your toys and progress are stored on the device and browser you use. Export a backup from Grown-ups before clearing your browser data or switching devices.</p></details><details><summary>Can I play on a tablet?</summary><p>Yes. Open the browser game and rotate your tablet to landscape. The website and blog can be read in either orientation.</p></details><details><summary>Does the browser edition work offline?</summary><p>The browser edition needs an internet connection to load the game files. Offline play is part of the planned dedicated mobile edition.</p></details></section><div class="bottom-play"><h2>Make something wonderfully squishy.</h2><a class="button" href="/scene_01/preview.html">Start playing</a></div></div>"""
+write('download/index.html',page('Play & Download | My Squishy Lab','Play My Squishy Lab online or add the browser game to your home screen. Find mobile app availability and help for phones and tablets.','/download/',download,'Download'))
+write('blog/index.html',page('The My Squishy Lab Blog | Guides & Creative Ideas','Squishy making guides, workshop decorating ideas and news from My Squishy Lab. Find inspiration for your next virtual toy.','/blog/','<div class="wrap"><section class="page-top"><span class="eyebrow">From the lab</span><h1>A little inspiration.<br>A lot of squish.</h1><p>Making guides, workshop ideas and stories from My Squishy Lab.</p></section>'+cards()+'<div class="bottom-play"><h2>Try an idea in the workshop.</h2><a class="button" href="/scene_01/preview.html">Play free</a></div></div>','Blog',{'@context':'https://schema.org','@type':'Blog','name':'My Squishy Lab Blog','url':BASE+'/blog/'}))
+for p in posts:
+    path='/blog/'+p['slug']+'/'
+    body=f"""<article class="article wrap"><p><a href="/blog/">Back to the blog</a></p><span class="eyebrow">{escape(p['category'])}</span><h1>{escape(p['title'])}</h1><p class="article-meta">My Squishy Lab · <time datetime="{p['date']}">{date.fromisoformat(p['date']).strftime('%d %B %Y')}</time></p><p>{escape(p['description'])}</p><img class="cover" src="{p['image']}" alt="" width="800" height="500">"""
+    for heading,paragraph in p['sections']:
+        body+=f'<h2>{escape(heading)}</h2><p>{escape(paragraph)}</p>'
+    body+='<div class="article-nav"><a class="text-link" href="/blog/">More from the lab</a><a class="button" href="/scene_01/preview.html">Play free</a></div></article>'
+    schema={'@context':'https://schema.org','@type':'BlogPosting','headline':p['title'],'description':p['description'],'datePublished':p['date'],'image':BASE+p['image'],'mainEntityOfPage':BASE+path,'author':{'@type':'Organization','name':'My Squishy Lab','url':BASE+'/'}}
+    write(path.strip('/')+'/index.html',page(p['title']+' | My Squishy Lab',p['description'],path,body,'Blog',schema))
+urls=['/','/download/','/blog/','/privacy.html','/scene_01/preview.html']+['/blog/'+p['slug']+'/' for p in posts]
+write('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join('<url><loc>'+BASE+u+'</loc></url>\n' for u in urls)+'</urlset>\n')
+write('robots.txt','User-agent: *\nAllow: /\n\nSitemap: '+BASE+'/sitemap.xml\n')
+print('Built homepage, download page, blog, '+str(len(posts))+' articles and sitemap.')
