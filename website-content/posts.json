@@ -1,5 +1,492 @@
 [
- {"slug":"make-your-first-squishy","title":"Make your first squishy","description":"A guide to choosing your mould, mixing colours, adding fillings and revealing your first virtual squishy.","category":"Play guide","date":"2026-11-19","image":"/assets/workshop_landscape.png","sections":[["Start in the workshop","Open My Squishy Lab and tap Play, then Make. Turn your phone or tablet sideways so there is room for the making tools and your toy."],["Choose a mould and a colour","Pick a shape for your squishy, then choose your colours and stir the mixture. Try a simple combination first so you can see how the colours blend."],["Give your toy its own feel","Choose a feel for the mixture, then add the inclusions you like. Fruit slices, gems and glitter give you different ideas to explore. The choices become part of your squishy recipe."],["Pour and reveal","Tap Pour and watch the mould fill. You can pause the pour. When the mixture has settled and Reveal becomes available, continue to meet your new squishy."],["Try it out and save it","Poke the toy, try the hand squeeze, or use two fingers to stretch it on a touch screen. Finish and save your creation so you can find it on your shelf. Your progress is stored on this device and browser."]] },
- {"slug":"decorate-your-squishy-workshop","title":"Make a workshop that feels like yours","description":"Choose a room, arrange decorations and give your favourite squishy a place on display.","category":"Workshop ideas","date":"2026-11-19","image":"/assets/scene14/decor-rooms.jpg","sections":[["Start with a room","When Decorate becomes available in your workshop, explore the room choices. Bao Bakery, Mint Greenhouse, Stargazing Loft and Seaside Studio each give the game a different setting."],["Preview before choosing","Tap a decoration to preview it in the room. Confirm your choice to equip it. Decorations bought with earned Sparkle Coins show their cost before you confirm, and the balance is shown in Decorate."],["Build around one favourite","Try a cushion and rug that suit your favourite squishy, then add a plant or wall picture. You can return to your room later and try another combination."],["Carry the setting into play","Your equipped room background follows you through the making and squishing scenes, plus your shelf and Friends. Room previews stay in Decorate until you confirm them."],["Give a creation a home","Use the display control in Decorate to choose a saved squishy for the selected room. You can keep making new toys and change the one on display whenever you like."]] },
- {"slug":"play-on-phone-or-tablet","title":"Play on your phone or tablet","description":"Open the free browser game, add it to your home screen and keep your saved squishies backed up.","category":"Getting started","date":"2026-11-19","image":"/scene_01/assets/welcome_landscape.png","sections":[["Play straight from the website","Visit mysquishylab.app and choose Play free. The browser game opens without a player account. Use landscape orientation for the game, with the wider edge of your screen at the top."],["Add a home screen shortcut","On iPhone or iPad, open the game in Safari and use Share, then Add to Home Screen. On Android, open the game in Chrome and look in the browser menu for Add to Home screen or Install app. The exact wording depends on your browser."],["Keep your progress safe","Creations and settings are saved in the browser on the device you use. Clearing that browser's website data can remove your progress. Before changing devices or clearing storage, open Grown-ups and export a backup."],["Move a backup carefully","Keep the exported file somewhere you can find it. Open the game on the destination device and use the import option in Grown-ups to review and restore the backup. The game does not automatically sync progress between devices."],["Mobile app editions","Dedicated Android, iPhone, iPad and Fire tablet editions are being prepared. Official store download links will be added to the download page when those editions are available. You can play the browser edition today."]] }
+  {
+    "slug": "free-online-squishy-game",
+    "title": "Free Online Squishy Game: Make, Squeeze & Collect",
+    "description": "Play a free online squishy game in your browser. Discover how making, squeezing, collecting and decorating work in My Squishy Lab.",
+    "category": "Play guide",
+    "date": "2026-11-19",
+    "image": "/scene_01/assets/welcome_landscape.png",
+    "imageAlt": "The pastel welcome workshop in My Squishy Lab",
+    "sections": [
+      [
+        "What can you do in an online squishy game?",
+        [
+          "An online squishy game gives you a virtual toy to press and reshape on a screen. In My Squishy Lab, the experience starts before the first squeeze, with a workshop where you choose the shape, colour, feel and fillings of your creation.",
+          "That making process gives each toy a little history. A pink dumpling filled with fruit slices feels like a different project from a blue star dotted with gems, even when both begin at the same workbench."
+        ]
+      ],
+      [
+        "Play a squishy game without downloading it",
+        [
+          "The free browser edition opens from the Play free button on this website. You can start on a computer, phone or tablet without creating a player account.",
+          "On a phone or tablet, rotate the screen to landscape so the tools fit around the making area. The website and its guides work in portrait too, so you can read an idea before turning your device sideways to try it.",
+          "Your browser needs an internet connection to load the game files. If you want a shortcut for another visit, the Download page explains how to add the browser game to your home screen."
+        ]
+      ],
+      [
+        "Making is part of the game",
+        [
+          "Begin with a mould, then work through colour mixing, material selection and inclusions. Each stage gives you a specific decision, which makes it easier to experiment without planning the whole toy in advance.",
+          "For a first attempt, keep one choice simple. Choose a single colour and use the filling as your main decoration, or leave the filling plain and concentrate on comparing how the different feels recover after a squeeze.",
+          "Pour when the recipe is ready and let the mould fill and settle. Reveal becomes available after that step, taking you from a mixture in the workshop to a toy you can play with."
+        ]
+      ],
+      [
+        "Poking, squeezing and stretching",
+        [
+          "The finished squishy supports different kinds of interaction. A poke presses a small area, while the hand squeeze changes a wider part of the shape.",
+          "On a touch screen, use two fingers to try stretching. Release the toy between attempts so you can watch it recover and see how its chosen material responds.",
+          "The Play and View controls serve different purposes. Play is where you interact with the toy, while View lets you look at it from other angles and inspect details you might miss from the front."
+        ]
+      ],
+      [
+        "What gives you a reason to return?",
+        [
+          "Saving a creation adds it to your local collection, so the next visit can begin with a favourite you already made. Your shelf becomes a record of the shapes, colours and recipes you have tried.",
+          "The Daily Workshop offers a reward and a rotating recipe challenge. You can also make gifts for fictional workshop friends and use available decorations to personalise your setting.",
+          "Try giving yourself a small creative brief for a session. Make a fruit shop collection, create three toys in the same colour family, or compare one shape in each of the three materials."
+        ]
+      ],
+      [
+        "How does saving work?",
+        [
+          "Progress is stored in the browser on the device you use. A toy saved on your tablet will need a backup transfer if you want to continue with it in another browser or on another device.",
+          "The Grown-ups area includes export and import tools. Keep a backup before clearing browser data, since removing website storage can also remove the local collection."
+        ]
+      ],
+      [
+        "Choosing your first project",
+        [
+          "A useful starting project has one clear idea, such as a favourite colour or a particular filling. That gives you something to recognise when you reveal the finished toy, while leaving room to explore the controls.",
+          "Once you have saved it, make a second version with just one change. Seeing the pair together helps you decide whether you prefer a different material, a quieter colour or a fuller mixture."
+        ]
+      ]
+    ],
+    "related": [
+      "make-your-first-squishy",
+      "squishy-simulator-textures",
+      "play-on-phone-or-tablet"
+    ]
+  },
+  {
+    "slug": "dumpling-squishy-game",
+    "title": "Dumpling Squishy Game: Design Your Own Virtual Bao",
+    "description": "Make a virtual dumpling squishy in My Squishy Lab. Explore bao mould sizes, colour ideas, fillings and ways to build a dumpling collection.",
+    "category": "Making ideas",
+    "date": "2026-11-19",
+    "image": "/assets/fill-v11/bao-silicone.png",
+    "imageAlt": "Lilac silicone mould shaped for a virtual bao dumpling",
+    "sections": [
+      [
+        "Make your own dumpling squishy",
+        [
+          "A dumpling squishy combines a rounded body with the folded shape of a bao. In My Squishy Lab, you can turn that familiar outline into a virtual toy with your own colours, feel and inclusions.",
+          "Start from the workshop and choose a dumpling mould when it is available in your tray. The game includes several dumpling sizes, so you can build a small family of toys around the same shape."
+        ]
+      ],
+      [
+        "Choose a size before adding details",
+        [
+          "The dumpling sizes run from Small through Medium and Large to Super Large. Look at the available mould choices and choose the one that suits the collection you want to make.",
+          "If you cannot see the dumpling you want, move through the mould pages. The simple tray shows fewer choices at once, while Grown-ups includes an expanded tray preference.",
+          "Keeping the size consistent is useful when you want to compare colours or fillings. Changing the size is more interesting when your aim is to create a matching set with a little variety."
+        ]
+      ],
+      [
+        "Plan a colour that suits the rounded shape",
+        [
+          "A simple colour makes it easier to notice the dumpling's outline and folds. Try starting with pink, blue or violet, then reveal the toy before deciding which direction to take your next version.",
+          "For a set of dumplings, choose one colour family as the theme. Two neighbouring shades and one contrasting colour can give you a collection that feels connected without making every toy identical.",
+          "Think about the filling while choosing the body colour. A busy colour mixture and several inclusion types can compete for attention, while a simpler body gives fruit, pearls or gems more room to stand out."
+        ]
+      ],
+      [
+        "Try three dumpling design ideas",
+        [
+          "For a fruit themed dumpling, choose one fruit slice type and a body colour that makes those slices visible. Strawberry, kiwi and orange are separate choices inside the fruit family.",
+          "For a sparkle themed dumpling, start with foil stars and inspect the result before adding another ingredient to your next recipe. Foil hearts become available through play or the Free Play setting.",
+          "For a gem themed dumpling, compare the round and diamond gem shapes in separate toys. Keeping the mould and colour the same makes the gem shape the main difference between the pair."
+        ]
+      ],
+      [
+        "Choose how your dumpling recovers",
+        [
+          "The material choice changes the way your virtual dumpling responds. Soft Foam rises slowly after pressure, Dense Gel gives a softer wobble, and Bouncy Jelly returns with a quicker spring.",
+          "Press and release the samples in the material scene before choosing. Watch what happens after release, because the recovery is often the clearest difference between two materials.",
+          "Try building three dumplings with the same colour and filling but different feels. You will have a small comparison set that is useful whenever you want to choose a material for another design."
+        ]
+      ],
+      [
+        "Pour into the mould and reveal",
+        [
+          "Once the recipe is ready, move to the pour scene and tap Pour. You can pause the pour, then continue until the mould is full and the mixture has settled.",
+          "Use Reveal when it becomes available. The making flow lets you see the same recipe move from your mixture into the mould and then into the finished toy."
+        ]
+      ],
+      [
+        "Play with the finished dumpling",
+        [
+          "Begin with a small poke, release and watch the body recover. Then try the hand squeeze to see a broader change in its shape.",
+          "On a touch screen, use two fingers to stretch it and release both before starting again. The View controls let you inspect your dumpling from other angles when you want a closer look at its body and contents."
+        ]
+      ],
+      [
+        "Build a bao collection",
+        [
+          "Save each finished dumpling so you can return to it from your shelf. A collection based on a small design rule, such as one fruit per colour, gives you a clear idea for the next toy.",
+          "When decorating is available, try displaying a favourite dumpling in Bao Bakery. The room and toy can share a theme, while the other saved versions stay in your local collection for another play session."
+        ]
+      ]
+    ],
+    "related": [
+      "squishy-filling-ideas",
+      "squishy-colour-combinations",
+      "decorate-your-squishy-workshop"
+    ]
+  },
+  {
+    "slug": "squishy-simulator-textures",
+    "title": "Squishy Simulator Textures: Foam, Gel & Bouncy Jelly",
+    "description": "Compare Soft Foam, Dense Gel and Bouncy Jelly in the My Squishy Lab simulator, with tips for poking, squeezing and stretching each feel.",
+    "category": "Play guide",
+    "date": "2026-11-19",
+    "image": "/assets/scene09/background.png",
+    "imageAlt": "The play area for trying squishy materials and gestures",
+    "sections": [
+      [
+        "What changes when you choose a squishy texture?",
+        [
+          "A squishy simulator turns touch or mouse input into changes in a virtual toy's shape. The material choice helps determine how the body moves while you press it and how it returns after you let go.",
+          "My Squishy Lab has three feels to explore, called Soft Foam, Dense Gel and Bouncy Jelly. You choose one during making, after the colour stage and before adding your inclusions."
+        ]
+      ],
+      [
+        "Soft Foam and its slow rise",
+        [
+          "Soft Foam is the slowest to recover of the three choices. Press the sample, let go and watch the dent rise back towards its starting shape.",
+          "That slower return gives you more time to notice the outline changing after release. It is a useful material to try first if you want to learn the difference between the moment of pressing and the recovery that follows.",
+          "For a clearer comparison, make one foam toy with a simple colour. A body with fewer visual details lets you concentrate on the way the surface responds to a poke or squeeze."
+        ]
+      ],
+      [
+        "Dense Gel and its soft wobble",
+        [
+          "Dense Gel sits between the slow rise of foam and the quicker spring of Bouncy Jelly. Its sample is described in the game as having a soft wobble.",
+          "Try giving it one deliberate press and then taking your finger away. Watching a single release makes the motion easier to follow than repeatedly pressing different places at once.",
+          "Gel is also an interesting choice when your design centres on the contents of the toy. You can move between Play and View to explore the body and look at the inclusions you selected while making it."
+        ]
+      ],
+      [
+        "Bouncy Jelly and its quick spring",
+        [
+          "Bouncy Jelly recovers more quickly and has a springier release. Compare it directly with foam using the samples, keeping your presses as similar as you can.",
+          "If you have made a favourite shape in gel already, build a second version with Bouncy Jelly and keep the colour unchanged. That gives you two saved toys where the feel is the main variable.",
+          "The words soft, dense and bouncy describe the game's simulated behaviours. Your screen gives you visual and audio feedback, while the physical surface you touch is still the screen of your device."
+        ]
+      ],
+      [
+        "A poke and a hand squeeze show different things",
+        [
+          "A poke affects a smaller area of the squishy. It is useful for seeing how a local dent forms and how the surrounding surface returns after release.",
+          "A hand squeeze changes a broader area of the body. Use it when you want to see how the overall outline responds, especially on round shapes such as a dumpling or blob.",
+          "Release between gestures while you are comparing materials. A consistent rhythm makes it easier to notice the differences in recovery instead of judging the toy while several movements overlap."
+        ]
+      ],
+      [
+        "Stretching on a touch screen",
+        [
+          "Use two fingers to try stretching a toy on a compatible touch screen. Begin with a modest pull and release before trying a wider movement.",
+          "A tablet gives your fingers more room around the toy, while a phone offers a smaller area to work in. Landscape orientation helps keep the interaction space clear of the surrounding controls.",
+          "The View mode is useful for inspecting the toy without performing another squeeze. Switch back to Play when you want your next touch to interact with the body."
+        ]
+      ],
+      [
+        "Compare materials with one simple experiment",
+        [
+          "Choose one mould and one colour, then make three versions using the different feels. Keep the inclusion recipe consistent, or leave it simple, so it is easier to compare the movement.",
+          "Save each version and revisit them from the shelf. Start with a poke, continue with a hand squeeze and finish with a two finger stretch if your device supports it.",
+          "The experiment gives you a reference collection for future designs. When a new idea calls for a slower rise or a quicker spring, you can choose from something you have already tried."
+        ]
+      ],
+      [
+        "Adjust the sound to suit your session",
+        [
+          "The Grown-ups audio settings include controls for music, sound effects and voice. Quiet mode is another option when you want to change how the session feels.",
+          "Try the same material with effects on and off to decide which you prefer. The visible shape change remains useful feedback while you compare your toys."
+        ]
+      ]
+    ],
+    "related": [
+      "free-online-squishy-game",
+      "dumpling-squishy-game",
+      "play-on-phone-or-tablet"
+    ]
+  },
+  {
+    "slug": "squishy-colour-combinations",
+    "title": "Squishy Colour Combinations: 7 Ideas to Try",
+    "description": "Explore seven squishy colour ideas, from pink and blue mixes to fruit and gemstone themes, with practical tips for a coordinated toy collection.",
+    "category": "Making ideas",
+    "date": "2026-11-19",
+    "image": "/assets/scene04/background.png",
+    "imageAlt": "The pastel workbench used for mixing squishy colours",
+    "sections": [
+      [
+        "Start with a colour idea you can recognise",
+        [
+          "A squishy colour combination works well when you know what you want the finished toy to remind you of. That might be a favourite fruit, a night sky or a set of toys that belong on the same shelf.",
+          "In My Squishy Lab, you choose colours during the making flow and stir the mixture before moving on. The colour you reveal is a digital blend, so treat each recipe as something to explore in the game."
+        ]
+      ],
+      [
+        "Pink and blue for a violet direction",
+        [
+          "Hot pink and electric blue make a useful starting pair when you want to explore violet tones. Mix them and watch the result before deciding whether the next toy needs a different balance.",
+          "Use one filling family in the finished design, such as gems or foil stars. A single inclusion type gives the blended body a clear visual theme and makes it easier to remember what you changed."
+        ]
+      ],
+      [
+        "Blue and sunshine for a fresh green",
+        [
+          "Electric blue with sunshine takes the mixture in a green direction. Try the pair when your idea is a garden themed toy or a collection inspired by fruit colours.",
+          "Kiwi slices are one filling to explore alongside this idea. Check how clearly they appear against the body, then make a second version with a simpler colour if you want more contrast."
+        ]
+      ],
+      [
+        "Pink and sunshine for a warm combination",
+        [
+          "Hot pink and sunshine make a warm mix that is useful for orange and coral inspired projects. It is a different starting point from a blue based recipe, so it can add variety to a shelf of cooler toys.",
+          "Try pairing the idea with orange slices or sprinkles. The two filling choices create different visual stories even when the body begins with the same colour combination."
+        ]
+      ],
+      [
+        "Blue and emerald for a lagoon theme",
+        [
+          "Electric blue and emerald give you a route towards blue green shades. A star, cloud or rounded blob can carry that colour theme, depending on which mould you want to try.",
+          "Pearls are a simple inclusion to explore with it. Keep the first version restrained, then use another saved toy to compare a larger amount of the same ingredient."
+        ]
+      ],
+      [
+        "Violet and pink for a berry theme",
+        [
+          "Violet and hot pink give you another way to explore the pink to purple part of the palette. Compare this blend with your pink and blue experiment so you can decide which direction you prefer.",
+          "Strawberry slices or gems can provide the main detail inside the toy. You can also keep a second version with fewer inclusions to see more of the mixed body colour."
+        ]
+      ],
+      [
+        "One colour with contrasting fillings",
+        [
+          "A colour idea can begin with a single body colour. Choose electric blue, sunshine or hot pink on its own, then let a different coloured inclusion provide the contrast.",
+          "This approach is useful when a mixed colour looks busier than you intended. It also makes a good reference toy, because you can compare later blends against the original colour."
+        ]
+      ],
+      [
+        "A coordinated set across several squishies",
+        [
+          "Your colour combination can run across a collection as well as inside one mixture. Make several toys that share one ingredient, such as foil stars, and give each a different body colour.",
+          "Keep the mould or material consistent for a set that is easy to compare. Alternatively, repeat the colour and change the mould to make a family of shapes for your shelf."
+        ]
+      ],
+      [
+        "Change one choice between attempts",
+        [
+          "When a recipe gives you an unexpected result, start the next toy by changing one thing. Choose a different colour pair, simplify the inclusions or keep the body colour and compare two materials.",
+          "Adding every available colour is unlikely to show you which choice made the difference. A small sequence of experiments gives you more useful information and a collection you can revisit."
+        ]
+      ],
+      [
+        "Use the room as inspiration",
+        [
+          "A selected room can give you a starting palette for your next squishy. Think of greens for Mint Greenhouse, cooler colours for Stargazing Loft or warmer ideas for Bao Bakery.",
+          "The toy does not need to match every object in the room. One repeated colour or filling theme is enough to connect your creation with its display setting."
+        ]
+      ],
+      [
+        "Save the versions you want to compare",
+        [
+          "Finish and save your favourite experiments so you can inspect them together later. Your local shelf is a better reference than trying to remember exactly how an earlier mix looked.",
+          "Before moving to another device, export a backup from Grown-ups. That keeps your saved collection available to transfer when you are ready to try the next colour idea elsewhere."
+        ]
+      ]
+    ],
+    "related": [
+      "squishy-filling-ideas",
+      "dumpling-squishy-game",
+      "decorate-your-squishy-workshop"
+    ]
+  },
+  {
+    "slug": "squishy-filling-ideas",
+    "title": "Squishy Filling Ideas: Fruit, Gems, Pearls & Sparkle",
+    "description": "Choose squishy fillings with a clear theme. Explore fruit slices, gems, pearls, sprinkles and foil shapes, plus tips for amounts and unlocking hearts.",
+    "category": "Making ideas",
+    "date": "2026-11-19",
+    "image": "/assets/workshop_landscape.png",
+    "imageAlt": "Jars and crafting materials in the My Squishy Lab workshop",
+    "sections": [
+      [
+        "What are squishy fillings in the game?",
+        [
+          "Squishy fillings are the little pieces you add to a virtual toy's mixture before pouring. In My Squishy Lab, they are also called inclusions, and they become part of the recipe for your finished creation.",
+          "The filling scene organises the choices into Sparkle, Beads and Charms. These categories help you find a look, whether you want a fruit themed dumpling, a gem filled star or a simple toy with just a few decorative pieces."
+        ]
+      ],
+      [
+        "Choose one main ingredient first",
+        [
+          "Begin with the inclusion you most want to see when you reveal the squishy. Pick its type and amount, then decide whether the design needs another ingredient.",
+          "A single filling family makes the idea easier to recognise. It also gives you a useful first attempt to compare with a fuller version, especially if you keep the same mould and body colour."
+        ]
+      ],
+      [
+        "Fruit slices for a colourful recipe",
+        [
+          "Fruit slices include strawberry, kiwi and orange choices. Select the individual fruit you want when the fruit slice picker opens, then continue with the amount for that batch.",
+          "Try making a fruit collection where every toy uses the same mould and a different slice. You can match the body to the fruit or choose a contrasting colour to make the inclusion easier to notice.",
+          "For a mixed fruit idea, add another fruit in a later batch. Start with two types and inspect the finished result before planning a toy with every fruit option."
+        ]
+      ],
+      [
+        "Gems for a little treasure theme",
+        [
+          "The gem family offers round and diamond forms. Compare the two shapes in separate creations if you want to see which suits your chosen mould.",
+          "A single body colour can make a gem themed toy easier to read. Try a quiet background for the gem shapes first, then compare it with a more colourful mixture on your next attempt.",
+          "Gems also work as the shared ingredient across a collection. A star, a dumpling and a blob can feel connected when the same gem type appears inside all three."
+        ]
+      ],
+      [
+        "Pearls for a simple repeated detail",
+        [
+          "Pearls give you one repeated rounded shape to work with. They are useful when the body colour or the mould is already the main feature of your design.",
+          "Try making two matching toys with different pearl amounts. That comparison can help you decide how much empty space you like around the inclusions.",
+          "Keep the other recipe choices consistent while comparing. Changing the colour, size and material at the same time makes it harder to work out which version of the filling you prefer."
+        ]
+      ],
+      [
+        "Sprinkles for a playful mixture",
+        [
+          "Sprinkles are another option in the Beads category. Try them when you want a small repeated detail rather than a large charm shape.",
+          "A bakery themed dumpling is one idea to explore, especially if you plan to display it in Bao Bakery later. Choose the body colour first, then use the sprinkle amount to decide how busy the finished recipe should feel."
+        ]
+      ],
+      [
+        "Foil stars and hearts for sparkle",
+        [
+          "Foil stars sit in the Sparkle category and provide a recognisable shape for a themed toy. They can be the main ingredient in a night sky idea or a recurring detail across several colours.",
+          "Foil hearts unlock after you have tried all three material feels. Free Play also makes them available, so the Grown-ups preference is another way to explore those shapes.",
+          "If a heart choice is locked, compare Soft Foam, Dense Gel and Bouncy Jelly as you play. The material samples let you explore their differences while working towards that discovery."
+        ]
+      ],
+      [
+        "How much filling should you add?",
+        [
+          "The amount choices add batches of 8, 16 or 24 pieces. A recipe supports up to six batches, with a total limit of 120 pieces.",
+          "Start with a smaller amount when you want to see the body colour clearly. Add more in another attempt when your goal is a fuller mixture with lots of repeated detail.",
+          "The Undo control removes the most recently added batch. Use it before continuing if you want to rethink a choice or make room for another ingredient."
+        ]
+      ],
+      [
+        "Inspect the contents after reveal",
+        [
+          "Pour the prepared mixture, let it settle and continue to Reveal when that control becomes available. Then use View to look at the toy from different angles.",
+          "Save a version you like before beginning another recipe. A small series of toys with one ingredient changed is a practical way to discover your favourite balance of colour, filling and feel."
+        ]
+      ]
+    ],
+    "related": [
+      "squishy-colour-combinations",
+      "squishy-simulator-textures",
+      "dumpling-squishy-game"
+    ]
+  },
+  {
+    "slug": "make-your-first-squishy",
+    "title": "Make your first squishy",
+    "description": "A guide to choosing your mould, mixing colours, adding fillings and revealing your first virtual squishy.",
+    "category": "Play guide",
+    "date": "2026-11-19",
+    "image": "/assets/workshop_landscape.png",
+    "sections": [
+      [
+        "Start in the workshop",
+        "Open My Squishy Lab and tap Play, then Make. Turn your phone or tablet sideways so there is room for the making tools and your toy."
+      ],
+      [
+        "Choose a mould and a colour",
+        "Pick a shape for your squishy, then choose your colours and stir the mixture. Try a simple combination first so you can see how the colours blend."
+      ],
+      [
+        "Give your toy its own feel",
+        "Choose a feel for the mixture, then add the inclusions you like. Fruit slices, gems and glitter give you different ideas to explore. The choices become part of your squishy recipe."
+      ],
+      [
+        "Pour and reveal",
+        "Tap Pour and watch the mould fill. You can pause the pour. When the mixture has settled and Reveal becomes available, continue to meet your new squishy."
+      ],
+      [
+        "Try it out and save it",
+        "Poke the toy, try the hand squeeze, or use two fingers to stretch it on a touch screen. Finish and save your creation so you can find it on your shelf. Your progress is stored on this device and browser."
+      ]
+    ]
+  },
+  {
+    "slug": "decorate-your-squishy-workshop",
+    "title": "Make a workshop that feels like yours",
+    "description": "Choose a room, arrange decorations and give your favourite squishy a place on display.",
+    "category": "Workshop ideas",
+    "date": "2026-11-19",
+    "image": "/assets/scene14/decor-rooms.jpg",
+    "sections": [
+      [
+        "Start with a room",
+        "When Decorate becomes available in your workshop, explore the room choices. Bao Bakery, Mint Greenhouse, Stargazing Loft and Seaside Studio each give the game a different setting."
+      ],
+      [
+        "Preview before choosing",
+        "Tap a decoration to preview it in the room. Confirm your choice to equip it. Decorations bought with earned Sparkle Coins show their cost before you confirm, and the balance is shown in Decorate."
+      ],
+      [
+        "Build around one favourite",
+        "Try a cushion and rug that suit your favourite squishy, then add a plant or wall picture. You can return to your room later and try another combination."
+      ],
+      [
+        "Carry the setting into play",
+        "Your equipped room background follows you through the making and squishing scenes, plus your shelf and Friends. Room previews stay in Decorate until you confirm them."
+      ],
+      [
+        "Give a creation a home",
+        "Use the display control in Decorate to choose a saved squishy for the selected room. You can keep making new toys and change the one on display whenever you like."
+      ]
+    ]
+  },
+  {
+    "slug": "play-on-phone-or-tablet",
+    "title": "Play on your phone or tablet",
+    "description": "Open the free browser game, add it to your home screen and keep your saved squishies backed up.",
+    "category": "Getting started",
+    "date": "2026-11-19",
+    "image": "/scene_01/assets/welcome_landscape.png",
+    "sections": [
+      [
+        "Play straight from the website",
+        "Visit mysquishylab.app and choose Play free. The browser game opens without a player account. Use landscape orientation for the game, with the wider edge of your screen at the top."
+      ],
+      [
+        "Add a home screen shortcut",
+        "On iPhone or iPad, open the game in Safari and use Share, then Add to Home Screen. On Android, open the game in Chrome and look in the browser menu for Add to Home screen or Install app. The exact wording depends on your browser."
+      ],
+      [
+        "Keep your progress safe",
+        "Creations and settings are saved in the browser on the device you use. Clearing that browser's website data can remove your progress. Before changing devices or clearing storage, open Grown-ups and export a backup."
+      ],
+      [
+        "Move a backup carefully",
+        "Keep the exported file somewhere you can find it. Open the game on the destination device and use the import option in Grown-ups to review and restore the backup. The game does not automatically sync progress between devices."
+      ],
+      [
+        "Mobile app editions",
+        "Dedicated Android, iPhone, iPad and Fire tablet editions are being prepared. Official store download links will be added to the download page when those editions are available. You can play the browser edition today."
+      ]
+    ]
+  }
 ]
