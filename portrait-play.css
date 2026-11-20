@@ -96,3 +96,15 @@ html.fit-board.board-portrait #stage #world :is(#home,#pause)>span{
  display:block!important;position:absolute!important;width:1px!important;height:1px!important;
  overflow:hidden!important;clip-path:inset(50%);white-space:nowrap!important;
 }
+
+html.fit-board.board-portrait :is(#s13-stage,#s15-stage,#s16-stage) .raster-control[style*="left:"]{position:absolute!important;min-height:88px!important;font-size:28px!important}
+html.fit-board.board-portrait #s16-scroll_body{font-size:28px!important}
+html.fit-board.board-portrait #s16-scroll_body h2{font-size:32px!important}
+html.fit-board.board-portrait #s16-scroll_body>p{font-size:26px!important}
+html.fit-board.board-portrait .s16-row{min-height:128px;font-size:28px}
+html.fit-board.board-portrait .s16-row strong{font-size:28px}
+html.fit-board.board-portrait .s16-row small{font-size:24px}
+html.fit-board.board-portrait .s16-state{font-size:24px}
+html.fit-board.board-portrait #s16-gate h2{font-size:34px}
+html.fit-board.board-portrait #s12-copy{left:5%!important;top:67%!important;width:90%!important;font-size:24px!important}
+html.fit-board.board-portrait #s12-skip{left:59%!important;top:59%!important;width:32%!important;min-height:88px}

@@ -28,7 +28,7 @@ Confirm the publisher's paid-app agreements and regional prices before first dis
 
 ## Submission and test checklist
 
-- Test on a physical Android phone, Fire OS tablet, iPhone and iPad. Exercise portrait and landscape layouts, rotate during each making step, first launch in airplane mode, the full making flow, two-finger stretch, audio after suspension, save persistence and backup import/export.
+- Test on a physical Android phone, Fire OS tablet, iPhone and iPad. Exercise portrait and landscape layouts, rotate during each making step, check every settings tab in portrait, first launch in airplane mode, the full making flow, two-finger stretch, audio after suspension, save persistence and backup import/export.
 - Capture and upload genuine phone and tablet gameplay screenshots. Prepare the store-specific banner and complete publisher contact, country availability, content-rating and age-audience fields.
 - Confirm the final binaries' permissions, libraries and network behaviour before completing store privacy declarations. Verify https://mysquishylab.app/privacy.html and the support contact under the approved publisher identity.
 - Upload an appropriately signed AAB to Google Play Console. If the account is subject to Google's new personal-account testing rule, complete the closed test with at least 12 testers opted in for 14 continuous days before applying for production access.
