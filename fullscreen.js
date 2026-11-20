@@ -9,7 +9,7 @@
     if (!root.requestFullscreen || document.fullscreenEnabled === false) return false;
     try {
       await root.requestFullscreen();
-      try { await screen.orientation?.lock?.('landscape'); } catch {}
+      try { screen.orientation?.unlock?.(); } catch {}
       return true;
     } catch {
       return false;

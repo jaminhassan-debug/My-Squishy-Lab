@@ -1,0 +1,98 @@
+/* Portrait uses the existing portrait scene coordinates at a uniform scale. */
+html.fit-board.board-portrait main [id$="-world"],
+html.fit-board.board-portrait main #world{
+ position:absolute!important;inset:auto!important;left:50%!important;top:50%!important;
+ width:768px!important;height:1024px!important;transform:translate(-50%,-50%)!important;
+}
+html.fit-board.board-portrait #s9-stage #s9-world{
+ inset:0!important;left:0!important;top:0!important;width:100%!important;height:100%!important;transform:none!important;
+}
+html.fit-board.board-portrait main>section:not(.utility){border-radius:0!important;box-shadow:none!important}
+html.fit-board.board-portrait #stage{background:url('assets/workshop_portrait.png') center/cover no-repeat!important}
+html.fit-board.board-portrait #world>picture{display:none!important}
+html.fit-board.board-portrait #scene03{background:url('assets/scene03/make_plate.png') center/cover no-repeat!important}
+html.fit-board.board-portrait #s3-world>.s3-plate{display:none!important}
+html.fit-board.board-portrait main>section>img[class$="-background"]{object-fit:cover!important}
+html.fit-board.board-portrait main button.raster-control{
+ display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+ gap:4px!important;padding:8px!important;background-size:100% 100%!important;
+ font-size:30px!important;line-height:1.1!important;min-height:88px!important;
+}
+html.fit-board.board-portrait main button.raster-control::before{
+ position:static!important;inset:auto!important;display:block!important;width:38px!important;height:38px!important;flex:0 0 38px!important;min-width:0!important;background-size:contain!important;
+}
+html.fit-board.board-portrait main button.raster-control>span:not(.sprite):not([class$="-symbol"]),
+html.fit-board.board-portrait main button.raster-control>.caption,
+html.fit-board.board-portrait main button.raster-control>.label{
+ position:static!important;inset:auto!important;width:auto!important;height:auto!important;max-width:100%!important;
+ font-size:28px!important;line-height:1.12!important;overflow-wrap:normal!important;
+}
+html.fit-board.board-portrait main button.raster-control>[class$="-symbol"]{display:none!important}
+html.fit-board.board-portrait main button.raster-compact{flex-direction:row!important;font-size:28px!important}
+html.fit-board.board-portrait main h1{font-size:36px!important}
+html.fit-board.board-portrait main [id$="-hint"],html.fit-board.board-portrait main [id$="-recipe"]{font-size:28px!important}
+html.fit-board.board-portrait #s9-title,
+html.fit-board.board-portrait #s9-gestures,
+html.fit-board.board-portrait #s9-help,
+html.fit-board.board-portrait #s9-back,
+html.fit-board.board-portrait #s9-mode,
+html.fit-board.board-portrait #s9-context,
+html.fit-board.board-portrait #s9-tool_0,
+html.fit-board.board-portrait #s9-tool_1,
+html.fit-board.board-portrait #s9-tool_2,
+html.fit-board.board-portrait #s9-tool_3{display:none!important}
+html.fit-board.board-portrait #s9-world #s9-home{left:2%!important;top:2%!important;width:144px!important;height:88px!important}
+html.fit-board.board-portrait #s9-world #s9-play{left:calc(50% - 140px)!important;top:2%!important;width:128px!important;height:88px!important}
+html.fit-board.board-portrait #s9-world #s9-view{left:calc(50% + 12px)!important;top:2%!important;width:128px!important;height:88px!important}
+html.fit-board.board-portrait #s9-world #s9-fullscreen{position:absolute;right:2%;top:2%;width:144px;height:88px;border:2px solid #dfcbea;border-radius:24px;background:#fff5e5;color:#49345d;font:700 28px/1.1 system-ui;z-index:90}
+html.fit-board.board-portrait #s9-world #s9-pause{position:absolute!important;left:2%!important;top:9%!important;width:128px!important;height:88px!important}
+html.fit-board.board-portrait #s9-world #s9-tool_4{left:auto!important;right:2%!important;top:auto!important;bottom:2%!important;width:164px!important;height:100px!important}
+html.fit-board.board-portrait #s9-world #s9-tool_5{left:2%!important;top:auto!important;bottom:2%!important;width:128px!important;height:100px!important}
+html.fit-board.board-portrait #s9-play-style,
+html.fit-board.board-portrait #s9-world #s9-camera{
+ position:absolute!important;left:50%!important;top:auto!important;right:auto!important;bottom:12%!important;transform:translateX(-50%);
+ display:flex;flex-wrap:wrap;justify-content:center;gap:8px;width:max-content!important;max-width:94%!important;padding:8px;border-radius:24px;background:#fff7e8ee;z-index:90;
+}
+html.fit-board.board-portrait #s9-play-style button,
+html.fit-board.board-portrait #s9-world #s9-camera button{
+ position:relative!important;inset:auto!important;width:auto!important;min-height:88px!important;font:700 30px/1.1 system-ui;
+ border:2px solid transparent;border-radius:20px;background:#eee3f6;color:#49345d;padding:12px 18px;
+}
+html.fit-board.board-portrait #s9-play-style button[aria-pressed=true]{background:#b9f2d9;border-color:#72bda7}
+html.fit-board.board-portrait #s9-storage{left:21%!important;top:auto!important;bottom:3%!important;width:54%!important;font-size:24px!important}
+html.fit-board.board-portrait #s9-stage::after{display:none!important}
+html.fit-board.board-portrait :is(#s13-stage,#s15-stage,#s16-stage){
+ position:absolute!important;left:50%!important;top:50%!important;width:768px!important;height:1024px!important;max-width:none!important;
+ transform:translate(-50%,-50%) scale(var(--board-scale))!important;transform-origin:center!important;z-index:1!important;
+}
+html.fit-board.board-portrait #s16-scroll_body{font-size:28px}
+html.fit-board.board-portrait :is(#s13-overlay,#s15-overlay,#s16-overlay)>[id$="-scrim"]{z-index:0!important}
+html.fit-board.board-portrait #s9-play-style[hidden],
+html.fit-board.board-portrait #s9-camera[hidden],
+html.fit-board.board-portrait main [hidden]{display:none!important}
+
+html.fit-board.board-portrait main :is([id$="-home"],[id$="-pause"],[id$="-help"],[id$="-back"],[id$="-next"]).raster-control>span:not(.sprite){display:none!important}
+html.fit-board.board-portrait main :is([id$="-home"],[id$="-pause"],[id$="-help"],[id$="-back"],[id$="-next"]).raster-control::before{width:56px!important;height:56px!important;flex-basis:56px!important}
+html.fit-board.board-portrait main h1[id$="-title"]{left:18%!important;width:52%!important;font-size:32px!important;white-space:normal!important}
+html.fit-board.board-portrait main p{font-size:26px!important;line-height:1.2!important}
+html.fit-board.board-portrait :is(.s5-material-name,.s6-jar-label){font-size:28px!important;line-height:1.1!important}
+html.fit-board.board-portrait .s5-material-description{font-size:24px!important}
+html.fit-board.board-portrait #stage #world .scene-badge{position:absolute!important;left:3%!important;top:1%!important;width:48%!important;height:80px!important;margin:0!important;display:grid;place-items:center;font-size:32px!important}
+html.fit-board.board-portrait #stage #world #daily-workshop{left:3%!important;top:12%!important;width:29%!important;height:88px!important;font-size:26px!important}
+html.fit-board.board-portrait #stage #world #decorate{left:35%!important;top:12%!important;width:29%!important;height:88px!important}
+html.fit-board.board-portrait #stage #world #requests{left:67%!important;top:12%!important;width:29%!important;height:88px!important}
+html.fit-board.board-portrait #stage #world #home,
+html.fit-board.board-portrait #stage #world #pause{position:absolute!important;display:flex!important;height:88px!important;width:96px!important;margin:0!important;grid-column:auto!important}
+html.fit-board.board-portrait #stage #world #home{left:72%!important;top:1%!important}
+html.fit-board.board-portrait #stage #world #pause{left:86%!important;top:1%!important}
+html.fit-board.board-portrait #stage #world :is(#home,#pause)>span{display:none!important}
+html.fit-board.board-portrait #stage .founders-button{left:3%!important;top:23%!important;width:280px!important;height:96px!important;font-size:26px!important}
+
+html.fit-board.board-portrait #s9-stage .founders-button{left:auto;right:3%;top:17%;width:240px;height:88px;font-size:26px}
+
+/* Keep icon-only navigation names available to assistive technology. */
+html.fit-board.board-portrait main :is([id$="-home"],[id$="-pause"],[id$="-help"],[id$="-back"],[id$="-next"]).raster-control>span:not(.sprite),
+html.fit-board.board-portrait #stage #world :is(#home,#pause)>span{
+ display:block!important;position:absolute!important;width:1px!important;height:1px!important;
+ overflow:hidden!important;clip-path:inset(50%);white-space:nowrap!important;
+}

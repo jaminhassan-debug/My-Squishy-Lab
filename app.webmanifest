@@ -6,7 +6,7 @@
   "start_url": "./scene_01/preview.html",
   "scope": "./",
   "display": "standalone",
-  "orientation": "landscape",
+  "orientation": "any",
   "background_color": "#fff5e5",
   "theme_color": "#fff5e5",
   "icons": [

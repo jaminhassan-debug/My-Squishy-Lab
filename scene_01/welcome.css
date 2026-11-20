@@ -86,3 +86,12 @@ html.fit-board #stage.welcome-stage { background: url('assets/welcome_landscape.
   cursor: pointer;
 }
 #install-app:focus-visible { outline: 3px solid #49345d; outline-offset: 3px; }
+
+html.fit-board.board-portrait #stage.welcome-stage{background-image:url('assets/welcome_portrait.png')!important}
+html.fit-board.board-portrait #stage.welcome-stage .logo{top:3%;width:90%;max-width:690px}
+html.fit-board.board-portrait #stage #welcome-founders{inset:22% auto 27% 50%;width:70%;max-width:540px}
+html.fit-board.board-portrait #stage.welcome-stage .cube{left:0;bottom:4%;width:37%;max-width:none}
+html.fit-board.board-portrait #stage.welcome-stage .play{right:5%;bottom:8%;width:45%;max-width:none}
+html.fit-board.board-portrait #stage.welcome-stage .pip{right:0;left:auto;bottom:1%;width:21%;max-width:none}
+html.fit-board.board-portrait #stage.welcome-stage .grown{top:15%;right:2%;width:14%;min-height:88px}
+html.fit-board.board-portrait #welcome-founders .welcome-founder-caption{font-size:30px}

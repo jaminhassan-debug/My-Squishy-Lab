@@ -19,7 +19,7 @@
         "Play a squishy game without downloading it",
         [
           "The free browser edition opens from the Play free button on this website. You can start on a computer, phone or tablet without creating a player account.",
-          "On a phone or tablet, rotate the screen to landscape so the tools fit around the making area. The website and its guides work in portrait too, so you can read an idea before turning your device sideways to try it.",
+          "On a phone or tablet, the tools adjust when you switch between portrait and landscape. You can read an idea in the blog, then open the game in the same orientation to try it.",
           "Your browser needs an internet connection to load the game files. If you want a shortcut for another visit, the Download page explains how to add the browser game to your home screen."
         ]
       ],
@@ -196,7 +196,7 @@
         "Stretching on a touch screen",
         [
           "Use two fingers to try stretching a toy on a compatible touch screen. Begin with a modest pull and release before trying a wider movement.",
-          "A tablet gives your fingers more room around the toy, while a phone offers a smaller area to work in. Landscape orientation helps keep the interaction space clear of the surrounding controls.",
+          "A tablet gives your fingers more room around the toy, while a phone offers a smaller area to work in. The controls adjust to portrait or landscape so you can choose the space you prefer.",
           "The View mode is useful for inspecting the toy without performing another squeeze. Switch back to Play when you want your next touch to interact with the body."
         ]
       ],
@@ -409,7 +409,7 @@
     "sections": [
       [
         "Start in the workshop",
-        "Open My Squishy Lab and tap Play, then Make. Turn your phone or tablet sideways so there is room for the making tools and your toy."
+        "Open My Squishy Lab and tap Play, then Make. Play with your phone or tablet upright, or turn it sideways if you prefer a wider view."
       ],
       [
         "Choose a mould and a colour",
@@ -469,7 +469,7 @@
     "sections": [
       [
         "Play straight from the website",
-        "Visit mysquishylab.app and choose Play free. The browser game opens without a player account. Use landscape orientation for the game, with the wider edge of your screen at the top."
+        "Visit mysquishylab.app and choose Play free. The browser game opens without a player account. Choose portrait or landscape to suit how you want to play."
       ],
       [
         "Add a home screen shortcut",

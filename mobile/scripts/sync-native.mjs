@@ -30,7 +30,7 @@ function icon(file, size) {
 if (platform === 'ios') {
   const app = path.join(native, 'App/App');
   const plist = path.join(app, 'Info.plist');
-  const orientations = ['UIInterfaceOrientationLandscapeLeft', 'UIInterfaceOrientationLandscapeRight'];
+  const orientations = ['UIInterfaceOrientationPortrait', 'UIInterfaceOrientationPortraitUpsideDown', 'UIInterfaceOrientationLandscapeLeft', 'UIInterfaceOrientationLandscapeRight'];
   const plistData = JSON.parse(execFileSync('plutil', ['-convert', 'json', '-o', '-', plist], { encoding: 'utf8' }));
   for (const key of ['UISupportedInterfaceOrientations', 'UISupportedInterfaceOrientations~ipad']) {
     run('plutil', [Object.hasOwn(plistData, key) ? '-replace' : '-insert', key, '-json', JSON.stringify(orientations), plist]);
@@ -47,7 +47,8 @@ if (platform === 'ios') {
   const main = path.join(native, 'app/src/main');
   await edit(path.join(main, 'AndroidManifest.xml'), xml => {
     if (!xml.includes('android:name=".MainActivity"')) throw new Error('Missing main activity');
-    const orientation = 'android:screenOrientation="sensorLandscape"';
+    const orientation = 'android:screenOrientation="fullSensor"';
+    xml = xml.replace(/android:screenOrientation="[^"]*"/g, orientation);
     if (!xml.includes(orientation)) xml = xml.replace('android:name=".MainActivity"', 'android:name=".MainActivity"\n            ' + orientation);
     if (!xml.includes('android:appCategory=')) {
       xml = xml.replace('<application', '<application android:appCategory="game"');
