@@ -10,11 +10,21 @@ await Promise.all(['index.html', 'preview.html', 'scene_01/welcome.js', 'viewpor
   file => readFile(path.join(source, file))
 ));
 await rm(output, { recursive: true, force: true });
-const excluded = new Set(['.git', '.github', '.gitignore', 'tests', 'reference_storyboards', 'mobile']);
+const excluded = new Set([
+  '.git', '.github', '.gitignore', 'tests', 'reference_storyboards', 'mobile',
+  'index.html', 'about', 'blog', 'download', 'website-content', 'scripts',
+  'website.css', 'website.js', 'robots.txt', 'sitemap.xml'
+]);
 await mkdir(output, { recursive: true });
 await Promise.all((await readdir(source)).filter(name => !excluded.has(name)).map(name =>
   cp(path.join(source, name), path.join(output, name), { recursive: true })
 ));
+// Capacitor opens the root document. Route it directly to the game welcome screen.
+await writeFile(path.join(output, 'index.html'), `<!doctype html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>My Squishy Lab</title><meta http-equiv="refresh" content="0;url=scene_01/preview.html">
+<script>location.replace('scene_01/preview.html');</script></head>
+<body><a href="scene_01/preview.html">Open My Squishy Lab</a></body></html>`);
 await writeFile(path.join(output, 'native-compat.js'), `
 globalThis.SquishyNativeEdition = 'complete';
 if (typeof globalThis.structuredClone !== 'function') {
