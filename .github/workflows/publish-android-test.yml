@@ -1,0 +1,33 @@
+name: Publish Android test download
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/publish-android-test.yml]
+  workflow_dispatch:
+permissions:
+  contents: write
+  actions: read
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: My-Squishy-Lab-Android
+          path: android-build
+          github-token: ${{ github.token }}
+          run-id: 44644360554
+      - name: Publish verified portrait APK
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import shutil
+          apks=list(Path('android-build').rglob('*.apk'))
+          assert len(apks)==1, apks
+          shutil.copyfile(apks[0], 'My-Squishy-Lab-Portrait.apk')
+          PY
+          gh release view android-portrait-test || gh release create android-portrait-test --target "${{ github.sha }}" --prerelease --title "My Squishy Lab portrait Android test" --notes "Android test build supporting portrait and landscape. Export your saved creations before replacing an older test installation. Older test APKs may use a different signing key."
+          gh release upload android-portrait-test My-Squishy-Lab-Portrait.apk --clobber
