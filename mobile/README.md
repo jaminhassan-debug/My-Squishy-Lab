@@ -8,6 +8,8 @@ The mobile package stages the game from the repository root. Run these commands 
 
 Proposed app identifier is `com.mysquishylab.game`. Check its availability before establishing publisher records. Release builds require the publisher's signing setup. Open Android Studio for signed APK and AAB generation, or Xcode for the signed iPhone and iPad archive.
 
+The game supports portrait and landscape. Native wrappers follow device rotation.
+
 ## Store pricing draft
 
 Keep the browser game free. Sell the mobile Complete Edition as a one-time paid download, with £4.99 as a proposed UK launch price. The mobile download includes offline play and all six Cosy Collection decorations. The player can equip them in Decorate without spending coins. The game contains no ads, subscriptions or in-app checkout. Players re-download the paid app through the same storefront account.

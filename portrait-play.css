@@ -86,7 +86,7 @@ html.fit-board.board-portrait #stage #world #pause{position:absolute!important;d
 html.fit-board.board-portrait #stage #world #home{left:72%!important;top:1%!important}
 html.fit-board.board-portrait #stage #world #pause{left:86%!important;top:1%!important}
 html.fit-board.board-portrait #stage #world :is(#home,#pause)>span{display:none!important}
-html.fit-board.board-portrait #stage .founders-button{left:3%!important;top:23%!important;width:280px!important;height:96px!important;font-size:26px!important}
+html.fit-board.board-portrait #stage:not(.welcome-stage) .founders-button{left:3%!important;top:23%!important;width:280px!important;height:96px!important;font-size:26px!important}
 
 html.fit-board.board-portrait #s9-stage .founders-button{left:auto;right:3%;top:17%;width:240px;height:88px;font-size:26px}
 
