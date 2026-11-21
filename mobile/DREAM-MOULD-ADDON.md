@@ -1,6 +1,6 @@
 # Dream Mould Studio paid add-on
 
-Implemented as a non-consumable, one-time purchase, separate from the Complete Edition. No subscription, no coin spend, no local entitlement flag and no automatic unlock from importing a backup.
+The one-time purchase integration is retained for a future paid launch. Currently Dream Mould Studio uses temporary password-protected free play for this tab session, with the purchase area hidden. Set freePlayEnabled to false in addon-commerce.js before enabling sales. No subscription, no coin spend, no local entitlement flag and no automatic unlock from importing a backup.
 
 The workshop and mould selection screen have a Dream Mould Studio entry. Anyone can draw and preview a mould. After a verified purchase, players can use their drawings in the regular colour → material → filling → pouring → reveal → squish → photo → shelf flow. Custom outlines and names travel inside recipes and backups. Up to 24 reusable moulds are listed in the studio; saved creations retain their own outlines even when the reusable list fills. Existing presets remain unchanged.
 
@@ -16,7 +16,7 @@ Until activation, the game shows Purchases unavailable. It does not take money o
 
 RevenueCat's official Capacitor SDK configures the store, fetches the non-subscription product and its localized price, performs the store-native purchase, and restores purchases. Only `customerInfo.entitlements.active.dream_mould_studio` grants access. The studio refreshes customer info on entry and before creating a new mould. Purchased or previously saved squishies remain readable without inventing an entitlement. A parent check is required before showing purchase opportunities and restore controls. Parent checks are a UI boundary, not an authentication system.
 
-Cancel, pending verification, unavailable store, missing product and absent entitlement do not unlock. Duplicate purchase submissions are serialized. There is no development bypass in the shipped game. Use an official store sandbox account for purchase testing.
+Cancel, pending verification, unavailable store, missing product and absent entitlement do not unlock. Duplicate purchase submissions are serialized. The explicitly enabled temporary free-play password is separate from store ownership. Use an official store sandbox account for purchase testing.
 
 ## Validation
 

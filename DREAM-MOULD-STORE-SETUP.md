@@ -4,6 +4,10 @@ Implemented as a non-consumable, one-time purchase, separate from the Complete E
 
 The workshop and mould selection screen have a Dream Mould Studio entry. Anyone can draw and preview a mould. After a verified purchase, players can use their drawings in the regular colour → material → filling → pouring → reveal → squish → photo → shelf flow. Custom outlines and names travel inside recipes and backups. Up to 24 reusable moulds are listed in the studio; saved creations retain their own outlines even when the reusable list fills. Existing presets remain unchanged.
 
+## Temporary free play
+
+Dream Mould Studio currently offers password-protected free play. The password form unlocks drawing, creating, saving and reusing custom moulds for the current tab session. Reloading that tab retains access; Lock free play removes it. Purchase buttons are hidden while this mode is enabled. This access is separate from paid ownership and is never exported in game backups. Set `freePlayEnabled` to false in addon-commerce.js before a paid launch.
+
 ## Store activation still required
 
 1. Create `com.mysquishylab.dreammouldstudio` as a non-consumable in App Store Connect and as a one-time managed product in Google Play Console. Set the desired regional prices in those consoles. Do not mark it as a consumable or subscription.
