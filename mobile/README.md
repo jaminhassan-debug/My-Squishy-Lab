@@ -36,3 +36,9 @@ Confirm the publisher's paid-app agreements and regional prices before first dis
 - Test a debug APK on the intended Fire OS tablet, then submit a release APK or AAB through Amazon Developer Console and select supported models.
 
 The GitHub workflow builds a debug APK and an unsigned release bundle. Generate and retain production signing material in the publisher account or a controlled signing environment.
+
+## Saving and challenges update
+
+Save now takes the current photo automatically, commits the creation once and returns to the workshop home with the new toy displayed. Failed captures or storage writes keep the draft open for retry. Discovery popups wait until the player chooses them from Challenges or navigates onward.
+
+The workshop Challenges button opens three rotating daily crafting goals and eight longer collection goals. Progress comes from saved creations, and coin rewards are claimed through the atomic profile store with duplicate-claim protection. Challenge rewards are included in backups. Daily visit and weekly recipe bonuses remain under Daily Workshop on that board.

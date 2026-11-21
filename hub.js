@@ -124,12 +124,25 @@ function dailyWorkshop(message=''){
  else{const status=document.createElement('small');status.textContent='Daily coins collected';actions.append(status);}
  if(progress.weeklyAvailable)action('Claim '+daily.weeklyCoins+' recipe coins',claim('weekly'));
  else if(state.profile.workshopRewards?.weeklyDay===progress.week){const status=document.createElement('small');status.textContent='Weekly recipe reward collected';actions.append(status);}
- else action('Make '+progress.idea.name,()=>startWeeklyRecipe(progress.idea));
+ else action('Make '+progress.idea.name,()=>startWeeklyRecipe(progress.idea));action('Challenges & collection goals',()=>challengeBoard());
+}
+function challengeBoard(message=''){
+ const model=SquishyChallenges,board=model.summary(state);open('Workshop Challenges',message||'Try a little goal, save your creations, then collect your coins. Daily goals change each day.','challenges');
+ const container=document.createElement('section');container.className='challenge-board';
+ const header=document.createElement('div');header.className='challenge-heading';const balance=document.createElement('p');balance.textContent='Your balance: '+(state.profile.wallet||0)+' coins';header.append(balance);container.append(header);
+ for(const [title,tasks]of [['Today’s challenges',board.daily],['Collection goals',board.collection]]){
+  const heading=document.createElement('h3');heading.textContent=title;container.append(heading);const cards=document.createElement('div');cards.className='challenge-cards';
+  for(const task of tasks){const card=document.createElement('article');card.className='challenge-card'+(task.complete?' complete':'');const name=document.createElement('h4'),copy=document.createElement('p'),meter=document.createElement('progress'),progress=document.createElement('small'),button=document.createElement('button');name.textContent=task.title;copy.textContent=task.copy;meter.max=task.target;meter.value=task.claimed?task.target:task.progress;meter.setAttribute('aria-label',task.title+' progress');progress.textContent=task.claimed?'Reward collected':task.progress+' / '+task.target+' · '+task.coins+' coins';button.className='plain';button.setAttribute('aria-label',task.title+(task.claimed?' reward collected':task.complete?' claim '+task.coins+' coins':' keep creating'));button.textContent=task.claimed?'Collected':task.complete?'Claim '+task.coins+' coins':'Keep creating';button.disabled=task.claimed;
+   button.onclick=async()=>{if(lock)return;if(!task.complete){close();make();return}lock=true;button.disabled=true;const result=await SquishyScene10Storage.browser(window.SquishyLabHub).transact(s=>model.claim(s,task.key));lock=false;if(result.durable&&result.coins)window.SquishyAudio?.play('reward');if(!panel.hidden&&panel.dataset.mode==='challenges')challengeBoard(result.durable?(result.coins?result.coins+' coins added. Well made!':'You have already collected this reward.'):'The reward could not be saved. Your progress is kept; try again.');};
+   card.append(name,copy,meter,progress,button);cards.append(card);
+  }container.append(cards);
+ }$('panel-actions').append(container);action('Make a squishy',()=>{close();make()});action('Daily Workshop',()=>dailyWorkshop());if(state.profile.pendingCelebrations?.some(x=>!x.acknowledged))action('See new discoveries',()=>{close();route('13',{returnScene:'02'})});
 }
 function decorate(){if(M.unlocked(state))route('14',{equippedCosmetics:state.cosmetics})}
 function pause(){open('Take a little pause','Your workshop is here when you are ready.','pause');action('Keep playing',close);action('Quiet mode',async()=>{state.settings.quiet=!state.settings.quiet;await checkpoint();motion()});action('Home',()=>route('01'));}
 function delight(){if(state.settings.quiet||reduced.matches)return;clearTimeout(delightTimer);pip.classList.remove('blink');pip.classList.add('delight');delightTimer=setTimeout(()=>pip.classList.remove('delight'),800)}
-const commands={CHANGE_CENTRE:()=>route('11',{selectionPurpose:'workshop',creationId:M.displayed(state)?.id}),MAKE:make,SQUISH:()=>squish(),SHELF:()=>route('11'),WELCOME:()=>route('01'),GLOBAL_PAUSE:pause,REQUEST:requests,DECORATE:decorate,DAILY:()=>dailyWorkshop(),PIP_HELP:()=>{delight();open('What shall we make?','Choose the mould tray to make, the squishy to play, or the cabinet to see your saved toys.')}};
+const commands={CHANGE_CENTRE:()=>route('11',{selectionPurpose:'workshop',creationId:M.displayed(state)?.id}),MAKE:make,SQUISH:()=>squish(),SHELF:()=>route('11'),WELCOME:()=>route('01'),GLOBAL_PAUSE:pause,REQUEST:requests,DECORATE:decorate,DAILY:()=>challengeBoard(),PIP_HELP:()=>{delight();open('What shall we make?','Choose the mould tray to make, the squishy to play, or the cabinet to see your saved toys.')}};
+$('daily-workshop').textContent='✦ Challenges';
 world.querySelectorAll('[data-action]').forEach(b=>b.addEventListener('click',()=>{if(!lock)commands[b.dataset.action]?.()}));
 $('close-panel').addEventListener('click',close);
 cube.addEventListener('pointerdown',e=>{if(e.button!==0||cube.hidden)return;cube.setPointerCapture(e.pointerId);cube.classList.add('pressed')});for(const type of ['pointerup','pointercancel','lostpointercapture'])cube.addEventListener(type,release);
@@ -143,6 +156,7 @@ document.addEventListener('visibilitychange',()=>{release();stage.classList.togg
 // A host consumes cancelable navigate events with preventDefault and mounts the destination.
 // Only the host save system may supply immutable saved creations and progression.
 window.addEventListener('squishylab:collection-art-ready',refresh);
+window.addEventListener('squishylab:creation-saved',e=>{const ready=SquishyChallenges.summary(state).daily.filter(t=>t.complete&&!t.claimed).length;const toast=document.createElement('div');toast.className='challenge-toast';toast.setAttribute('role','status');toast.textContent=ready?'Saved! '+ready+' daily challenge reward'+(ready===1?' is':'s are')+' ready in Challenges.':'Saved! Your new squishy is on the workshop bench.';document.body.append(toast);setTimeout(()=>toast.remove(),4500);});
 window.SquishyLabHub={pauseForOverlay:async()=>{release();clearTimeout(blinkTimer);clearTimeout(delightTimer);return {durable:await checkpoint()}},resumeFromOverlay:()=>{refresh();scheduleBlink()},adoptCommittedSnapshot:snapshot=>{state=M.normalize(snapshot);memoryOnly=false;try{refresh()}catch{}},getState:()=>structuredClone(state),getAudioSettings:()=>({...state.settings}),isDurable:()=>!memoryOnly&&!readFailure,replaceSnapshot:async snapshot=>{const next=M.normalize(snapshot);await checkpoint(next);if(!stage.hidden)refresh();return {durable:!memoryOnly}},resume:()=>{lock=false;close();refresh();window.dispatchEvent(new CustomEvent('squishylab:safe-boundary'))},checkpoint,storageKey:KEY};
 refresh();scheduleBlink();if(memoryOnly)announce('Storage unavailable. Changes stay in this session; existing stored data is kept.');
 })();
