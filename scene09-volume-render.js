@@ -30,7 +30,7 @@ function create(canvas,{skipLegacy=false}={}){const c=canvas.getContext('2d'),fl
  function face(context,solver,items){const id=(context.recipe.faceId||'none').replace(/^face_/,'');if(id==='none'||transform([0,0,1])[2]<.18)return;const fs=solver.modelScale||1;const points=[[-.23,.10],[.23,.10],[-.16,-.15],[0,-.24],[.16,-.15]].map(([x,y])=>{const p=surfaceAt(solver,x*fs,y*fs);return p?project(p):null});if(points.some(p=>!p))return;c.strokeStyle=c.fillStyle='#302142';c.lineWidth=5;c.lineCap='round';const covered=p=>items.some(t=>t.hand&&t.z>p.z+.02&&bary(p.x,p.y,...t.p));for(const [eye,p] of points.slice(0,2).entries()){if(covered(p))continue;c.beginPath();if(['sleepy','cheer'].includes(id)||id==='wink'&&eye===1){c.moveTo(p.x-8,p.y);c.quadraticCurveTo(p.x,p.y+6,p.x+8,p.y);c.stroke()}else{const eye=c.createRadialGradient?.(p.x-3,p.y-4,1,p.x,p.y,23*p.f);if(eye){eye.addColorStop(0,'#6B3F7B');eye.addColorStop(.55,'#2C153A');eye.addColorStop(1,'#130D20');c.fillStyle=eye}c.ellipse(p.x,p.y,17*fs*p.f*Math.max(.3,Math.abs(transform([0,0,1])[2])),22*fs*p.f,0,0,Math.PI*2);c.fill();c.fillStyle='#fff';c.beginPath();c.ellipse(p.x-2,p.y-3,5.4*fs,5.4*fs,0,0,Math.PI*2);c.fill();c.fillStyle='#302142'}}if(points.slice(2).some(covered))return;c.beginPath();if(id==='surprise'){c.ellipse(points[3].x,points[3].y-5,8,12,0,0,Math.PI*2)}else if(id==='neutral'){c.moveTo(points[2].x,points[2].y);c.lineTo(points[4].x,points[4].y)}else{c.moveTo(points[2].x,points[2].y);c.quadraticCurveTo(points[3].x,points[3].y+(id==='cheer'?8:0),points[4].x,points[4].y)}c.stroke();if(['blush','cheer'].includes(id)){c.fillStyle='#FF88AF77';for(const x of [-.34,.34]){const pp=surfaceAt(solver,x,-.03);if(!pp)continue;const q=project(pp);if(covered(q))continue;c.beginPath();c.ellipse(q.x,q.y,18,7,0,0,Math.PI*2);c.fill()}}if(id==='curious'){const p=points[0];c.beginPath();c.moveTo(p.x-10,p.y-18);c.lineTo(p.x+10,p.y-23);c.stroke()}}
  function paintIngredients(items, ingredients){
   const im=images.pourBits;
-  if(!im||!ingredients.length)return;
+  if(!ingredients.length)return;
   const {crops}=SquishyScene06Atlas.bits;
   c.save();
   c.beginPath();
@@ -41,12 +41,12 @@ function create(canvas,{skipLegacy=false}={}){const c=canvas.getContext('2d'),fl
    c.closePath();
   }
   c.clip();
-  for(const {q,frame,axis,diameter,opacity} of ingredients.sort((a,b)=>a.q.z-b.q.z)){
+  for(const {q,frame,axis,up,diameter,opacity,charm} of ingredients.sort((a,b)=>a.q.z-b.q.z)){
    c.save();
    c.translate(q.x,q.y);
-   c.rotate(Math.atan2(-axis[1],axis[0]));
+   if(charm&&up)c.transform(axis[0],-axis[1],-up[0],up[1],0,0);else c.rotate(Math.atan2(-axis[1],axis[0]));
    c.globalAlpha=opacity;
-   c.drawImage(im,...crops[frame],-diameter/2,-diameter/2,diameter,diameter);
+   if(charm)SquishyCharms.draw(c,charm,-diameter/2,-diameter*.67,diameter,diameter*1.34);else if(im&&crops[frame])c.drawImage(im,...crops[frame],-diameter/2,-diameter/2,diameter,diameter);
    c.restore();
   }
   c.restore();
@@ -63,11 +63,11 @@ function create(canvas,{skipLegacy=false}={}){const c=canvas.getContext('2d'),fl
   for(const particle of options.cover?[]:particles){const q=project(particle.p);let front=null;
    for(const t of bins.get(Math.floor(q.x/cell)+':'+Math.floor(q.y/cell))||[]){const weights=bary(q.x,q.y,...t.p);if(!weights)continue;const z=t.p.reduce((sum,p,i)=>sum+p.z*weights[i],0);if(front===null||z>front)front=z}
    if(front===null||front<q.z)continue;if(particle.glitter){const n=norm(transform(SquishyInterior.rotate([0,0,1],particle.axis,particle.angle))),shine=Math.abs(dot(n,norm([-.3,.45,1])))**14;if(shine>.32)glints.push({q,shine,particle})}const path=Math.max(.01,front-q.z),attenuation=Math.exp(-path*(context.recipe.materialId==='foam'?18:1.15));
-   if(images.pourBits&&!particle.glitter){
+   if((images.pourBits||globalThis.SquishyCharms?.is(particle.familyId))&&!particle.glitter){
     const frame=SquishyScene06Model.frame(particle.familyId,particle.subtype);
     const opacity=Math.exp(-path*({foam:3.2,gel:1.35,bounce:1.1}[context.recipe.materialId]??1.35));
-    const axis=transform(SquishyInterior.rotate([1,0,0],particle.axis,particle.angle));
-    if(opacity>.13)ingredients.push({q,frame,axis,opacity,diameter:particle.size*scale*q.f*4.5});
+    const axis=transform(globalThis.SquishyCharmMotion?.is(particle.familyId)?SquishyCharmMotion.orient(particle,[1,0,0]):SquishyInterior.rotate([1,0,0],particle.axis,particle.angle));
+    if(opacity>.13)ingredients.push({q,frame,axis,up:globalThis.SquishyCharmMotion?.is(particle.familyId)?transform(SquishyCharmMotion.orient(particle,[0,1,0])):null,opacity,charm:globalThis.SquishyCharms?.is(particle.familyId)?particle.familyId:null,diameter:particle.size*scale*q.f*4.5});
     continue;
    }
    const model=particle.geometry||(particle.geometry=SquishyInterior.geometry(particle));

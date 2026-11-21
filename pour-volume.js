@@ -78,7 +78,7 @@ function recipeBits(recipe, seed){
  }
  return bits;
 }
-function paintBit(c,images,bit,x,y,size,alpha=1,angle=0){
+function paintBit(c,images,bit,x,y,size,alpha=1,angle=0){if(globalThis.SquishyCharms?.is(bit.familyId)){c.save();c.translate(x,y);c.rotate(angle+bit.rotation);c.globalAlpha*=alpha;SquishyCharms.draw(c,bit.familyId,-size*.5,-size*.67,size,size*1.34);c.restore();return}
  const im=images.pourBits;
  if(!im)return;
  const frame=SquishyScene06Model.frame(bit.familyId,bit.subtype);

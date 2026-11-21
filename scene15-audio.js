@@ -9,15 +9,11 @@ const effects = new Set();
 const transitionEffects = new Set();
 const loops = new Map();
 const lastPlayed = new Map();
-const tracks = [
-  ['Bubblegum Dreams','bubblegum-dreams'],
-  ['Big Bright Squish','big-bright-squish'],
-  ['The Perfect Touch','the-perfect-touch']
-];
+const tracks=SquishyScene15Model.musicTracks.map(t=>[t.title,t.id]);
 let context, musicBus, effectsBus, musicSource, player, unlocked = false;
 let track = 0, failedTracks = 0, playPending = false, resumeNextTrack = false;
 
-let foreground = true;
+let foreground = true;let selectedSetting=SquishyScene15Model.preferences(settings()).musicTrack;track=Math.max(0,tracks.findIndex(t=>t[1]===selectedSetting));
 
 function settings() {
   if (api) return api.getAudioSettings();
@@ -113,6 +109,7 @@ function pauseMusic() {
 function selectTrack() {
   player.src = 'assets/audio/' + tracks[track][1] + '.mp3';
 }
+function setTrack(id) {const index=tracks.findIndex(t=>t[1]===id);if(index<0)throw Error('Unknown music track');selectedSetting=id;track=index;failedTracks=0;pauseMusic();if(player)selectTrack();if(playPending)resumeNextTrack=true;else playMusic();return tracks[track][0];}
 function advanceTrack() {
   track = (track + 1) % tracks.length;
   selectTrack();
@@ -154,6 +151,7 @@ function stop() {
   window.speechSynthesis?.cancel();
 }
 function apply() {
+  const selected=SquishyScene15Model.preferences(settings()).musicTrack;if(selected!==selectedSetting)setTrack(selected);
   const enabled = preferences();
   const quiet = !!settings().quiet;
   document.documentElement.classList.toggle('squishy-quiet', quiet);
@@ -228,7 +226,7 @@ window.addEventListener('focus', () => { foreground = true; apply(); });
 window.addEventListener('pagehide', stop);
 window.addEventListener('pageshow', apply);
 window.addEventListener('squishylab:navigate', () => { stopEffects(true); window.speechSynthesis?.cancel(); });
-window.SquishyAudio = {apply, stop, userGesture, play, touch, startLoop, stopLoop, speak,
+window.SquishyAudio = {setTrack,getTracks:()=>tracks.map(([title,id])=>({title,id})),apply, stop, userGesture, play, touch, startLoop, stopLoop, speak,
   canEffects: () => preferences().effects, canVoice: () => preferences().voice,
-  getStatus: () => ({musicPlaying: !!musicSource || !!player && !player.paused, track: player && !player.paused ? tracks[track][0] : null, unlocked, ...preferences()})};
+  getStatus: () => ({musicPlaying: !!musicSource || !!player && !player.paused, track:tracks[track][0],trackId:tracks[track][1], unlocked, ...preferences()})};
 })();

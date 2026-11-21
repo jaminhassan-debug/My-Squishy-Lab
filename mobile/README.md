@@ -42,3 +42,9 @@ The GitHub workflow builds a debug APK and an unsigned release bundle. Generate 
 Save now takes the current photo automatically, commits the creation once and returns to the workshop home with the new toy displayed. Failed captures or storage writes keep the draft open for retry. Discovery popups wait until the player chooses them from Challenges or navigates onward.
 
 The workshop Challenges button opens three rotating daily crafting goals and eight longer collection goals. Progress comes from saved creations, and coin rewards are claimed through the atomic profile store with duplicate-claim protection. Challenge rewards are included in backups. Daily visit and weekly recipe bonuses remain under Daily Workshop on that board.
+
+## Music tracks and new charms
+
+Pause → Music now opens a track picker with previous/next controls and the music on/off switch. The selected track is saved in preferences and included in backups. Quiet mode and mute remain respected.
+
+Rainbow and unicorn charms are available in the Charms category while adding fillings. Shared generated artwork is used in the jars, bowl, pour, reveal, playground and saved toy renders. Their material-space attachments move with the squishy, and a rigid local orientation follows deformation instead of stretching the charm artwork.
