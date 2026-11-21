@@ -19,6 +19,8 @@ jobs:
           node-version: 22
       - name: Generate iOS project
         working-directory: mobile
+        env:
+          SQUISHY_RC_APPLE_PUBLIC_KEY: ${{ secrets.SQUISHY_RC_APPLE_PUBLIC_KEY }}
         run: |
           xcodebuild -version
           npm install --no-audit --no-fund

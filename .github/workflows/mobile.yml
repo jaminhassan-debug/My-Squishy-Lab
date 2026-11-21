@@ -31,6 +31,8 @@ jobs:
           for test in tests/*.cjs; do node "$test" || exit; done
       - name: Generate Android project
         working-directory: mobile
+        env:
+          SQUISHY_RC_GOOGLE_PUBLIC_KEY: ${{ secrets.SQUISHY_RC_GOOGLE_PUBLIC_KEY }}
         run: |
           npm install --no-audit --no-fund
           npm run sync:android

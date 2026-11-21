@@ -1,5 +1,6 @@
 import { cp, mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { build } from 'esbuild';
 import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
@@ -13,7 +14,7 @@ await rm(output, { recursive: true, force: true });
 const excluded = new Set([
   '.git', '.github', '.gitignore', 'tests', 'reference_storyboards', 'mobile',
   'index.html', 'about', 'blog', 'download', 'website-content', 'scripts',
-  'website.css', 'website.js', 'robots.txt', 'sitemap.xml'
+  'website.css', 'website.js', 'robots.txt', 'sitemap.xml', 'experiments'
 ]);
 await mkdir(output, { recursive: true });
 await Promise.all((await readdir(source)).filter(name => !excluded.has(name)).map(name =>
@@ -43,11 +44,17 @@ if (typeof Array.prototype.at !== 'function') {
   });
 }
 `);
+// Only public, platform-specific RevenueCat SDK keys belong in the app bundle.
+const appleKey=process.env.SQUISHY_RC_APPLE_PUBLIC_KEY||'';
+const googleKey=process.env.SQUISHY_RC_GOOGLE_PUBLIC_KEY||'';
+if(appleKey&&!appleKey.startsWith('appl_'))throw Error('Use the Apple public SDK key, not a secret key.');
+if(googleKey&&!googleKey.startsWith('goog_'))throw Error('Use the Google public SDK key, not a secret key.');
+await build({entryPoints:[path.join(root,'scripts/store-entry.mjs')],bundle:true,format:'iife',platform:'browser',target:'es2020',outfile:path.join(output,'native-store.js'),define:{__RC_APPLE_KEY__:JSON.stringify(appleKey),__RC_GOOGLE_KEY__:JSON.stringify(googleKey)}});
 for (const page of ['preview.html', 'scene_01/preview.html']) {
   const file = path.join(output, page);
   const relative = page.includes('/') ? '../' : './';
   const html = await readFile(file, 'utf8');
   if (!html.includes('<head>')) throw new Error('Missing head in ' + page);
-  await writeFile(file, html.replace('<head>', '<head><script src="' + relative + 'native-compat.js"></script>'));
+  await writeFile(file, html.replace('<head>', '<head><script src="' + relative + 'native-compat.js"></script><script src="' + relative + 'native-store.js"></script>'));
 }
 console.log('Bundled My Squishy Lab in www/');

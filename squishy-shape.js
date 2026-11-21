@@ -1,5 +1,5 @@
 (() => {'use strict';
- function trace(ctx,id){ctx.beginPath();if(id==='cube'){ctx.moveTo(.17,.11);ctx.lineTo(.83,.11);ctx.quadraticCurveTo(.87,.11,.87,.18);ctx.lineTo(.86,.68);ctx.quadraticCurveTo(.86,.73,.80,.73);ctx.lineTo(.16,.73);ctx.closePath()}
+ function trace(ctx,id){const custom=globalThis.SquishyCustomMoulds?.get(id);if(custom){ctx.beginPath();custom.points.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.closePath();return}ctx.beginPath();if(id==='cube'){ctx.moveTo(.17,.11);ctx.lineTo(.83,.11);ctx.quadraticCurveTo(.87,.11,.87,.18);ctx.lineTo(.86,.68);ctx.quadraticCurveTo(.86,.73,.80,.73);ctx.lineTo(.16,.73);ctx.closePath()}
  else if(id.startsWith('dumpling_')){ctx.moveTo(.5,.08);ctx.bezierCurveTo(.42,.06,.43,.18,.32,.23);ctx.bezierCurveTo(.03,.30,.04,.67,.22,.73);ctx.bezierCurveTo(.38,.80,.66,.80,.80,.71);ctx.bezierCurveTo(.98,.57,.93,.31,.66,.23);ctx.bezierCurveTo(.55,.18,.58,.06,.5,.08);ctx.closePath()}
  else if(id==='heart'){ctx.moveTo(.50,.29);ctx.bezierCurveTo(.24,-.04,.02,.18,.14,.40);ctx.bezierCurveTo(.22,.58,.41,.69,.50,.76);ctx.bezierCurveTo(.64,.67,.92,.43,.88,.23);ctx.bezierCurveTo(.86,.06,.66,.04,.50,.29);ctx.closePath()}
  else if(id==='star'){for(let i=0;i<10;i++){const a=-Math.PI/2+i*Math.PI/5,rx=i%2?.20:.39,ry=i%2?.17:.33;const x=.50+Math.cos(a)*rx,y=.42+Math.sin(a)*ry;i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.closePath()}

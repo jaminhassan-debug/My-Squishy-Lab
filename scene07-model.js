@@ -2,7 +2,7 @@
 'use strict';
 const shapes=['cube','blob','heart','star','cloud','bear','dumpling_s','dumpling_m','dumpling_l','dumpling_xl'],running=['aligning','flowing','cutoff','settling'];
 const timing={align:300,ramp:200,volume:2700,cutoff:300,settle:300,maxDelta:100},draft=s=>s.drafts[s.activeDraftId];
-function ensure(s){const n=structuredClone(s),d=draft(n);if(!d||!shapes.includes(d.recipe?.mouldId)||!['foam','gel','bounce'].includes(d.recipe.materialId))throw Error('A valid mould and material are required');if(!Number.isSafeInteger(d.bodyRevision)||d.bodyRevision<0)throw Error('Invalid recipe revision');
+function ensure(s){const n=structuredClone(s),d=draft(n);if(!d||!(shapes.includes(d.recipe?.mouldId)||globalThis.SquishyCustomMoulds?.valid(d.recipe))||!['foam','gel','bounce'].includes(d.recipe.materialId))throw Error('A valid mould and material are required');if(!Number.isSafeInteger(d.bodyRevision)||d.bodyRevision<0)throw Error('Invalid recipe revision');
  d.fillProgress=Number.isFinite(d.fillProgress)?Math.min(1,Math.max(0,d.fillProgress)):0;
  if(d.fillSourceBodyRevision!==d.bodyRevision){d.fillProgress=0;d.fillSourceBodyRevision=null;d.filledBodyRevision=null}
  if(d.fillProgress<1)d.filledBodyRevision=null;

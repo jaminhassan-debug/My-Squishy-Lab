@@ -17,7 +17,7 @@ function dumplingCavity(shape){
  const mesh={nodes,triangles};
  return {mesh,min,max,points,shell:baoShell(mesh,points,min,max)};
 }
-function model(shape){
+function model(shape){if(globalThis.SquishyCustomMoulds?.is(shape)){if(cache.has(shape))return cache.get(shape);const mesh=SquishyCustomMoulds.mesh(shape),zs=mesh.nodes.map(n=>n.rest[2]),data={mesh,min:Math.min(...zs),max:Math.max(...zs),points:SquishyCustomMoulds.get(shape).points.map(([x,y])=>[(x-.5)*2.15,(.5-y)*2.15,0])};cache.set(shape,data);return data;}
  if(cache.has(shape))return cache.get(shape);
  if(shape.startsWith('dumpling_')){
   const data=dumplingCavity(shape);
@@ -64,7 +64,7 @@ function baoShell(mesh,points,min,max){
  }
  return shell;
 }
-function geometry(shape,progress){const {mesh,min,max,points,shell:bao}=model(shape),level=min+(max-min)*clamp(progress,0,1),fill=[];if(progress>0){for(const ids of mesh.triangles){const poly=cut(ids.map(i=>mesh.nodes[i].rest),level);for(let j=1;j<poly.length-1;j++)fill.push([poly[0],poly[j],poly[j+1]])}if(progress<1||shape.startsWith('dumpling_'))for(const [a,b]of section(mesh,level)){const tri=[[0,0,level],a,b];tri.cap=true;fill.push(tri)}}if(shape.startsWith('dumpling_'))return {fill,shell:bao,level,min,max,progress:clamp(progress,0,1),points};const inner=1.035,outer=1.125,floor=min*inner,top=max*inner+.025,shell=[];for(let i=0;i<points.length;i++){const a=points[i],b=points[(i+1)%points.length],p=(q,s,z)=>[q[0]*s,q[1]*s,z],ai=p(a,inner,top),bi=p(b,inner,top),ao=p(a,outer,top),bo=p(b,outer,top),af=p(a,inner,floor),bf=p(b,inner,floor),ab=p(a,outer,floor-.06),bb=p(b,outer,floor-.06);const lipA=p(a,(inner+outer)/2,top+.023),lipB=p(b,(inner+outer)/2,top+.023);
+function geometry(shape,progress){if(globalThis.SquishyCustomMoulds?.is(shape))return SquishyCustomPour.geometry(shape,progress);const {mesh,min,max,points,shell:bao}=model(shape),level=min+(max-min)*clamp(progress,0,1),fill=[];if(progress>0){for(const ids of mesh.triangles){const poly=cut(ids.map(i=>mesh.nodes[i].rest),level);for(let j=1;j<poly.length-1;j++)fill.push([poly[0],poly[j],poly[j+1]])}if(progress<1||shape.startsWith('dumpling_'))for(const [a,b]of section(mesh,level)){const tri=[[0,0,level],a,b];tri.cap=true;fill.push(tri)}}if(shape.startsWith('dumpling_'))return {fill,shell:bao,level,min,max,progress:clamp(progress,0,1),points};const inner=1.035,outer=1.125,floor=min*inner,top=max*inner+.025,shell=[];for(let i=0;i<points.length;i++){const a=points[i],b=points[(i+1)%points.length],p=(q,s,z)=>[q[0]*s,q[1]*s,z],ai=p(a,inner,top),bi=p(b,inner,top),ao=p(a,outer,top),bo=p(b,outer,top),af=p(a,inner,floor),bf=p(b,inner,floor),ab=p(a,outer,floor-.06),bb=p(b,outer,floor-.06);const lipA=p(a,(inner+outer)/2,top+.023),lipB=p(b,(inner+outer)/2,top+.023);
  shell.push({tri:[ai,lipA,bi],part:'rim'},{tri:[bi,lipA,lipB],part:'rim'},{tri:[lipA,ao,lipB],part:'rim'},{tri:[lipB,ao,bo],part:'rim'},{tri:[ai,af,bi],part:'inner'},{tri:[bi,af,bf],part:'inner'},{tri:[ao,bo,ab],part:'outer'},{tri:[bo,bb,ab],part:'outer'},{tri:[[0,0,floor],af,bf],part:'floor'})}return {fill,shell,level,min,max,progress:clamp(progress,0,1),points}}
 function jugPose(jr,p,ms=0){const t=p.phase==='aligning'?clamp(ms/300,0,1):p.phase==='cutoff'?1-clamp(ms/300,0,1):['flowing','paused'].includes(p.phase)?1:0;const eased=t*t*(3-2*t),angle=eased*.92,rect=[...jr],spout=[jr[0]+jr[2]*.861,jr[1]+jr[3]*.175];return {rect,spout,angle};}
 const fills={foam:{width:23,shine:.27,shadow:.11,size:1.08},gel:{width:19,shine:.69,shadow:.25,size:1},bounce:{width:15,shine:.86,shadow:.16,size:.88}};

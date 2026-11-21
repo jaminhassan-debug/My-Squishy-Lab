@@ -4,7 +4,7 @@
   const safeSteps=['03','04','05','06','07','08','09','10'];
   const empty=()=>({schemaVersion:1,workshopCreationId:null,drafts:{},activeDraftId:null,creations:[],profile:{qualifyingSavedCount:0},settings:{quiet:false,freePlay:false},activeRequest:null,eligibleRequestCount:0,cosmetics:{}});
   function normalize(raw){
-    if(!raw||raw.schemaVersion!==1)throw Error('Unsupported hub state');
+    globalThis.SquishyCustomMoulds?.hydrate(raw);if(!raw||raw.schemaVersion!==1)throw Error('Unsupported hub state');
     const s=empty();
     s.profile={...s.profile,...raw.profile};s.earnedUnlocks=Array.isArray(raw.earnedUnlocks)?raw.earnedUnlocks.filter(v=>typeof v==='string'):[];
     s.drafts=Object.fromEntries(Object.entries(raw.drafts||{}).filter(([id,d])=>d&&d.id===id&&typeof d.creationId==='string'&&safeSteps.includes(d.lastSafeStep)));
@@ -30,7 +30,7 @@
       return recipe;
     });
   }
-  function validToy(c){return !!c&&shapes.includes(c.recipe?.mouldId)&&['gel','foam','bounce'].includes(c.recipe?.materialId)}
+  function validToy(c){return !!c&&(shapes.includes(c.recipe?.mouldId)||globalThis.SquishyCustomMoulds?.valid(c.recipe))&&['gel','foam','bounce'].includes(c.recipe?.materialId)}
   function latest(s){return [...s.creations].sort((a,b)=>(Number(b.savedAt)||0)-(Number(a.savedAt)||0))[0]||null}
   function displayed(s){return s.creations.find(c=>c.id===s.workshopCreationId)||latest(s)}
   function unlocked(s){return s.profile.qualifyingSavedCount>=1||s.settings.freePlay}

@@ -47,6 +47,7 @@ if (platform === 'ios') {
   const main = path.join(native, 'app/src/main');
   await edit(path.join(main, 'AndroidManifest.xml'), xml => {
     if (!xml.includes('android:name=".MainActivity"')) throw new Error('Missing main activity');
+    xml=xml.replace(/android:launchMode="[^"]*"/, 'android:launchMode="singleTop"');
     const orientation = 'android:screenOrientation="fullSensor"';
     xml = xml.replace(/android:screenOrientation="[^"]*"/g, orientation);
     if (!xml.includes(orientation)) xml = xml.replace('android:name=".MainActivity"', 'android:name=".MainActivity"\n            ' + orientation);
