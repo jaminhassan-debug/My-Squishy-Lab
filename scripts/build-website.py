@@ -7,6 +7,8 @@ from datetime import date
 
 ROOT = Path(__file__).resolve().parents[1]
 BASE = 'https://mysquishylab.app'
+ADSENSE_HEAD = '<meta name="google-adsense-account" content="ca-pub-5852427651283444"><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5852427651283444" crossorigin="anonymous"></script>'
+ADS_TXT = 'google.com, pub-5852427651283444, DIRECT, f08c47fec0942fa0\n'
 posts = json.loads((ROOT / 'website-content/posts.json').read_text())
 slugs = set()
 for post in posts:
@@ -21,7 +23,7 @@ def page(title, description, path, content, current='', schema=None):
     social_image = (schema or {}).get('image', BASE+'/scene_01/assets/welcome_landscape.png')
     verification = '<meta name="google-site-verification" content="cZAWxAgj7v8rwJNA6uNwdQkVTqjwilqi-w-_NwN0qbA">' if path == '/' else ''
     return f"""<!doctype html>
-<html lang="en-GB"><head>{verification}<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en-GB"><head>{verification}{ADSENSE_HEAD}<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{escape(title)}</title><meta name="description" content="{escape(description,quote=True)}">
 <link rel="canonical" href="{BASE}{path}"><meta name="robots" content="index,follow">
 <meta property="og:type" content="{'article' if schema and schema.get('@type')=='BlogPosting' else 'website'}"><meta property="og:title" content="{escape(title,quote=True)}">
@@ -69,3 +71,6 @@ urls=['/','/about/','/download/','/blog/','/privacy.html','/scene_01/preview.htm
 write('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+''.join('<url><loc>'+BASE+u+'</loc></url>\n' for u in urls)+'</urlset>\n')
 write('robots.txt','User-agent: *\nAllow: /\n\nSitemap: '+BASE+'/sitemap.xml\n')
 print('Built homepage, download page, blog, '+str(len(posts))+' articles and sitemap.')
+
+# Keep the authorized publisher record available at the domain root.
+(ROOT / 'ads.txt').write_text(ADS_TXT, encoding='utf-8')
